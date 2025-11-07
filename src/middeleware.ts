@@ -1,0 +1,1 @@
+ # Next.js middleware для захисту маршрутів
