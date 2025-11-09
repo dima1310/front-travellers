@@ -10,11 +10,11 @@ interface PopularProps {
     excludeId?: string;
 }
 
-export const Popular = ({ limit = 3, excludeId }: PopularProps) => {
-    const { data, isLoading, error } = useStories(1, limit);
+export const Popular = ({limit = 3, excludeId}: PopularProps) => {
+    const {data, isLoading, error} = useStories(1, limit);
 
     if (isLoading) {
-        return <Loader />;
+        return <Loader/>;
     }
 
     if (error || !data || data.articles.length === 0) {
@@ -35,7 +35,7 @@ export const Popular = ({ limit = 3, excludeId }: PopularProps) => {
             <h2 className={styles.title}>Популярні історії</h2>
             <div className={styles.grid}>
                 {filteredArticles.slice(0, limit).map((article) => (
-                    <TravellersStoriesItem key={article._id} article={article} />
+                    <TravellersStoriesItem key={article._id} article={article}/>
                 ))}
             </div>
         </section>

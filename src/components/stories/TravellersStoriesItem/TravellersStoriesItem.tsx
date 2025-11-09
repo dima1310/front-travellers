@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import {useRouter} from 'next/navigation';
 import Image from 'next/image';
 import styles from './TravellersStoriesItem.module.css';
 import {Article} from "@/src/types/article.types";
@@ -12,10 +12,10 @@ interface TravellersStoriesItemProps {
     article: Article;
 }
 
-export const TravellersStoriesItem = ({ article }: TravellersStoriesItemProps) => {
+export const TravellersStoriesItem = ({article}: TravellersStoriesItemProps) => {
     const router = useRouter();
-    const { isAuthenticated } = useAuthStore();
-    const { mutate: saveStory, isPending } = useSaveStory();
+    const {isAuthenticated} = useAuthStore();
+    const {mutate: saveStory, isPending} = useSaveStory();
 
     // Форматування дати
     const formatDate = (dateString: string) => {

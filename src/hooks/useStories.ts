@@ -14,12 +14,12 @@ export const useStories = (page: number = 1, limit: number = 9, category?: strin
     return useQuery({
         queryKey: ['stories', page, limit, category],
         queryFn: async () => {
-            const params: StoriesParams = { page, limit };
+            const params: StoriesParams = {page, limit};
             if (category) {
                 params.category = category;
             }
 
-            const { data } = await axiosInstance.get<StoriesResponse>('/articles', { params });
+            const {data} = await axiosInstance.get<StoriesResponse>('/articles', {params});
             return data;
         },
     });
@@ -30,7 +30,7 @@ export const useStory = (storyId: string) => {
     return useQuery({
         queryKey: ['story', storyId],
         queryFn: async () => {
-            const { data } = await axiosInstance.get<Article>(`/articles/${storyId}`);
+            const {data} = await axiosInstance.get<Article>(`/articles/${storyId}`);
             return data;
         },
         enabled: !!storyId,
@@ -42,16 +42,16 @@ export const useSaveStory = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async ({ storyId, isFavorite }: { storyId: string; isFavorite: boolean }) => {
+        mutationFn: async ({storyId, isFavorite}: { storyId: string; isFavorite: boolean }) => {
             if (isFavorite) {
                 await axiosInstance.delete(`/users/saved-stories/${storyId}`);
             } else {
-                await axiosInstance.post(`/users/saved-stories`, { storyId });
+                await axiosInstance.post(`/users/saved-stories`, {storyId});
             }
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['stories'] });
-            queryClient.invalidateQueries({ queryKey: ['story'] });
+            queryClient.invalidateQueries({queryKey: ['stories']});
+            queryClient.invalidateQueries({queryKey: ['story']});
             toast.success('Історію оновлено!');
         },
         onError: () => {
