@@ -1,1 +1,39 @@
-css
+.section {
+  padding: 100px 0;
+  background-color: var(--color-bg-light);
+}
+
+.container {
+  max-width: 1440px;
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 48px;
+}
+
+.loading {
+  color: var(--color-text-light);
+  font-size: 18px;
+}
+
+.button {
+  margin-top: 40px;
+  padding: 14px 36px;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--color-primary-hover);
+}
