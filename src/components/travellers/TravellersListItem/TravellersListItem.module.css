@@ -1,1 +1,32 @@
-css
+.card{
+    width: 100%;
+    min-height: 363px;
+    padding: 24px;
+    background-color: #E8EEFF;
+    border-radius: 16px;
+    gap:24px;
+    display: flex;
+    flex-direction: column;
+}
+.avatar{
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    object-fit: cover;  /* чтобы лицо не растягивалось */
+    display: block;  
+}
+.name{
+    color: #000000;
+    font-weight: 600;
+    font-size: 18px;
+     margin: 0;
+     line-height: 1.5;
+}
+
+.text{
+       color: #000000;
+    font-weight: 400;
+    font-size: 18px;
+     margin: 0;
+     line-height: 1.5;
+}
