@@ -1,3 +1,9 @@
-import { loadManifestWithRetries } from "next/dist/server/load-components";
+import styles from './Loader.module.css';
 
-loadManifestWithRetries;
+export const Loader = () => {
+    return (
+        <div className={styles.loaderContainer}>
+            <div className={styles.loader}></div>
+        </div>
+    );
+};
