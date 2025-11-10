@@ -1,4 +1,5 @@
 "use client";
+
 import css from "./TravellersList.module.css";
 import { TravellersListItem } from "@/components/travellers/TravellersListItem/TravellersListItem";
 import { Traveller } from "@/types/traveller.types";
