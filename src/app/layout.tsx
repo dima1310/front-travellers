@@ -6,6 +6,8 @@ import ReduxProvider from "@/providers/ReduxProvider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 export const metadata: Metadata = {
+  title: "Подорожники",
+  description: "Проєкт, створений для тих, хто живе подорожами",
   title: "Front Travellers",
   description: "Travel App built with Next.js, Redux Toolkit & React Query",
 };

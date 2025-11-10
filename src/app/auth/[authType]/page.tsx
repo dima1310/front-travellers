@@ -1,1 +1,1 @@
-# AuthPage (register/login)
+// # AuthPage (register/login)

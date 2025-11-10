@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useInfiniteStories } from "@/services/queries/useStoriesQuery";
 import PopularStoriesItem from "./PopularStoriesItem/PopularStoriesItem";
 import styles from "./Popular.module.css";

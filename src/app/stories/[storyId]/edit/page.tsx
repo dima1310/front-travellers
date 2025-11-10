@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import AddStoryForm from "@/components/forms/AddStoryForm/AddStoryForm";
-import { useAuthStore } from "@/store/authStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import styles from "./page.module.css";
 
 interface EditStoryPageProps {
