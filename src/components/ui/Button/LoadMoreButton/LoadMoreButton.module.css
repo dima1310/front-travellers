@@ -1,0 +1,27 @@
+.loadMore {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: #4169E1;
+  border: 1px solid #4169E1;
+  color: #fff;
+  font-weight: 500;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color .2s, border-color .2s, color .2s;
+}
+
+.loadMore:hover,
+.loadMore:focus-visible {
+  background-color: #E8EEFF;
+  border-color: #4169E1;
+  color: #000000;
+}
+
+.loadMore:active {
+  background-color: #7A96EA;
+  border-color: #4169E1;
+  color: #000000;
+}

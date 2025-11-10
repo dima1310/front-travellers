@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+<button>кнопка</button>
+=======
 import styles from './Button.module.css';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -20,3 +23,4 @@ export const Button = ({
         </button>
     );
 };
+>>>>>>> origin/main

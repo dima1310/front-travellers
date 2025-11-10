@@ -1,19 +1,27 @@
 "use client";
 
-import TravellerCard from "./TravellerCard";
-import styles from "./TravellersList.module.css";
+import css from "./TravellersList.module.css";
+import { TravellersListItem } from "@/components/travellers/TravellersListItem/TravellersListItem";
 import { Traveller } from "@/types/traveller.types";
 
-interface TravellersListProps {
-  travellers: Traveller[];
-}
 
-export default function TravellersList({ travellers }: TravellersListProps) {
+
+export default function TravellersList({ items }: { items: Traveller[] }) {
   return (
-    <ul className={styles.list}>
-      {travellers.map((traveller) => (
-        <TravellerCard key={traveller.id} traveller={traveller} />
-      ))}
-    </ul>
+    <div className={css.wrap}>
+      {/* t = traveller */}
+      <div className={css.grid}>
+        {items.map((t) => (
+          <TravellersListItem
+            key={t.id}
+            id={t.id}
+            name={t.name}
+            bio={t.bio}
+            avatar={t.avatar}
+          />
+        ))}
+      </div>
+
+    </div>
   );
 }
