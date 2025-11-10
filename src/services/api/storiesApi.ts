@@ -1,29 +1,15 @@
-import { axiosInstance } from "./axiosConfig";
-import { Story } from "@/types/story.types";
+import { api } from "./axiosConfig";
+import type { Story, StoriesResponse } from "@/types/story.types";
 
-export const getStories = async (): Promise<Story[]> => {
-  const { data } = await axiosInstance.get("/stories");
-  return data;
-};
-
-export const getStoryById = async (id: string): Promise<Story> => {
-  const { data } = await axiosInstance.get(`/stories/${id}`);
-  return data;
-};
-
-export const createStory = async (storyData: Partial<Story>): Promise<Story> => {
-  const { data } = await axiosInstance.post("/stories", storyData);
-  return data;
-};
-
-export const updateStory = async (
-  id: string,
-  storyData: Partial<Story>
-): Promise<Story> => {
-  const { data } = await axiosInstance.put(`/stories/${id}`, storyData);
-  return data;
-};
-
-export const deleteStory = async (id: string): Promise<void> => {
-  await axiosInstance.delete(`/stories/${id}`);
+export const storiesApi = {
+  async popular(): Promise<Story[]> {
+    const { data } = await api.get<Story[]>("/stories/popular");
+    return data;
+  },
+  async list(page = 1, limit = 12): Promise<StoriesResponse> {
+    const { data } = await api.get<StoriesResponse>("/stories", {
+      params: { page, limit },
+    });
+    return data;
+  },
 };

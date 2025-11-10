@@ -1,53 +1,45 @@
+.section {
+  padding: 100px 0;
+  background-color: var(--color-bg);
+}
+
 .container {
-    width: 100%;
+  max-width: 1440px;
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 48px;
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-    margin-bottom: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
 }
 
-.error,
-.empty {
-    text-align: center;
-    padding: 48px 24px;
-    color: #6b7280;
-    font-size: 16px;
+.button {
+  margin-top: 40px;
+  padding: 14px 36px;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.loadingMore {
-    display: flex;
-    justify-content: center;
-    padding: 24px 0;
+.button:hover {
+  background-color: var(--color-primary-hover);
 }
 
-.loadMoreWrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 32px;
-}
-
-/* Mobile (375px+) */
-@media (min-width: 375px) {
-    .grid {
-        gap: 20px;
-    }
-}
-
-/* Tablet (768px+) */
-@media (min-width: 768px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
-    }
-}
-
-/* Desktop (1440px+) */
-@media (min-width: 1440px) {
-    .grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 32px;
-    }
+.loading {
+  color: var(--color-text-light);
+  font-size: 18px;
 }

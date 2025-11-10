@@ -1,49 +1,33 @@
-import type {Metadata} from "next";
 import "./globals.css";
-import {QueryProvider} from "@/src/provider/QueryProvider";
-import {Toaster} from "react-hot-toast";
+import type { Metadata } from "next";
+import Header from "@/components/layout/Header/Header";
+import Footer from "@/components/layout/Footer/Footer";
+import ReduxProvider from "@/providers/ReduxProvider";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 export const metadata: Metadata = {
-    title: "Подорожники",
-    description: "Проєкт, створений для тих, хто живе подорожами",
+  title: "Подорожники",
+  description: "Проєкт, створений для тих, хто живе подорожами",
+  title: "Front Travellers",
+  description: "Travel App built with Next.js, Redux Toolkit & React Query",
 };
 
 export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
-    return (
-        <html lang="uk">
-        <body>
-        <QueryProvider>
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <ReduxProvider>
+          <ReactQueryProvider>
+            <Header />
             {children}
-            <Toaster
-                position="top-right"
-                toastOptions={{
-                    duration: 3000,
-                    style: {
-                        background: '#363636',
-                        color: '#fff',
-                    },
-                    success: {
-                        duration: 3000,
-                        iconTheme: {
-                            primary: '#10b981',
-                            secondary: '#fff',
-                        },
-                    },
-                    error: {
-                        duration: 4000,
-                        iconTheme: {
-                            primary: '#ef4444',
-                            secondary: '#fff',
-                        },
-                    },
-                }}
-            />
-        </QueryProvider>
-        </body>
-        </html>
-    );
+            <Footer />
+          </ReactQueryProvider>
+        </ReduxProvider>
+      </body>
+    </html>
+  );
 }

@@ -1,120 +1,97 @@
-'use client';
+"use client";
 
-import {useRouter} from 'next/navigation';
-import Image from 'next/image';
-import styles from './TravellersStoriesItem.module.css';
-import {Article} from "@/src/types/article.types";
-import {useAuthStore} from "@/src/store/useAuthStore";
-import {useSaveStory} from "@/src/hooks/useStories";
-import {Button} from "@/src/components/ui/Button/Button";
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { ROUTES } from "@/utils/constants/routes";
+import styles from "./TravellersStoriesItem.module.css";
 
-interface TravellersStoriesItemProps {
-    article: Article;
+interface StoryProps {
+  story: {
+    id: string;
+    title: string;
+    content: string;
+    coverUrl?: string;
+    author?: {
+      name: string;
+      avatarUrl?: string;
+    };
+    createdAt: string;
+    bookmarks: number;
+  };
 }
 
-export const TravellersStoriesItem = ({article}: TravellersStoriesItemProps) => {
-    const router = useRouter();
-    const {isAuthenticated} = useAuthStore();
-    const {mutate: saveStory, isPending} = useSaveStory();
+export default function TravellersStoriesItem({ story }: StoryProps) {
+  const { isAuth } = useAuth();
+  const [bookmarked, setBookmarked] = useState(false);
+  const [count, setCount] = useState(story.bookmarks);
+  const [loading, setLoading] = useState(false);
 
-    // Форматування дати
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('uk-UA', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-        });
-    };
+  const handleBookmark = async () => {
+    if (!isAuth) {
+      window.location.href = ROUTES.AUTH.REGISTER;
+      return;
+    }
 
-    // Обробка збереження історії
-    const handleSave = (e: React.MouseEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
+    try {
+      setLoading(true);
+      await new Promise((res) => setTimeout(res, 800)); // mock-запит
+      setBookmarked((prev) => !prev);
+      setCount((prev) => (bookmarked ? prev - 1 : prev + 1));
+    } catch {
+      alert("Помилка при збереженні статті");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        if (!isAuthenticated) {
-            router.push('/auth/register');
-            return;
-        }
+  return (
+    <article className={styles.card}>
+      <div className={styles.imageWrapper}>
+        <Image
+          src={story.coverUrl || "/images/story-placeholder.jpg"}
+          alt={story.title}
+          width={400}
+          height={260}
+          className={styles.image}
+        />
+      </div>
 
-        saveStory({
-            storyId: article._id,
-            isFavorite: article.isFavorite || false,
-        });
-    };
+      <div className={styles.info}>
+        <span className={styles.category}>Подорож</span>
+        <h3 className={styles.title}>{story.title}</h3>
+        <p className={styles.description}>{story.content.slice(0, 100)}...</p>
 
-    // Перехід на сторінку історії
-    const handleViewStory = () => {
-        router.push(`/stories/${article._id}`);
-    };
+        <div className={styles.meta}>
+          <div className={styles.author}>
+            <Image
+              src={story.author?.avatarUrl || "/avatar.svg"}
+              alt={story.author?.name || "author"}
+              width={32}
+              height={32}
+            />
+            <span>{story.author?.name}</span>
+          </div>
+          <time className={styles.date}>
+            {new Date(story.createdAt).toLocaleDateString("uk-UA")}
+          </time>
+        </div>
 
-    return (
-        <article className={styles.card}>
-            <div className={styles.imageWrapper}>
-                <Image
-                    src={article.img}
-                    alt={article.title}
-                    fill
-                    className={styles.image}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1440px) 50vw, 33vw"
-                />
-                <span className={styles.category}>{article.category.name}</span>
-            </div>
+        <div className={styles.footer}>
+          <Link href={`/stories/${story.id}`} className={styles.link}>
+            Переглянути статтю
+          </Link>
 
-            <div className={styles.content}>
-                <h3 className={styles.title}>{article.title}</h3>
-
-                <p className={styles.description}>
-                    {article.article.substring(0, 150)}...
-                </p>
-
-                <div className={styles.author}>
-                    <div className={styles.authorInfo}>
-                        {article.ownerId.avatar && (
-                            <Image
-                                src={article.ownerId.avatar}
-                                alt={article.ownerId.name}
-                                width={40}
-                                height={40}
-                                className={styles.authorAvatar}
-                            />
-                        )}
-                        <div>
-                            <p className={styles.authorName}>{article.ownerId.name}</p>
-                            <p className={styles.date}>{formatDate(article.date)}</p>
-                        </div>
-                    </div>
-
-                    <div className={styles.actions}>
-                        <button
-                            className={`${styles.saveButton} ${article.isFavorite ? styles.saved : ''}`}
-                            onClick={handleSave}
-                            disabled={isPending}
-                            aria-label="Зберегти історію"
-                        >
-                            <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-                                    fill={article.isFavorite ? 'currentColor' : 'none'}
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                />
-                            </svg>
-                            <span className={styles.favoriteCount}>{article.favoriteCount}</span>
-                        </button>
-                    </div>
-                </div>
-
-                <Button onClick={handleViewStory} variant="primary" className={styles.viewButton}>
-                    Переглянути статтю
-                </Button>
-            </div>
-        </article>
-    );
-};
+          <button
+            onClick={handleBookmark}
+            className={`${styles.bookmark} ${bookmarked ? styles.active : ""}`}
+            disabled={loading}
+          >
+            {loading ? "..." : "★"} {count}
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
