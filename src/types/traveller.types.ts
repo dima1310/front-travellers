@@ -1,8 +1,12 @@
-export interface Traveller {
-  id: string;
+// Тип для публичного профиля путешественника
+export type Traveller = {
+  _id: string;
   name: string;
-  avatar: string;
+  avatar?: string;
   bio?: string;
-  storiesCount?: number;
-}
-
+  socialLinks?: {
+    twitter?: string;
+    facebook?: string;
+    instagram?: string;
+  };
+};
