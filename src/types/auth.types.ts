@@ -1,13 +1,18 @@
 export interface User {
-  id: string;
+  _id: string;
   name: string;
   email: string;
-  avatarUrl?: string;
+  avatar?: string;
+  bio?: string;
 }
 
 export interface AuthResponse {
-  user: User;
-  token: string;
+  status: number;
+  message: string;
+  data: {
+    accessToken: string;
+    user: User;
+  };
 }
 
 export interface LoginDto {
@@ -15,13 +20,15 @@ export interface LoginDto {
   password: string;
 }
 
-export interface RegisterDto extends LoginDto {
+export interface RegisterDto {
   name: string;
+  email: string;
+  password: string;
 }
 
 export interface AuthState {
   user: User | null;
-  token: string | null;
+  accessToken: string | null;
   isAuth: boolean;
   status: "idle" | "loading" | "success" | "error";
   error: string | null;
