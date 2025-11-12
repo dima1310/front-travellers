@@ -1,28 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import TravellersStories from "@/components/stories/TravellersStories/TravellersStories";
+import LoadMoreButton from "@/components/ui/Button/LoadMoreButton/LoadMoreButton";
+import css from "./page.module.css";
 import type { Story } from "@/types/story.types";
 
-type Props = {
-  initialStories: Story[];
-  userId: string;
-};
+export default function ClientStories({
+  stories,
+  initialDesktopCount = 6,
+  initialTabletMobileCount = 4,
+}: {
+  stories: Story[];
+  initialDesktopCount?: number;
+  initialTabletMobileCount?: number;
+}) {
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [visible, setVisible] = useState(
+    typeof window !== "undefined" && window.innerWidth >= 1280
+      ? initialDesktopCount
+      : initialTabletMobileCount
+  );
 
-export default function ClientStories({ initialStories }: Props) {
-  // Простейший клиентский контейнер — на реальном API заменим на useInfiniteQuery
-  const [stories] = useState<Story[]>(initialStories);
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1280px)");
+    const update = () => {
+      setIsDesktop(media.matches);
+      setVisible(media.matches ? initialDesktopCount : initialTabletMobileCount);
+    };
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, [initialDesktopCount, initialTabletMobileCount]);
 
-  if (stories.length === 0) return null;
+  const visibleStories = stories.slice(0, visible);
+  const hasMore = visible < stories.length;
 
   return (
-    <section>
-      <h2>Історії мандрівника</h2>
-      <ul>
-        {stories.map((s) => (
-          <li key={s._id}>{s.title}</li>
-        ))}
-      </ul>
-    </section>
+    <div>
+      <TravellersStories stories={visibleStories} />
+
+      {hasMore && (
+        <div className={css.travellerStoriesMore}>
+          <LoadMoreButton onClick={() =>
+            setVisible((prev) =>
+              prev + (isDesktop ? initialDesktopCount : initialTabletMobileCount)
+            )
+          }>
+            Показати ще
+          </LoadMoreButton>
+        </div>
+      )}
+    </div>
   );
 }
-

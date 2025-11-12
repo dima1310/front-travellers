@@ -1,65 +1,73 @@
-import { notFound } from "next/navigation";
 import css from "./page.module.css";
 
-// Компоненты
 import TravellerInfo from "@/components/travellers/TravellerInfo/TravellerInfo";
 import ClientStories from "./ClientStories";
 import MessageNoStories from "@/components/stories/MessageNoStories/MessageNoStories";
 
-// Типы
-import type { Traveller } from "@/types/traveller.types";
 import type { Story } from "@/types/story.types";
 
-/**
- * 🧩 Блок "Інформація про мандрівника"
- */
-async function getTraveller(id: string): Promise<Traveller | null> {
-  const base = process.env.NEXT_PUBLIC_API_URL || "";
-  const res = await fetch(`${base}/users/${id}`, { cache: "no-store" });
-  if (!res.ok) return null;
+// ======================================================================
+// ЗАГРУЗКА ІСТОРІЙ КОРИСТУВАЧА
+// ======================================================================
 
-  const json = await res.json();
-  const user = json?.data?.user;
-  if (!user?._id) return null;
-
-  return {
-    _id: user._id,
-    name: user.name,
-    avatar: user.avatar,
-    bio: user.bio,
-    socialLinks: user.socialLinks,
-  };
-}
-
-/**
- * ⚙️ ЗАГЛУШКА — поки не підключено бекенд
- * Замість цього пізніше буде запит `/users/:id/stories`
- */
 async function getTravellerStories(id: string): Promise<Story[]> {
-  // --- ЗАГЛУШКА НАЧАЛО ---
-  return [];
-  // --- ЗАГЛУШКА КІНЕЦЬ ---
+  try {
+    const base = process.env.NEXT_PUBLIC_API_URL!;
+    const res = await fetch(`${base}/users/${id}`, { cache: "no-store" });
+
+    if (!res.ok) return [];
+
+    const json = (await res.json()) as { data?: { articles?: unknown[] } };
+    const list = json?.data?.articles ?? [];
+
+    return list as unknown as Story[];
+  } catch {
+    return [];
+  }
 }
 
-/**
- * 🧭 Сторінка профілю мандрівника
- */
-type Params = { params: { id: string } };
+// ======================================================================
+// СТОРІНКА ПУБЛІЧНОГО ПРОФІЛЯ
+// ======================================================================
 
-export default async function TravellerPage({ params }: Params) {
-  const traveller = await getTraveller(params.id);
-  if (!traveller) notFound();
+export default async function TravellerPublicProfilePage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
-  const stories = await getTravellerStories(params.id);
+  const stories = await getTravellerStories(id);
+
+  const hasStories = Array.isArray(stories) && stories.length > 0;
 
   return (
-    <div className={css.wrap}>
-      <TravellerInfo traveller={traveller} />
-      {stories.length > 0 ? (
-        <ClientStories initialStories={stories} userId={traveller._id} />
-      ) : (
-        <MessageNoStories />
-      )}
-    </div>
+    <main className={css.publicProfile}>
+      {/* Профіль мандрівника */}
+      <section className={css.travellerInfo}>
+        <TravellerInfo id={id} />
+      </section>
+
+      {/* Секція "Історії Мандрівника" */}
+      <section className={css.travellerStories}>
+        <h2 className={css.travellerStoriesTitle}>Історії Мандрівника</h2>
+
+        {hasStories ? (
+          /* Якщо є історії → показуємо список */
+          <ClientStories
+            stories={stories}
+            initialDesktopCount={6}
+            initialTabletMobileCount={4}
+          />
+        ) : (
+          /* Якщо історій немає → показуємо заглушку */
+          <MessageNoStories
+            text="Цей користувач ще не публікував історій"
+            buttonText="Назад до історій"
+            redirectTo="/stories"
+          />
+        )}
+      </section>
+    </main>
   );
 }
