@@ -1,8 +1,7 @@
 export interface Traveller {
-  id: string;
+  _id: string;
   name: string;
-  avatar: string;
+  avatar?: string;
   bio?: string;
-  storiesCount?: number;
+  country?: string; 
 }
-
