@@ -1,32 +1,9 @@
-body {
-    font-family: "Sora", sans-serif;
-    background: #f7f9ff;
-    margin: 0;
-    padding: 0;
-}
-
-.page {
-    min-height: 100vh;
-    padding: 24px 16px 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.title {
-    font-size: 24px;
-    font-weight: 700;
-    margin: 8px 0 20px;
-    width: 100%;
-    max-width: 900px;
-}
-
 .form {
     display: flex;
     flex-direction: column;
     gap: 16px;
     width: 100%;
-    max-width: 360px;
+    max-width: 900px;
     background-color: #f5f7fa;
     padding: 20px;
     border-radius: 16px;
@@ -60,6 +37,17 @@ body {
 .textarea {
     resize: none;
     min-height: 80px;
+}
+
+.coverSection {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.coverContainer {
+    flex: 1;
 }
 
 .coverPreview {
@@ -101,6 +89,7 @@ body {
     border: 1px solid #ccc;
     cursor: pointer;
     transition: background-color 0.2s;
+    margin-top: 8px;
 }
 
 .uploadBtn:hover {
@@ -114,11 +103,11 @@ body {
     margin-top: -8px;
 }
 
-.buttons {
+.actionButtons {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .saveBtn,
@@ -130,6 +119,7 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: 0.2s ease;
+    width: 100%;
 }
 
 .saveBtn {
@@ -152,6 +142,13 @@ body {
     background-color: #e0e0e0;
 }
 
+.fieldsContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 /* Tablet */
 @media (min-width: 768px) {
     .form {
@@ -159,14 +156,23 @@ body {
         padding: 32px;
     }
 
-    .buttons {
+    .coverSection {
+        gap: 32px;
+    }
+
+    .actionButtons {
         flex-direction: row;
-        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 0;
     }
 
     .saveBtn,
     .cancelBtn {
-        width: 200px;
+        width: 120px;
+    }
+
+    .fieldsContainer {
+        gap: 24px;
     }
 }
 
@@ -177,8 +183,16 @@ body {
         padding: 40px;
     }
 
+    .coverSection {
+        gap: 40px;
+    }
+
     .saveBtn,
     .cancelBtn {
-        width: 220px;
+        width: 140px;
+    }
+
+    .fieldsContainer {
+        gap: 32px;
     }
 }

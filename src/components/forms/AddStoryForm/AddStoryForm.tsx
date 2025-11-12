@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import styles from './AddStoryForm.module.css';
+import { createStory } from '../../../services/api/storiesApi';
+import { AxiosError } from 'axios';
 
 interface FormData {
     title: string;
@@ -32,10 +34,30 @@ export default function AddStoryForm() {
         setFormData(prev => ({ ...prev, cover: file }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!formData.title || !formData.category || !formData.text) return;
-        console.log('Відправка даних:', formData);
+
+        if (!formData.title || !formData.category || !formData.text) {
+            alert('Будь ласка, заповніть усі обов’язкові поля.');
+            return;
+        }
+
+        try {
+            const data = new FormData();
+            data.append('title', formData.title);
+            data.append('category', formData.category);
+            data.append('description', formData.description);
+            data.append('text', formData.text);
+            if (formData.cover) data.append('cover', formData.cover);
+
+            const result = await createStory(data);
+            console.log('✅ Історію створено:', result);
+            alert('Історію успішно створено!');
+        } catch (error: unknown) {
+            const err = error as AxiosError;
+            console.error('❌ Помилка:', err.response?.data || err.message);
+            alert('Не вдалося створити історію. Перевір дані або авторизацію.');
+        }
     };
 
     const handleCancel = () => {
@@ -56,7 +78,6 @@ export default function AddStoryForm() {
                 )}
             </div>
 
-            {/* кастомна кнопка завантаження */}
             <input
                 id="cover"
                 type="file"

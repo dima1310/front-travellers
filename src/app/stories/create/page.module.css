@@ -1,5 +1,4 @@
-/* mobile-first */
-.page {
+.container {
     background: #f7f9ff;
     min-height: 100vh;
     padding: 24px 16px 40px;
@@ -8,32 +7,39 @@
     align-items: center;
 }
 
+.headerWrapper {
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 20px;
+}
+
 .title {
     font-family: 'Sora', sans-serif;
     font-size: 24px;
     font-weight: 700;
-    margin: 8px 0 20px;
+    margin: 0;
     text-align: left;
     width: 100%;
-    max-width: 900px;
-    /* вирівнюємо з формою на десктопі */
 }
 
 /* tablet */
 @media (min-width: 768px) {
-    .page {
+    .container {
         padding: 32px 24px 56px;
+    }
+
+    .headerWrapper {
+        margin-bottom: 24px;
     }
 
     .title {
         font-size: 28px;
-        margin-bottom: 24px;
     }
 }
 
 /* desktop 1440 */
 @media (min-width: 1440px) {
-    .page {
+    .container {
         padding-top: 40px;
     }
 
