@@ -1,22 +1,35 @@
-/* ======== MOBILE FIRST (375px) ======== */
+body {
+    font-family: "Sora", sans-serif;
+    background: #f7f9ff;
+    margin: 0;
+    padding: 0;
+}
+
+.page {
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 8px 0 20px;
+    width: 100%;
+    max-width: 900px;
+}
+
 .form {
     display: flex;
     flex-direction: column;
     gap: 16px;
     width: 100%;
     max-width: 360px;
-    margin: 0 auto;
     background-color: #f5f7fa;
     padding: 20px;
     border-radius: 16px;
-}
-
-.title {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    text-align: left;
-    color: #111;
 }
 
 .label {
@@ -33,7 +46,6 @@
     border-radius: 8px;
     padding: 10px 12px;
     font-size: 14px;
-    font-family: inherit;
     outline: none;
     background-color: #fff;
 }
@@ -71,7 +83,7 @@
 .placeholder {
     width: 48px;
     height: 48px;
-    background: url('/placeholder.svg') center/contain no-repeat;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg') center/contain no-repeat;
     opacity: 0.3;
 }
 
@@ -86,10 +98,8 @@
     font-size: 14px;
     padding: 8px 14px;
     border-radius: 8px;
-    text-align: center;
-    cursor: pointer;
     border: 1px solid #ccc;
-    width: fit-content;
+    cursor: pointer;
     transition: background-color 0.2s;
 }
 
@@ -142,16 +152,11 @@
     background-color: #e0e0e0;
 }
 
-/* ======== TABLET (min-width: 768px) ======== */
+/* Tablet */
 @media (min-width: 768px) {
     .form {
         max-width: 600px;
         padding: 32px;
-    }
-
-    .title {
-        font-size: 22px;
-        text-align: center;
     }
 
     .buttons {
@@ -165,19 +170,11 @@
     }
 }
 
-/* ======== DESKTOP (min-width: 1440px) ======== */
+/* Desktop */
 @media (min-width: 1440px) {
     .form {
         max-width: 800px;
         padding: 40px;
-    }
-
-    .title {
-        font-size: 24px;
-    }
-
-    .uploadBtn {
-        padding: 10px 18px;
     }
 
     .saveBtn,
