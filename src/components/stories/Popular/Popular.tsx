@@ -1,43 +1,41 @@
 "use client";
 
+import { useInfiniteStories } from "@/services/queries/useStoriesQuery";
+import PopularStoriesItem from "@/components/home/Popular/PopularStoriesItem/PopularStoriesItem";
 import styles from "./Popular.module.css";
-import { useStories } from "@/hooks/useStories";
-import { Loader } from "@/components/ui/Loader/Loader";
-import { TravellersStoriesItem } from "@/components/stories";
 
-interface PopularProps {
-  limit?: number;
-  excludeId?: string;
-}
+import type { Story, StoriesResponse } from "@/types/story.types";
+import type { InfiniteData } from "@tanstack/react-query";
 
-export const Popular = ({ limit = 3, excludeId }: PopularProps) => {
-  const { data, isLoading, error } = useStories(1, limit);
+export default function Popular() {
+  const { data, isLoading } = useInfiniteStories();
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  // ✅ корректно извлекаем страницы из InfiniteData
+  const pages =
+    (data as InfiniteData<StoriesResponse, number> | undefined)?.pages ?? [];
 
-  if (error || !data || data.articles.length === 0) {
-    return null;
-  }
-
-  // Виключаємо поточну статтю зі списку
-  const filteredArticles = excludeId
-    ? data.articles.filter((article) => article._id !== excludeId)
-    : data.articles;
-
-  if (filteredArticles.length === 0) {
-    return null;
-  }
+  // ✅ строгий тип: Story[]
+  const stories: Story[] = pages.flatMap((page: StoriesResponse) =>
+    Array.isArray(page.items) ? page.items : []
+  );
 
   return (
-    <section className={styles.section}>
-      <h2 className={styles.title}>Популярні історії</h2>
-      <div className={styles.grid}>
-        {filteredArticles.slice(0, limit).map((article) => (
-          <TravellersStoriesItem key={article._id} article={article} />
-        ))}
+    <section className={styles.section} id="popular">
+      <div className={styles.container}>
+        <h2 className={styles.title}>Популярні історії</h2>
+
+        {isLoading ? (
+          <p className={styles.loading}>Завантаження...</p>
+        ) : stories.length > 0 ? (
+          <div className={styles.grid}>
+            {stories.map((story: Story) => (
+              <PopularStoriesItem key={story._id} story={story} />
+            ))}
+          </div>
+        ) : (
+          <p className={styles.loading}>Немає історій</p>
+        )}
       </div>
     </section>
   );
-};
+}

@@ -14,14 +14,14 @@ export default function TravellersList({ travellers }: TravellersListProps) {
   return (
     <ul className={styles.list}>
       {travellers.map((traveller) => (
-        <li key={traveller.id} className={styles.item}>
+        <li key={traveller._id} className={styles.item}>
           <img
             src={traveller.avatar}
             alt={traveller.name}
             className={styles.avatar}
           />
           <h3>{traveller.name}</h3>
-          <p>{traveller.country}</p>
+          {traveller.country && <p>{traveller.country}</p>}
         </li>
       ))}
     </ul>

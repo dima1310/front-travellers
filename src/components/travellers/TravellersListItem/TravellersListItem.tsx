@@ -4,7 +4,7 @@ import ButtonProfile from "@/components/ui/Button/ButtonProfile/buttonProfile";
 import { Traveller } from "@/types/traveller.types";
 type Props = Traveller;
 
-export const TravellersListItem = ({id, name, bio, avatar}: Props) => {
+export const TravellersListItem = ({_id, name, bio, avatar}: Props) => {
      //src для <img>, чтобы не передавать пустую строку в src
   const avatarSrc =
     avatar && avatar.trim() !== "" ? avatar : "/icons/user.svg"; 
@@ -15,7 +15,7 @@ return(
     <h3 className={css.name}>{name}</h3>
     <p className={css.text}>{bio}</p>
 
-    <ButtonProfile id={id}/>
+    <ButtonProfile id={_id}/>
 
 </div>
 );

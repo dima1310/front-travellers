@@ -8,7 +8,8 @@ export default function OurTravellers() {
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useTravellersQuery();
 
-  const travellers = data?.pages.flatMap((page) => page.items) ?? [];
+  // ✅ объединяем все страницы, каждая страница — массив Traveller[]
+  const travellers = data?.pages.flat() ?? [];
 
   return (
     <section className={styles.section} id="travellers">
@@ -34,3 +35,4 @@ export default function OurTravellers() {
     </section>
   );
 }
+

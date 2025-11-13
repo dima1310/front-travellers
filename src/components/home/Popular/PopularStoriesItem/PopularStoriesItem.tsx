@@ -6,26 +6,16 @@ import styles from "./PopularStoriesItem.module.css";
 import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/utils/constants/routes";
 import { useState } from "react";
+import type { Story } from "@/types/story.types"; // ✅ используем бекенд-тип
 
-interface StoryProps {
-  story: {
-    id: string;
-    title: string;
-    content: string;
-    coverUrl?: string;
-    author?: {
-      name: string;
-      avatarUrl?: string;
-    };
-    createdAt: string;
-    bookmarks: number;
-  };
-}
+type Props = { story: Story };
 
-export default function PopularStoriesItem({ story }: StoryProps) {
+export default function PopularStoriesItem({ story }: Props) {
   const { isAuth } = useAuth();
+
+  // поля бекенда: _id, title, description, img, owner{name, avatar}, date, favoriteCount
   const [bookmarked, setBookmarked] = useState(false);
-  const [count, setCount] = useState(story.bookmarks);
+  const [count, setCount] = useState<number>(story.favoriteCount ?? 0);
   const [loading, setLoading] = useState(false);
 
   const handleBookmark = async () => {
@@ -36,9 +26,10 @@ export default function PopularStoriesItem({ story }: StoryProps) {
 
     try {
       setLoading(true);
-      await new Promise((res) => setTimeout(res, 800)); // mock API delay
+      // TODO: заменить на реальный API вызов
+      await new Promise((res) => setTimeout(res, 800));
       setBookmarked((prev) => !prev);
-      setCount((prev) => (bookmarked ? prev - 1 : prev + 1));
+      setCount((prev) => (bookmarked ? Math.max(0, prev - 1) : prev + 1));
     } catch {
       alert("Помилка при оновленні збережених історій");
     } finally {
@@ -50,7 +41,7 @@ export default function PopularStoriesItem({ story }: StoryProps) {
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
         <Image
-          src={story.coverUrl || "/images/story-placeholder.jpg"}
+          src={story.img || "/images/story-placeholder.jpg"}
           alt={story.title}
           width={400}
           height={260}
@@ -60,20 +51,25 @@ export default function PopularStoriesItem({ story }: StoryProps) {
 
       <div className={styles.content}>
         <h3 className={styles.title}>{story.title}</h3>
-        <p className={styles.text}>{story.content.slice(0, 120)}...</p>
+        {!!story.description && (
+          <p className={styles.text}>
+            {story.description.slice(0, 120)}
+            {story.description.length > 120 ? "..." : ""}
+          </p>
+        )}
 
         <div className={styles.author}>
           <Image
-            src={story.author?.avatarUrl || "/avatar.svg"}
-            alt={story.author?.name || "author"}
+            src={story.owner?.avatar || "/avatar.svg"}
+            alt={story.owner?.name || "Автор"}
             width={32}
             height={32}
           />
-          <span>{story.author?.name}</span>
+          <span>{story.owner?.name || "Автор"}</span>
         </div>
 
         <div className={styles.footer}>
-          <Link href={`/stories/${story.id}`} className={styles.link}>
+          <Link href={`/stories/${story._id}`} className={styles.link}>
             Переглянути статтю
           </Link>
 
@@ -81,6 +77,7 @@ export default function PopularStoriesItem({ story }: StoryProps) {
             onClick={handleBookmark}
             className={`${styles.bookmark} ${bookmarked ? styles.active : ""}`}
             disabled={loading}
+            aria-pressed={bookmarked}
           >
             {loading ? "..." : "★"} {count}
           </button>

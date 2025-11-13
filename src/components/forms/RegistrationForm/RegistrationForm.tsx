@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
-import { useAuthStore } from "@/store/authStore";
+import { useAuthStore } from "@/store/useAuthStore";
+
 import styles from "./RegistrationForm.module.css";
 
 const RegistrationSchema = Yup.object().shape({

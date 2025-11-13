@@ -3,12 +3,15 @@
 import { useInfiniteStories } from "@/services/queries/useStoriesQuery";
 import TravellersStoriesItem from "@/components/stories/TravellersStoriesItem/TravellersStoriesItem";
 import styles from "./TravellersStories.module.css";
+import type { Story } from "@/types/story.types";
 
 export default function TravellersStories() {
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteStories();
 
-  const stories = data?.pages.flatMap((page) => page.items) ?? [];
+  // если хук возвращает страницы формата StoriesResponse
+  const stories: Story[] =
+    data?.pages.flatMap((page) => page.items) ?? [];
 
   return (
     <section className={styles.section}>
@@ -20,7 +23,7 @@ export default function TravellersStories() {
         ) : (
           <div className={styles.grid}>
             {stories.map((story) => (
-              <TravellersStoriesItem key={story.id} story={story} />
+              <TravellersStoriesItem key={story._id} story={story} />
             ))}
           </div>
         )}
