@@ -78,7 +78,6 @@ function AuthFormInner<TValues extends Record<string, unknown>>({
     values: TValues,
     actions: FormikHelpers<TValues>
   ) => {
-    // тримаємо строки без лишніх пробілів
     const cleanValues = Object.fromEntries(
       Object.entries(values).map(([key, value]) => [
         key,
@@ -117,7 +116,6 @@ function AuthFormInner<TValues extends Record<string, unknown>>({
               )
             )}
 
-            {/* тут можно буде додати "Забув пароль" якщо треба */}
             {isLogin && null}
 
             <button

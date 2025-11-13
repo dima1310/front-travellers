@@ -1,4 +1,3 @@
-// src/constants/authFormConfig.ts
 export const loginFields = [
   {
     name: "email",

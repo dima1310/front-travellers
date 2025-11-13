@@ -1,11 +1,11 @@
 "use client";
 
-import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/utils/constants/routes";
+import { useAuthStore } from "@/store/useAuthStore";
 import styles from "./Join.module.css";
 
 export default function Join() {
-  const { isAuth } = useAuth();
+  const isAuth = useAuthStore((s) => s.isAuthenticated);
 
   const handleClick = () => {
     if (isAuth) {
@@ -25,6 +25,7 @@ export default function Join() {
             історіями, надихайте інших і відкривайте для себе світ очима тих,
             хто вже його пізнав.
           </p>
+
           <button className={styles.button} onClick={handleClick}>
             {isAuth ? "Збережені" : "Зареєструватися"}
           </button>

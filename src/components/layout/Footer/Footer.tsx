@@ -1,12 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/utils/constants/routes";
 import styles from "./Footer.module.css";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/useAuthStore";
+
+import Image from "next/image";
 
 export default function Footer() {
-  const { isAuth } = useAuth();
+  const router = useRouter();
+  const isAuth = useAuthStore((s) => s.isAuthenticated);
 
   const navItems = [
     { label: "Головна", href: ROUTES.HOME },
@@ -35,10 +39,11 @@ export default function Footer() {
 
   const handleNavClick = (href: string) => {
     if (!isAuth) {
-      window.location.href = ROUTES.AUTH.REGISTER;
+      router.push(ROUTES.AUTH.REGISTER);
       return;
     }
-    window.location.href = href;
+
+    router.push(href);
   };
 
   return (
@@ -80,7 +85,7 @@ export default function Footer() {
           {socials.map((s) => (
             <li key={s.href}>
               <a href={s.href} target="_blank" rel="noopener noreferrer">
-                <img src={s.icon} alt={s.label} />
+                <Image src={s.icon} alt={s.label} />
               </a>
             </li>
           ))}

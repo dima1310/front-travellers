@@ -1,5 +1,6 @@
 .container {
   width: 100%;
+  margin: 0 auto;
 }
 
 .title {
@@ -11,6 +12,15 @@
   text-align: center;
   color: var(--color-neutral-darkest);
   margin-bottom: 24px;
+}
+.subtitle {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 32px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--color-scheme-1-text);
 }
 
 .text {
@@ -33,6 +43,7 @@
   .title {
     font-size: 44px;
   }
+
   .container {
     width: 644px;
   }
@@ -43,6 +54,9 @@
     font-size: 52px;
   }
   .text {
+    font-size: 20px;
+  }
+  .subtitle {
     font-size: 20px;
   }
 }
