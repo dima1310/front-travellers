@@ -6,6 +6,21 @@ import ReduxProvider from "@/providers/ReduxProvider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { Toaster } from "react-hot-toast";
 
+//  шрифты
+import { Nunito_Sans, Sora } from "next/font/google";
+
+const nunito = Nunito_Sans({
+  subsets: ["latin", "cyrillic"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-nunito",
+});
+
+const sora = Sora({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-sora",
+});
+
 export const metadata: Metadata = {
   title: {
     default: "Front Travellers",
@@ -21,8 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      {/* при желании замени на "uk" */}
+    <html lang="uk" className={`${nunito.variable} ${sora.variable}`}>
       <body>
         <ReduxProvider>
           <ReactQueryProvider>
