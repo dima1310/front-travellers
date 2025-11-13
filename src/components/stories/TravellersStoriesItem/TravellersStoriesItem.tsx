@@ -6,26 +6,16 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/utils/constants/routes";
 import styles from "./TravellersStoriesItem.module.css";
+import type { Story } from "@/types/story.types";
 
 interface StoryProps {
-  story: {
-    id: string;
-    title: string;
-    content: string;
-    coverUrl?: string;
-    author?: {
-      name: string;
-      avatarUrl?: string;
-    };
-    createdAt: string;
-    bookmarks: number;
-  };
+  story: Story;
 }
 
 export default function TravellersStoriesItem({ story }: StoryProps) {
   const { isAuth } = useAuth();
   const [bookmarked, setBookmarked] = useState(false);
-  const [count, setCount] = useState(story.bookmarks);
+  const [count, setCount] = useState<number>(story.favoriteCount);
   const [loading, setLoading] = useState(false);
 
   const handleBookmark = async () => {
@@ -33,7 +23,6 @@ export default function TravellersStoriesItem({ story }: StoryProps) {
       window.location.href = ROUTES.AUTH.REGISTER;
       return;
     }
-
     try {
       setLoading(true);
       await new Promise((res) => setTimeout(res, 800)); // mock-запит
@@ -50,7 +39,7 @@ export default function TravellersStoriesItem({ story }: StoryProps) {
     <article className={styles.card}>
       <div className={styles.imageWrapper}>
         <Image
-          src={story.coverUrl || "/images/story-placeholder.jpg"}
+          src={story.img || "/images/story-placeholder.jpg"}
           alt={story.title}
           width={400}
           height={260}
@@ -61,25 +50,27 @@ export default function TravellersStoriesItem({ story }: StoryProps) {
       <div className={styles.info}>
         <span className={styles.category}>Подорож</span>
         <h3 className={styles.title}>{story.title}</h3>
-        <p className={styles.description}>{story.content.slice(0, 100)}...</p>
+        <p className={styles.description}>
+          {story.description?.slice(0, 100) ?? ""}...
+        </p>
 
         <div className={styles.meta}>
           <div className={styles.author}>
             <Image
-              src={story.author?.avatarUrl || "/avatar.svg"}
-              alt={story.author?.name || "author"}
+              src={story.owner?.avatar || "/avatar.svg"}
+              alt={story.owner?.name || "author"}
               width={32}
               height={32}
             />
-            <span>{story.author?.name}</span>
+            <span>{story.owner?.name}</span>
           </div>
           <time className={styles.date}>
-            {new Date(story.createdAt).toLocaleDateString("uk-UA")}
+            {new Date(story.date).toLocaleDateString("uk-UA")}
           </time>
         </div>
 
         <div className={styles.footer}>
-          <Link href={`/stories/${story.id}`} className={styles.link}>
+          <Link href={`/stories/${story._id}`} className={styles.link}>
             Переглянути статтю
           </Link>
 

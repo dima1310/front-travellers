@@ -13,8 +13,8 @@ export default function TravellersList({ items }: { items: Traveller[] }) {
       <div className={css.grid}>
         {items.map((t) => (
           <TravellersListItem
-            key={t.id}
-            id={t.id}
+            key={t._id}
+            _id={t._id}
             name={t.name}
             bio={t.bio}
             avatar={t.avatar}

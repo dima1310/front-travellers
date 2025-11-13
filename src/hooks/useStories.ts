@@ -1,7 +1,7 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {axiosInstance} from "@/src/lib/axios";
+import {axiosInstance} from "@/lib/axios";
 import toast from "react-hot-toast";
-import {Article, StoriesResponse} from "@/src/types/article.types";
+import {Article, StoriesResponse} from "@/types/article.types";
 
 interface StoriesParams {
     page: number;
