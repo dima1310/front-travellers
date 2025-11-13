@@ -1,13 +1,13 @@
 import React from "react";
-import type { Traveller } from "@/types/traveller.types";
+import type { TravellerCard } from "@/services/api/travellersApi";
 import styles from "./TravellersList.module.css";
 
 interface TravellersListProps {
-  travellers: Traveller[];
+  travellers: TravellerCard[];
 }
 
 export default function TravellersList({ travellers }: TravellersListProps) {
-  if (!travellers?.length) {
+  if (!travellers || travellers.length === 0) {
     return <p className={styles.empty}>No travellers found.</p>;
   }
 
@@ -16,12 +16,16 @@ export default function TravellersList({ travellers }: TravellersListProps) {
       {travellers.map((traveller) => (
         <li key={traveller._id} className={styles.item}>
           <img
-            src={traveller.avatar}
+            src={traveller.avatarUrl || "/default-avatar.png"}
             alt={traveller.name}
             className={styles.avatar}
           />
-          <h3>{traveller.name}</h3>
-          {traveller.country && <p>{traveller.country}</p>}
+
+          <h3 className={styles.name}>{traveller.name}</h3>
+
+          {traveller.bio && (
+            <p className={styles.bio}>{traveller.bio}</p>
+          )}
         </li>
       ))}
     </ul>

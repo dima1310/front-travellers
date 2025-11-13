@@ -1,5 +1,4 @@
-// src/services/api/travellersApi.ts
-const BASE = process.env.NEXT_PUBLIC_API_URL!;
+import { api } from "@/services/api/axiosConfig";
 
 export type TravellerProfile = {
   _id: string;
@@ -32,9 +31,9 @@ interface RawTraveller {
   avatar?: string;
   bio?: string;
 }
+
 type BackendUser = RawTraveller & { socialLinks?: SocialLinks };
 
-// -------- helpers --------
 function toCard(u: RawTraveller): TravellerCard {
   return {
     _id: String(u._id),
@@ -44,42 +43,44 @@ function toCard(u: RawTraveller): TravellerCard {
   };
 }
 
-// Возможные формы ответа бэка
 type WithDataArray = { data?: RawTraveller[] };
 type WithDataUsers = { data?: { users?: RawTraveller[] } };
 type WithItems = { items?: RawTraveller[] };
+
 type TravellersApiResponse =
   | RawTraveller[]
   | WithDataArray
   | WithDataUsers
   | WithItems;
 
-/** Нормализация разных форм ответа без any */
-function normalizeUsers(json: unknown): RawTraveller[] {
-  const data = json as TravellersApiResponse;
+function normalizeUsers(json: TravellersApiResponse): RawTraveller[] {
+  if (Array.isArray(json)) return json;
 
-  if (Array.isArray(data)) return data;
+  if ("data" in json && Array.isArray(json.data)) {
+    return json.data;
+  }
 
-  const asDataArray = data as WithDataArray;
-  if (Array.isArray(asDataArray?.data)) return asDataArray.data!;
+  if (
+    "data" in json &&
+    json.data &&
+    typeof json.data === "object" &&
+    "users" in json.data &&
+    Array.isArray(json.data.users)
+  ) {
+    return json.data.users;
+  }
 
-  const asDataUsers = data as WithDataUsers;
-  if (Array.isArray(asDataUsers?.data?.users)) return asDataUsers.data!.users!;
-
-  const asItems = data as WithItems;
-  if (Array.isArray(asItems?.items)) return asItems.items!;
+  if ("items" in json && Array.isArray(json.items)) {
+    return json.items;
+  }
 
   return [];
 }
 
-// -------- API --------
-/** Публічний профіль користувача: GET /users/{userId} -> { data: { user, ... } } */
 export async function getTravellerById(id: string): Promise<TravellerProfile> {
-  const res = await fetch(`${BASE}/users/${id}`, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Profile request failed: ${res.status}`);
+  const res = await api.get<{ data?: { user?: BackendUser } }>(`/users/${id}`);
 
-  const json: { data?: { user?: BackendUser } } = await res.json();
-  const u = json.data?.user;
+  const u = res.data?.data?.user;
   if (!u) throw new Error("User not found");
 
   return {
@@ -87,33 +88,35 @@ export async function getTravellerById(id: string): Promise<TravellerProfile> {
     name: u.name,
     avatarUrl: u.avatar ?? undefined,
     bio: u.bio ?? "",
-    socialLinks: u.socialLinks ?? undefined,
+    socialLinks: u.socialLinks,
   };
 }
 
-// Перегрузки для list — поддерживаем (page, limit) и объект
-async function listTravellers(page?: number, limit?: number): Promise<TravellerCard[]>;
-async function listTravellers(opts?: { page?: number; limit?: number }): Promise<TravellerCard[]>;
+async function listTravellers(
+  page?: number,
+  limit?: number
+): Promise<TravellerCard[]>;
+
+async function listTravellers(opts?: {
+  page?: number;
+  limit?: number;
+}): Promise<TravellerCard[]>;
+
 async function listTravellers(
   a?: number | { page?: number; limit?: number },
   b?: number
 ): Promise<TravellerCard[]> {
   const page = typeof a === "number" ? a : a?.page ?? 1;
-  const limit = typeof a === "number" ? (b ?? 12) : a?.limit ?? 12;
+  const limit = typeof a === "number" ? b ?? 12 : a?.limit ?? 12;
 
-  const url = new URL(`${BASE}/users`);
-  url.searchParams.set("page", String(page));
-  url.searchParams.set("limit", String(limit));
+  const res = await api.get<TravellersApiResponse>("/users", {
+    params: { page, limit },
+  });
 
-  const res = await fetch(url.toString(), { cache: "no-store" });
-  if (!res.ok) throw new Error(`Users request failed: ${res.status}`);
-
-  const json = await res.json();
-  const users = normalizeUsers(json);
+  const users = normalizeUsers(res.data);
   return users.map(toCard);
 }
 
-/** Об'єкт API для хуков */
 export const travellersApi = {
   list: listTravellers,
   getById: getTravellerById,

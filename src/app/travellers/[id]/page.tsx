@@ -1,47 +1,45 @@
-// src/app/travellers/[id]/page.tsx
 import css from "./page.module.css";
 
 import TravellerInfo from "@/components/travellers/TravellerInfo/TravellerInfo";
-import ClientStories from "@/components/travellers/ClientStories/ClientStories";
+import ClientStories from "./ClientStories";
 import MessageNoStories from "@/components/stories/MessageNoStories/MessageNoStories";
 
 import type { Story } from "@/types/story.types";
 
-export const dynamic = "force-dynamic";
-
-type PageProps = { params: { id: string } };
-
 // ======================================================================
-// ЗАВАНТАЖЕННЯ ІСТОРІЙ КОРИСТУВАЧА
+//  ЗАВАНТАЖЕННЯ ІСТОРІЙ МАНДРІВНИКА
 // ======================================================================
-
-type TravellerArticlesResponse = {
-  data?: { articles?: Story[] };
-};
 
 async function getTravellerStories(id: string): Promise<Story[]> {
   try {
-    const base = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000/api")
-      .replace(/\/$/, "");
+    const base = process.env.NEXT_PUBLIC_API_URL!;
     const res = await fetch(`${base}/users/${id}`, { cache: "no-store" });
+
     if (!res.ok) return [];
 
-    const json = (await res.json()) as TravellerArticlesResponse;
-    return Array.isArray(json?.data?.articles) ? json.data!.articles! : [];
+    const json = (await res.json()) as { data?: { articles?: unknown[] } };
+    const list = json?.data?.articles ?? [];
+
+    return list as unknown as Story[];
   } catch {
     return [];
   }
 }
 
 // ======================================================================
-// СТОРІНКА ПУБЛІЧНОГО ПРОФІЛЯ
+//  СТОРІНКА ПУБЛІЧНОГО ПРОФІЛЯ МАНДРІВНИКА
 // ======================================================================
 
-export default async function TravellerPublicProfilePage({ params }: PageProps) {
+export default async function TravellerPublicProfilePage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const { id } = params;
 
   const stories = await getTravellerStories(id);
-  const hasStories = stories.length > 0;
+
+  const hasStories = Array.isArray(stories) && stories.length > 0;
 
   return (
     <main className={css.publicProfile}>
