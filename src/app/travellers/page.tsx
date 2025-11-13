@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import TravellersList from "@/components/home/OurTravellers/TravellersList/TravellersList";
+import TravellersList from "@/components/travellers/TravellersList/TravellersList";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useTravellersQuery } from "@/services/queries/useTravellersQuery";
 import styles from "./page.module.css";
@@ -12,19 +12,22 @@ export default function TravellersPage() {
 
   const { data, isLoading, isError, error } = useTravellersQuery();
 
+  // збираємо всі сторінки в один масив
   const allTravellers =
     data?.pages?.flatMap((page) => (Array.isArray(page) ? page : [])) ?? [];
 
+  // 12 — десктоп, 8 — планшет/мобілка
   const initialCount = useMemo(
-    () => ((isMobile || isTablet) ? 8 : 12),
+    () => (isMobile || isTablet ? 8 : 12),
     [isMobile, isTablet]
   );
 
   const [visibleCount, setVisibleCount] = useState(initialCount);
 
   useEffect(() => {
+    // при зміні брейкпоінта або кількості мандрівників
     setVisibleCount(initialCount);
-  }, [initialCount]);
+  }, [initialCount, allTravellers.length]);
 
   const visibleTravellers = allTravellers.slice(0, visibleCount);
   const canShowMore = visibleCount < allTravellers.length;
@@ -37,11 +40,12 @@ export default function TravellersPage() {
     <section className={styles.section}>
       <h1 className={styles.title}>Мандрівники</h1>
 
-      {isLoading && <p>Завантаження...</p>}
+      {isLoading && <p className={styles.status}>Завантаження...</p>}
 
       {isError && (
-        <p>
-          Сталася помилка під час завантаження мандрівників: {error?.message}
+        <p className={styles.status}>
+          Сталася помилка під час завантаження мандрівників:{" "}
+          {error instanceof Error ? error.message : "спробуйте пізніше"}
         </p>
       )}
 
@@ -51,7 +55,11 @@ export default function TravellersPage() {
 
           {canShowMore && (
             <div className={styles.loadMoreWrapper}>
-              <button type="button" onClick={handleShowMore}>
+              <button
+                type="button"
+                className={styles.loadMoreButton}
+                onClick={handleShowMore}
+              >
                 Переглянути всі
               </button>
             </div>

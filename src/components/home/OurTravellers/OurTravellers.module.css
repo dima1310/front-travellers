@@ -1,39 +1,85 @@
 .section {
   padding: 100px 0;
-  background-color: var(--color-bg-light);
+  background-color: var(--color-bg-light); /* сірий фон сторінки */
 }
 
 .container {
-  max-width: 1440px;
-  width: 90%;
+  max-width: 1216px;
   margin: 0 auto;
-  text-align: center;
+  padding: 0 16px;
 }
 
+/* заголовок зліва, як на макеті */
 .title {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 700;
   color: var(--color-text);
-  margin-bottom: 48px;
+  margin: 0 0 32px;
+  text-align: left;
 }
 
 .loading {
   color: var(--color-text-light);
-  font-size: 18px;
+  font-size: 16px;
 }
 
+/* синій прямокутник з картками всередині */
+.cardsWrapper {
+  padding: 32px 40px 40px;
+  background-color: #f6f8ff;
+  border-radius: 24px;
+  border: 1px solid #d9e7ff;
+}
+
+/* кнопка по центру під блоком */
 .button {
-  margin-top: 40px;
-  padding: 14px 36px;
-  background-color: var(--color-primary);
+  display: inline-block;
+  margin: 32px auto 0;
+  padding: 10px 32px;
+
+  background-color: #4169e1;
   color: #fff;
+  text-decoration: none;
+
   border: none;
-  border-radius: var(--radius-small);
-  font-weight: 600;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  text-align: center;
+
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.button:hover {
-  background-color: var(--color-primary-hover);
+.button:hover,
+.button:focus-visible {
+  background-color: #3156c4;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+/* планшет */
+@media (max-width: 1279px) {
+  .section {
+    padding: 80px 0;
+  }
+
+  .cardsWrapper {
+    padding: 24px 24px 32px;
+  }
+}
+
+/* мобілка */
+@media (max-width: 767px) {
+  .section {
+    padding: 60px 0;
+  }
+
+  .cardsWrapper {
+    padding: 20px 16px 28px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
 }

@@ -16,7 +16,7 @@ const nunito = Nunito_Sans({
 });
 
 const sora = Sora({
-  subsets: ["latin", "cyrillic"],
+  subsets: ["latin", "latin-ext"], 
   weight: ["400", "500", "600", "700"],
   variable: "--font-sora",
 });
@@ -36,8 +36,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="uk" className={`${nunito.variable} ${sora.variable}`}>
-      <body>
+    <html lang="uk">
+      <body className={`${nunito.variable} ${sora.variable}`}>
         <ReduxProvider>
           <ReactQueryProvider>
             <Header />
