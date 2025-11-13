@@ -1,20 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/utils/constants/routes";
+import { useAuthStore } from "@/store/useAuthStore";
 import styles from "./Header.module.css";
 
 export default function Header() {
-  const { isAuth, user } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const toggleMenu = () => setMenuOpen((p) => !p);
+  const { user, isAuthenticated, logout } = useAuthStore();
 
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 
-  const navItems = isAuth
+  const navItems = isAuthenticated
     ? [
         { label: "Головна", href: ROUTES.HOME },
         { label: "Історії", href: ROUTES.STORIES },
@@ -28,10 +29,15 @@ export default function Header() {
         { label: "Мандрівники", href: "/travellers" },
       ];
 
+  const handleLogout = () => {
+    logout();
+    closeMenu();
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link href={ROUTES.HOME} className={styles.logo}>
+        <Link href={ROUTES.HOME} className={styles.logo} onClick={closeMenu}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -53,16 +59,33 @@ export default function Header() {
             ))}
           </ul>
 
-          {isAuth ? (
+          {isAuthenticated ? (
             <div className={styles.user}>
-              <img src={user?.avatarUrl || "/avatar.svg"} alt={user?.name} />
+              <Image
+                src={user?.avatar || "/avatar.svg"}
+                alt={user?.name || "User avatar"}
+                width={32}
+                height={32}
+              />
               <span>{user?.name}</span>
-              <button className={styles.logoutBtn}>⟶</button>
+              <button
+                type="button"
+                className={styles.logoutBtn}
+                onClick={handleLogout}
+              >
+                ⟶
+              </button>
             </div>
           ) : (
             <div className={styles.authLinks}>
-              <Link href={ROUTES.AUTH.LOGIN}>Вхід</Link>
-              <Link href={ROUTES.AUTH.REGISTER} className={styles.register}>
+              <Link href={ROUTES.AUTH.LOGIN} onClick={closeMenu}>
+                Вхід
+              </Link>
+              <Link
+                href={ROUTES.AUTH.REGISTER}
+                className={styles.register}
+                onClick={closeMenu}
+              >
                 Реєстрація
               </Link>
             </div>
@@ -70,6 +93,7 @@ export default function Header() {
         </nav>
 
         <button
+          type="button"
           className={`${styles.burger} ${menuOpen ? styles.active : ""}`}
           onClick={toggleMenu}
         >

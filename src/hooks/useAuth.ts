@@ -1,13 +1,13 @@
-import { useAppSelector } from "@/store";
-import {
-  selectIsAuth,
-  selectUser,
-  selectToken,
-} from "@/store/selectors/authSelectors";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export const useAuth = () => {
-  const isAuth = useAppSelector(selectIsAuth);
-  const user = useAppSelector(selectUser);
-  const token = useAppSelector(selectToken);
-  return { isAuth, user, token };
+  const user = useAuthStore((s) => s.user);
+  const token = useAuthStore((s) => s.token);
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+
+  return {
+    isAuth: isAuthenticated,
+    user,
+    token,
+  };
 };

@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header/Header";
 import Footer from "@/components/layout/Footer/Footer";
 import ReduxProvider from "@/providers/ReduxProvider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: {
@@ -20,7 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">{/* при желании замени на "uk" */}
+    <html lang="en">
+      {/* при желании замени на "uk" */}
       <body>
         <ReduxProvider>
           <ReactQueryProvider>
@@ -29,6 +31,7 @@ export default function RootLayout({
             <Footer />
           </ReactQueryProvider>
         </ReduxProvider>
+        <Toaster position="top-center" />
       </body>
     </html>
   );

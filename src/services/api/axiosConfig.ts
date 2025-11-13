@@ -1,19 +1,17 @@
-import axios from "axios";
-import { store } from "@/store";
-import { selectToken } from "@/store/selectors/authSelectors";
+import type { InternalAxiosRequestConfig } from "axios";
+import { axiosInstance } from "@/lib/axios";
+import { useAuthStore } from "@/store/useAuthStore";
 
-// создаём общий axios-инстанс для всех API
-export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL, // https://podorozhniky-back.onrender.com
-  withCredentials: true, // бек работает с куками / авторизацией
-});
+export const api = axiosInstance;
 
-// автоматически добавляем токен при наличии
-api.interceptors.request.use((config) => {
-  const token = selectToken(store.getState());
+api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+  const token = useAuthStore.getState().token;
+
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers = config.headers ?? {};
+    (config.headers as Record<string, string>).Authorization =
+      `Bearer ${token}`;
   }
+
   return config;
 });
-
