@@ -1,72 +1,77 @@
-// "use client";
+"use client";
 
-// import { useRouter } from "next/navigation";
-// import { Formik, Form, Field, ErrorMessage } from "formik";
-// import * as Yup from "yup";
-// import toast from "react-hot-toast";
-// import { useAuthStore } from "@/store/useAuthStore";
-// import {
-//   register as apiRegister,
-//   login as apiLogin,
-// } from "@/services/api/authApi";
-// import styles from "./RegistrationForm.module.css";
-// import { RegistrationSchema } from "@/utils/validation/authSchemas";
+import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 
-// export default function RegistrationForm() {
-//   const router = useRouter();
-//   const { login } = useAuthStore();
+import { api } from "@/services/api/axiosConfig";
+import AuthForm from "../AuthForm/AuthForm";
+import styles from "./RegistrationForm.module.css";
+import {
+  registerFields,
+  registerInitialValues,
+} from "@/utils/constants/authFormConfig";
+import {
+  showErrorToast,
+  showSuccessToast,
+} from "@/components/ui/Toast/toastHelpers";
+import { RegistrationSchema } from "@/utils/validation/authSchemas";
 
-//   const handleSubmit = async (
-//     values: {
-//       name: string;
-//       email: string;
-//       password: string;
-//       confirmPassword: string;
-//     },
-//     { setSubmitting }: any
-//   ) => {
-//     try {
-//       // 1) регистрация
-//       await apiRegister({
-//         name: values.name,
-//         email: values.email,
-//         password: values.password,
-//       });
-//       // 2) авто-логин после регистрации (чтобы сразу получить user + cookies)
-//       const res = await apiLogin({
-//         email: values.email,
-//         password: values.password,
-//       });
+type RegistrationFormValues = typeof registerInitialValues;
 
-//       // сервер уже поставил HttpOnly cookies; кладём user в Zustand
-//       login(res.data.user, /* token не нужен из cookies */ "cookie");
+type ApiErrorShape = {
+  message?: string;
+  data?: {
+    message?: string;
+  };
+};
 
-//       toast.success("Реєстрація пройшла успішно!");
-//       router.push("/");
-//     } catch (error: any) {
-//       toast.error(error.message || "Помилка реєстрації");
-//     } finally {
-//       setSubmitting(false);
-//     }
-//   };
+export default function RegistrationForm() {
+  const router = useRouter();
 
-//   // ...оставляем твой JSX как есть
-//   return (
-//     <div className={styles.container}>
-//       {/* ... */}
-//       <Formik
-//         initialValues={{
-//           name: "",
-//           email: "",
-//           password: "",
-//           confirmPassword: "",
-//         }}
-//         validationSchema={RegistrationSchema}
-//         onSubmit={handleSubmit}
-//       >
-//         {/* ... */}
-//       </Formik>
-//       {/* ... */}
-//     </div>
-//   );
-// }
+  const handleRegister = async (values: RegistrationFormValues) => {
+    // просто формируем payload без confirmPassword, чтобы не было warning про unused
+    const { name, email, password } = values;
+    const payload = { name, email, password };
+
+    try {
+      const res = await api.post("/auth/register", payload);
+
+      if (res.status === 201 || res.status === 200) {
+        showSuccessToast("Успішна реєстрація");
+        router.push("/");
+      } else {
+        showErrorToast("Помилка реєстрації");
+      }
+    } catch (error: unknown) {
+      let msg = "Помилка реєстрації";
+
+      if (error instanceof AxiosError) {
+        const data = error.response?.data as ApiErrorShape | undefined;
+        msg = data?.message || data?.data?.message || "Помилка реєстрації";
+      }
+
+      showErrorToast(msg);
+    }
+  };
+
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>Реєстрація</h1>
+      <p className={styles.subtitle}>
+        Радий вас бачити у спільноті мандрівників!
+      </p>
+
+      <AuthForm<RegistrationFormValues>
+        isLogin={false}
+        fields={registerFields}
+        initialValues={registerInitialValues}
+        validationSchema={RegistrationSchema}
+        submitText="Зареєструватися"
+        onSubmitAction={async (vals, actions) => {
+          await handleRegister(vals);
+          actions.setSubmitting(false);
+        }}
+      />
+    </div>
+  );
+}
