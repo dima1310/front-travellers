@@ -38,15 +38,18 @@ export default function ClientStories({
 
   return (
     <div>
-      <TravellersStories stories={visibleStories} />
+      {/* ❌ убираем stories={visibleStories}, компонент сам загружает */}
+      <TravellersStories />
 
       {hasMore && (
         <div className={css.travellerStoriesMore}>
-          <LoadMoreButton onClick={() =>
-            setVisible((prev) =>
-              prev + (isDesktop ? initialDesktopCount : initialTabletMobileCount)
-            )
-          }>
+          <LoadMoreButton
+            onClick={() =>
+              setVisible((prev) =>
+                prev + (isDesktop ? initialDesktopCount : initialTabletMobileCount)
+              )
+            }
+          >
             Показати ще
           </LoadMoreButton>
         </div>

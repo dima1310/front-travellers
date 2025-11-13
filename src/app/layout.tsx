@@ -6,10 +6,12 @@ import ReduxProvider from "@/providers/ReduxProvider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 export const metadata: Metadata = {
-  title: "Подорожники",
-  description: "Проєкт, створений для тих, хто живе подорожами",
-  title: "Front Travellers",
-  description: "Travel App built with Next.js, Redux Toolkit & React Query",
+  title: {
+    default: "Front Travellers",
+    template: "%s | Front Travellers",
+  },
+  description:
+    "Проєкт «Подорожники» — Travel App, створений для тих, хто живе подорожами (Next.js, Redux Toolkit, React Query).",
 };
 
 export default function RootLayout({
@@ -18,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en">{/* при желании замени на "uk" */}
       <body>
         <ReduxProvider>
           <ReactQueryProvider>
