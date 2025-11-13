@@ -1,26 +1,33 @@
+// src/app/travellers/[id]/page.tsx
 import css from "./page.module.css";
 
 import TravellerInfo from "@/components/travellers/TravellerInfo/TravellerInfo";
-import ClientStories from "./ClientStories";
+import ClientStories from "@/components/travellers/ClientStories/ClientStories";
 import MessageNoStories from "@/components/stories/MessageNoStories/MessageNoStories";
 
 import type { Story } from "@/types/story.types";
 
+export const dynamic = "force-dynamic";
+
+type PageProps = { params: { id: string } };
+
 // ======================================================================
-// ЗАГРУЗКА ІСТОРІЙ КОРИСТУВАЧА
+// ЗАВАНТАЖЕННЯ ІСТОРІЙ КОРИСТУВАЧА
 // ======================================================================
+
+type TravellerArticlesResponse = {
+  data?: { articles?: Story[] };
+};
 
 async function getTravellerStories(id: string): Promise<Story[]> {
   try {
-    const base = process.env.NEXT_PUBLIC_API_URL!;
+    const base = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000/api")
+      .replace(/\/$/, "");
     const res = await fetch(`${base}/users/${id}`, { cache: "no-store" });
-
     if (!res.ok) return [];
 
-    const json = (await res.json()) as { data?: { articles?: unknown[] } };
-    const list = json?.data?.articles ?? [];
-
-    return list as unknown as Story[];
+    const json = (await res.json()) as TravellerArticlesResponse;
+    return Array.isArray(json?.data?.articles) ? json.data!.articles! : [];
   } catch {
     return [];
   }
@@ -30,16 +37,11 @@ async function getTravellerStories(id: string): Promise<Story[]> {
 // СТОРІНКА ПУБЛІЧНОГО ПРОФІЛЯ
 // ======================================================================
 
-export default async function TravellerPublicProfilePage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+export default async function TravellerPublicProfilePage({ params }: PageProps) {
+  const { id } = params;
 
   const stories = await getTravellerStories(id);
-
-  const hasStories = Array.isArray(stories) && stories.length > 0;
+  const hasStories = stories.length > 0;
 
   return (
     <main className={css.publicProfile}>
@@ -53,14 +55,12 @@ export default async function TravellerPublicProfilePage({
         <h2 className={css.travellerStoriesTitle}>Історії Мандрівника</h2>
 
         {hasStories ? (
-          /* Якщо є історії → показуємо список */
           <ClientStories
             stories={stories}
             initialDesktopCount={6}
             initialTabletMobileCount={4}
           />
         ) : (
-          /* Якщо історій немає → показуємо заглушку */
           <MessageNoStories
             text="Цей користувач ще не публікував історій"
             buttonText="Назад до історій"
