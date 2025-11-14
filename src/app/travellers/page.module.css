@@ -1,20 +1,90 @@
-.section{
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+.section {
+  max-width: 1440px;              /* как на макете — широкий внешний блок */
+  margin: 80px auto 100px;
+  padding: 64px 64px 80px;        /* фигма: сверху 64, слева/справа 64 */
+  background-color: #f6f8ff;
+  border-radius: 24px;
+  border: 1px solid #d9e7ff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;            /* центрируем контент внутри */
+  gap: 32px;
 }
 
+/* Заголовок "Мандрівники" */
 .title {
-  font-size: 56px;
-  line-height: 1.1;
-  font-weight: 400;
+  font-family: var(--font-sora);
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 700;
   color: #000000;
   text-align: center;
   margin: 0;
 }
 
+/* обёртка для сетки карточек — 1312px как в макете */
+.cardsWrapper {
+  width: 100%;
+  max-width: 1312px;              /* 4 карточки × 310 + 3×24 gap */
+}
+
+.status {
+  text-align: center;
+  font-size: 16px;
+}
+
 .loadMoreWrapper {
   display: flex;
   justify-content: center;
+  width: 100%;
   margin-top: 16px;
+}
+
+.loadMoreButton {
+  padding: 10px 32px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  background-color: #4169e1;
+  color: #ffffff;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.loadMoreButton:hover,
+.loadMoreButton:focus-visible {
+  background-color: #3156c4;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.loadMoreButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+/* TABLET ≤ 1279px */
+@media (max-width: 1279px) {
+  .section {
+    padding: 40px 24px 48px;      /* уменьшили, чтобы не переполняло */
+  }
+
+  .title {
+    font-size: 28px;
+  }
+}
+
+/* MOBILE ≤ 767px */
+@media (max-width: 767px) {
+  .section {
+    padding: 24px 16px 32px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
 }

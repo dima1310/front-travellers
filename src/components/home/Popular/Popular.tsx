@@ -2,22 +2,28 @@
 
 import { useInfiniteStories } from "@/services/queries/useStoriesQuery";
 import PopularStoriesItem from "./PopularStoriesItem/PopularStoriesItem";
+import LoadMoreButton from "@/components/ui/Button/LoadMoreButton/LoadMoreButton";
 import styles from "./Popular.module.css";
 
-// ✅ типы
 import type { Story, StoriesResponse } from "@/types/story.types";
 import type { InfiniteData } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export default function Popular() {
-  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useInfiniteStories();
+  const router = useRouter();
 
-  // ✅ Явно приводим data к InfiniteData и получаем страницы
+  // берем только data и isLoading — пагинация тут НЕ нужна
+  const { data, isLoading } = useInfiniteStories();
+
   const pages =
     (data as InfiniteData<StoriesResponse, number> | undefined)?.pages ?? [];
 
-  // ✅ Гарантируем тип Story[]
-  const stories: Story[] = pages.flatMap((p) => p.items ?? []);
+  // на главной показываем только 3 истории
+  const stories: Story[] = pages.flatMap((p) => p.items ?? []).slice(0, 3);
+
+  const handleGoToStories = () => {
+    router.push("/stories");
+  };
 
   return (
     <section className={styles.section} id="popular">
@@ -34,15 +40,15 @@ export default function Popular() {
           </div>
         )}
 
-        {hasNextPage && (
-          <button
-            onClick={() => fetchNextPage()}
+        {/* центрированная кнопка "Переглянути всі" */}
+        <div className={styles.buttonWrapper}>
+          <LoadMoreButton
+            onClick={handleGoToStories}
             className={styles.button}
-            disabled={isFetchingNextPage}
           >
-            {isFetchingNextPage ? "Завантаження..." : "Переглянути всі"}
-          </button>
-        )}
+            Переглянути всі
+          </LoadMoreButton>
+        </div>
       </div>
     </section>
   );

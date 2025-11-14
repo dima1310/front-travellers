@@ -1,32 +1,97 @@
-.card{
-    width: 100%;
-    min-height: 363px;
-    padding: 24px;
-    background-color: #E8EEFF;
-    border-radius: 16px;
-    gap:24px;
-    display: flex;
-    flex-direction: column;
-}
-.avatar{
-    width: 112px;
-    height: 112px;
-    border-radius: 50%;
-    object-fit: cover;  /* чтобы лицо не растягивалось */
-    display: block;  
-}
-.name{
-    color: #000000;
-    font-weight: 600;
-    font-size: 18px;
-     margin: 0;
-     line-height: 1.5;
+/* === MOBILE FIRST (мобилка ≤767px) === */
+/* карточка 335 × 363 */
+
+.card {
+  width: 100%;
+  max-width: 335px;
+  min-height: 363px;
+
+  padding: 24px 20px 20px;
+
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(24, 59, 86, 0.06);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+
+  /* ВАЖНО: gap убрали, чтобы вручную ставить отступы как в FIGMA */
+  gap: 0;
+
+  margin: 0 auto;
 }
 
-.text{
-       color: #000000;
-    font-weight: 400;
-    font-size: 18px;
-     margin: 0;
-     line-height: 1.5;
+/* === АВАТАР === */
+
+.avatar {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* === ИМЯ === */
+/* расстояние от АВАТАРА до ИМЕНИ = 24px (по макету) */
+
+.name {
+  margin-top: 24px;
+
+  font-family: var(--font-sora);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #000;
+  margin-bottom: 0;
+}
+
+/* === ТЕКСТ === */
+/* расстояние от ИМЕНИ до ТЕКСТА = 16px (по FIGMA) */
+
+.text {
+  margin-top: 16px;
+
+  font-family: var(--font-nunito);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #171717;
+  margin-bottom: 0;
+
+  /* максимум 3 строки */
+  max-height: 4.5em;
+  overflow: hidden;
+}
+
+/* === КНОПКА === */
+/* прижимается вниз */
+
+.card :global(button) {
+  margin-top: auto;
+  width: 100%;
+  max-width: 260px;
+}
+
+/* === TABLET 768–1279px === */
+/* карточка 340 × 363 */
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .card {
+    max-width: 340px;
+    min-height: 363px;
+    padding: 24px 20px 20px;
+  }
+}
+
+/* === DESKTOP ≥1280px === */
+/* карточка 310 × 384 */
+
+@media (min-width: 1280px) {
+  .card {
+    max-width: 310px;
+    min-height: 384px;
+    padding: 24px 20px 20px;
+  }
 }
