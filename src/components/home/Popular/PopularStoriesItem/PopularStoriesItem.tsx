@@ -6,14 +6,13 @@ import styles from "./PopularStoriesItem.module.css";
 import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/utils/constants/routes";
 import { useState } from "react";
-import type { Story } from "@/types/story.types"; // ✅ используем бекенд-тип
+import type { Story } from "@/types/story.types";
 
 type Props = { story: Story };
 
 export default function PopularStoriesItem({ story }: Props) {
   const { isAuth } = useAuth();
 
-  // поля бекенда: _id, title, description, img, owner{name, avatar}, date, favoriteCount
   const [bookmarked, setBookmarked] = useState(false);
   const [count, setCount] = useState<number>(story.favoriteCount ?? 0);
   const [loading, setLoading] = useState(false);
@@ -26,7 +25,7 @@ export default function PopularStoriesItem({ story }: Props) {
 
     try {
       setLoading(true);
-      // TODO: заменить на реальный API вызов
+      // TODO: заменить на реальный API-вызов
       await new Promise((res) => setTimeout(res, 800));
       setBookmarked((prev) => !prev);
       setCount((prev) => (bookmarked ? Math.max(0, prev - 1) : prev + 1));
@@ -36,6 +35,8 @@ export default function PopularStoriesItem({ story }: Props) {
       setLoading(false);
     }
   };
+
+  const formattedDate = new Date(story.date).toLocaleDateString("uk-UA");
 
   return (
     <div className={styles.card}>
@@ -51,35 +52,59 @@ export default function PopularStoriesItem({ story }: Props) {
 
       <div className={styles.content}>
         <h3 className={styles.title}>{story.title}</h3>
+
         {!!story.description && (
-          <p className={styles.text}>
-            {story.description.slice(0, 120)}
-            {story.description.length > 120 ? "..." : ""}
-          </p>
+          // ✅ даём полный текст, сокращать будем через CSS (3 строки)
+          <p className={styles.text}>{story.description}</p>
         )}
 
-        <div className={styles.author}>
-          <Image
-            src={story.owner?.avatar || "/avatar.svg"}
-            alt={story.owner?.name || "Автор"}
-            width={32}
-            height={32}
-          />
-          <span>{story.owner?.name || "Автор"}</span>
+        {/* === Автор, дата, кількість === */}
+        <div className={styles.authorRow}>
+          <div className={styles.author}>
+            <Image
+              src={story.owner?.avatar || "/avatar.svg"}
+              alt={story.owner?.name || "Автор"}
+              width={48}
+              height={48}
+              className={styles.authorAvatar}
+            />
+
+            <div className={styles.authorInfo}>
+              <span className={styles.authorName}>
+                {story.owner?.name || "Автор"}
+              </span>
+
+              <div className={styles.authorMeta}>
+                <span className={styles.authorDate}>{formattedDate}</span>
+                <span className={styles.authorDot}>•</span>
+                <span className={styles.authorCount}>{count}</span>
+                <span className={styles.authorIcon}>★</span>
+              </div>
+            </div>
+          </div>
         </div>
 
+        {/* === Низ: кнопка + bookmark === */}
         <div className={styles.footer}>
-          <Link href={`/stories/${story._id}`} className={styles.link}>
+          <Link href={`/stories/${story._id}`} className={styles.button}>
             Переглянути статтю
           </Link>
 
           <button
+            type="button"
             onClick={handleBookmark}
-            className={`${styles.bookmark} ${bookmarked ? styles.active : ""}`}
+            className={`${styles.iconButton} ${
+              bookmarked ? styles.iconButtonActive : ""
+            }`}
             disabled={loading}
             aria-pressed={bookmarked}
+            aria-label={
+              bookmarked
+                ? "Видалити історію з обраних"
+                : "Додати історію в обрані"
+            }
           >
-            {loading ? "..." : "★"} {count}
+            {loading ? "…" : "★"}
           </button>
         </div>
       </div>

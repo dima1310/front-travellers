@@ -1,23 +1,5 @@
 import { api } from "@/services/api/axiosConfig";
-
-export type TravellerProfile = {
-  _id: string;
-  name: string;
-  avatarUrl?: string;
-  bio?: string;
-  socialLinks?: {
-    twitter?: string;
-    facebook?: string;
-    instagram?: string;
-  };
-};
-
-export type TravellerCard = {
-  _id: string;
-  name: string;
-  avatarUrl?: string;
-  bio?: string;
-};
+import type { Traveller } from "@/types/traveller.types";
 
 type SocialLinks = {
   twitter?: string;
@@ -25,22 +7,21 @@ type SocialLinks = {
   instagram?: string;
 };
 
-interface RawTraveller {
+export type TravellerProfile = {
   _id: string;
   name: string;
   avatar?: string;
   bio?: string;
-}
+  socialLinks?: SocialLinks;
+};
 
-type BackendUser = RawTraveller & { socialLinks?: SocialLinks };
-
-function toCard(u: RawTraveller): TravellerCard {
-  return {
-    _id: String(u._id),
-    name: u.name,
-    avatarUrl: u.avatar ?? undefined,
-    bio: u.bio ?? "",
-  };
+interface RawTraveller {
+  _id: string;
+  name: string;
+  avatar?: string; // как приходит из бэка
+  bio?: string;
+  country?: string;
+  socialLinks?: SocialLinks;
 }
 
 type WithDataArray = { data?: RawTraveller[] };
@@ -53,59 +34,95 @@ type TravellersApiResponse =
   | WithDataUsers
   | WithItems;
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
+
+// =====================
+//  AVATAR NORMALIZER
+// =====================
+function normalizeAvatar(path?: string): string | undefined {
+  if (!path) return undefined;
+
+  // если бэк вернул полный URL
+  if (path.startsWith("http")) return path;
+
+  // относительный путь -> дописываем базовый URL
+  return `${API_URL}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+// =====================
+//  NORMALIZATION
+// =====================
 function normalizeUsers(json: TravellersApiResponse): RawTraveller[] {
   if (Array.isArray(json)) return json;
 
-  if ("data" in json && Array.isArray(json.data)) {
-    return json.data;
+  if ("data" in json && Array.isArray((json as WithDataArray).data)) {
+    return (json as WithDataArray).data!;
   }
 
   if (
     "data" in json &&
-    json.data &&
-    typeof json.data === "object" &&
-    "users" in json.data &&
-    Array.isArray(json.data.users)
+    (json as WithDataUsers).data &&
+    Array.isArray((json as WithDataUsers).data!.users)
   ) {
-    return json.data.users;
+    return (json as WithDataUsers).data!.users!;
   }
 
-  if ("items" in json && Array.isArray(json.items)) {
-    return json.items;
+  if ("items" in json && Array.isArray((json as WithItems).items)) {
+    return (json as WithItems).items!;
   }
 
   return [];
 }
 
+// =====================
+//  TRANSFORMER
+// =====================
+function toTraveller(u: RawTraveller): Traveller {
+  return {
+    _id: String(u._id),
+    name: u.name,
+    bio: u.bio ?? "",
+    country: u.country,
+    avatar: normalizeAvatar(u.avatar),
+  };
+}
+
+// =====================
+//  GET BY ID (профиль)
+// =====================
 export async function getTravellerById(id: string): Promise<TravellerProfile> {
-  const res = await api.get<{ data?: { user?: BackendUser } }>(`/users/${id}`);
+  const res = await api.get<{ data?: { user?: RawTraveller } }>(`/users/${id}`);
 
   const u = res.data?.data?.user;
   if (!u) throw new Error("User not found");
 
   return {
-    _id: u._id,
+    _id: String(u._id),
     name: u.name,
-    avatarUrl: u.avatar ?? undefined,
     bio: u.bio ?? "",
+    avatar: normalizeAvatar(u.avatar),
     socialLinks: u.socialLinks,
   };
 }
 
-async function listTravellers(
+// =====================
+//  LIST USERS (карточки)
+// =====================
+
+export async function listTravellers(
   page?: number,
   limit?: number
-): Promise<TravellerCard[]>;
+): Promise<Traveller[]>;
 
-async function listTravellers(opts?: {
+export async function listTravellers(opts?: {
   page?: number;
   limit?: number;
-}): Promise<TravellerCard[]>;
+}): Promise<Traveller[]>;
 
-async function listTravellers(
+export async function listTravellers(
   a?: number | { page?: number; limit?: number },
   b?: number
-): Promise<TravellerCard[]> {
+): Promise<Traveller[]> {
   const page = typeof a === "number" ? a : a?.page ?? 1;
   const limit = typeof a === "number" ? b ?? 12 : a?.limit ?? 12;
 
@@ -114,7 +131,7 @@ async function listTravellers(
   });
 
   const users = normalizeUsers(res.data);
-  return users.map(toCard);
+  return users.map(toTraveller);
 }
 
 export const travellersApi = {

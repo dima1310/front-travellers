@@ -10,7 +10,15 @@ export default function TravellersPage() {
   const isTablet = useMediaQuery("(max-width: 1279px)");
   const isMobile = useMediaQuery("(max-width: 767px)");
 
-  const { data, isLoading, isError, error } = useTravellersQuery();
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useTravellersQuery();
 
   // збираємо всі сторінки в один масив
   const allTravellers =
@@ -24,16 +32,52 @@ export default function TravellersPage() {
 
   const [visibleCount, setVisibleCount] = useState(initialCount);
 
+  // при зміні брейкпоінта або кількості мандрівників — скидаємо лічильник
   useEffect(() => {
-    // при зміні брейкпоінта або кількості мандрівників
     setVisibleCount(initialCount);
   }, [initialCount, allTravellers.length]);
 
-  const visibleTravellers = allTravellers.slice(0, visibleCount);
-  const canShowMore = visibleCount < allTravellers.length;
+  // авто-догрузка сторінок, щоб на старті було 8/12, а не 4
+  useEffect(() => {
+    if (
+      !isLoading &&
+      allTravellers.length < initialCount &&
+      hasNextPage &&
+      !isFetchingNextPage
+    ) {
+      fetchNextPage();
+    }
+  }, [
+    isLoading,
+    allTravellers.length,
+    initialCount,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  ]);
 
-  const handleShowMore = () => {
-    setVisibleCount((prev) => Math.min(prev + 4, allTravellers.length));
+  const visibleTravellers = allTravellers.slice(0, visibleCount);
+
+  // крок догрузки: +4 завжди
+  const increment = 4;
+
+  const canShowMore =
+    (allTravellers.length > 0 && visibleCount < allTravellers.length) ||
+    hasNextPage;
+
+  const handleShowMore = async () => {
+    const needMoreFromServer =
+      visibleCount + increment > allTravellers.length &&
+      hasNextPage &&
+      !isFetchingNextPage;
+
+    if (needMoreFromServer) {
+      await fetchNextPage();
+    }
+
+    setVisibleCount((prev) =>
+      Math.min(prev + increment, allTravellers.length)
+    );
   };
 
   return (
@@ -51,7 +95,10 @@ export default function TravellersPage() {
 
       {!isLoading && !isError && (
         <>
-          <TravellersList travellers={visibleTravellers} />
+          {/* обёртка шириною 1312px під сітку, як у макеті */}
+          <div className={styles.cardsWrapper}>
+            <TravellersList travellers={visibleTravellers} />
+          </div>
 
           {canShowMore && (
             <div className={styles.loadMoreWrapper}>
@@ -59,8 +106,9 @@ export default function TravellersPage() {
                 type="button"
                 className={styles.loadMoreButton}
                 onClick={handleShowMore}
+                disabled={isFetchingNextPage}
               >
-                Переглянути всі
+                {isFetchingNextPage ? "Завантаження..." : "Переглянути ще"}
               </button>
             </div>
           )}

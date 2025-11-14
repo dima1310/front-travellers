@@ -6,19 +6,19 @@ import type { Traveller } from "@/types/traveller.types";
 type Props = Traveller;
 
 export const TravellersListItem = ({ _id, name, bio, avatar }: Props) => {
-  // src для <img>, чтобы не передавать пустую строку
+  // безопасный src: если аватар пустой — показываем заглушку
   const avatarSrc =
     avatar && avatar.trim() !== "" ? avatar : "/icons/user.svg";
 
   return (
-    <div className={css.card}>
-      <img src={avatarSrc} alt={name} className={css.avatar} />
+    <article className={css.card}>
+      <img className={css.avatar} src={avatarSrc} alt={name} />
 
       <h3 className={css.name}>{name}</h3>
 
-      <p className={css.text}>{bio}</p>
+      {bio && <p className={css.text}>{bio}</p>}
 
       <ButtonProfile id={_id} />
-    </div>
+    </article>
   );
 };

@@ -1,22 +1,32 @@
 .section {
-  max-width: 1216px;
+  max-width: 1440px;              /* как на макете — широкий внешний блок */
   margin: 80px auto 100px;
-  padding: 40px 60px 60px;
+  padding: 64px 64px 80px;        /* фигма: сверху 64, слева/справа 64 */
   background-color: #f6f8ff;
   border-radius: 24px;
   border: 1px solid #d9e7ff;
+
   display: flex;
   flex-direction: column;
+  align-items: center;            /* центрируем контент внутри */
   gap: 32px;
 }
 
+/* Заголовок "Мандрівники" */
 .title {
+  font-family: var(--font-sora);
   font-size: 32px;
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 700;
   color: #000000;
   text-align: center;
   margin: 0;
+}
+
+/* обёртка для сетки карточек — 1312px как в макете */
+.cardsWrapper {
+  width: 100%;
+  max-width: 1312px;              /* 4 карточки × 310 + 3×24 gap */
 }
 
 .status {
@@ -27,10 +37,10 @@
 .loadMoreWrapper {
   display: flex;
   justify-content: center;
+  width: 100%;
   margin-top: 16px;
 }
 
-/* кнопка "Переглянути всі" */
 .loadMoreButton {
   padding: 10px 32px;
   border-radius: 999px;
@@ -51,10 +61,16 @@
   transform: translateY(-1px);
 }
 
+.loadMoreButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+/* TABLET ≤ 1279px */
 @media (max-width: 1279px) {
   .section {
-    margin: 60px auto 80px;
-    padding: 32px 24px 40px;
+    padding: 40px 24px 48px;      /* уменьшили, чтобы не переполняло */
   }
 
   .title {
@@ -62,9 +78,9 @@
   }
 }
 
+/* MOBILE ≤ 767px */
 @media (max-width: 767px) {
   .section {
-    margin: 40px auto 60px;
     padding: 24px 16px 32px;
   }
 

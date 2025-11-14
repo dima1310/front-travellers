@@ -1,52 +1,59 @@
+/* === MOBILE FIRST === */
+
 .section {
-  padding: 100px 0;
-  background-color: var(--color-bg-light); /* сірий фон сторінки */
+  padding: 48px 0 80px;
+  background-color: var(--color-bg-light);
 }
 
+/* главный контейнер */
 .container {
-  max-width: 1216px;
+  max-width: 1440px;
+  width: 90%;
   margin: 0 auto;
-  padding: 0 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
 }
 
-/* заголовок зліва, як на макеті */
+/* заголовок — MOBILE (BASE) */
 .title {
-  font-size: 32px;
+  font-family: var(--font-sora); 
+  font-size: 28px;
   font-weight: 700;
-  color: var(--color-text);
-  margin: 0 0 32px;
-  text-align: left;
+  line-height: 1.2;
+  letter-spacing: -1%;
+  margin: 0 0 24px;
+  text-align: left;            
+  color: #171717;
 }
 
-.loading {
-  color: var(--color-text-light);
-  font-size: 16px;
-}
-
-/* синій прямокутник з картками всередині */
+/* синяя рамка */
 .cardsWrapper {
-  padding: 32px 40px 40px;
+  width: 100%;
+  padding: 20px 16px 28px;
   background-color: #f6f8ff;
   border-radius: 24px;
   border: 1px solid #d9e7ff;
 }
 
-/* кнопка по центру під блоком */
+/* кнопка под рамкой: центр */
 .button {
-  display: inline-block;
   margin: 32px auto 0;
   padding: 10px 32px;
 
   background-color: #4169e1;
   color: #fff;
-  text-decoration: none;
 
   border: none;
   border-radius: 999px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  text-align: center;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
@@ -54,14 +61,13 @@
 .button:hover,
 .button:focus-visible {
   background-color: #3156c4;
-  outline: none;
   transform: translateY(-1px);
 }
 
-/* планшет */
-@media (max-width: 1279px) {
-  .section {
-    padding: 80px 0;
+/* === TABLET === */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .title {
+    font-size: 30px; 
   }
 
   .cardsWrapper {
@@ -69,17 +75,14 @@
   }
 }
 
-/* мобілка */
-@media (max-width: 767px) {
-  .section {
-    padding: 60px 0;
+/* === DESKTOP === */
+@media (min-width: 1280px) {
+  .title {
+    font-size: 32px;
+    margin-bottom: 32px;
   }
 
   .cardsWrapper {
-    padding: 20px 16px 28px;
-  }
-
-  .title {
-    font-size: 28px;
+    padding: 32px 40px 40px;
   }
 }
