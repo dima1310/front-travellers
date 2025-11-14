@@ -1,1 +1,104 @@
-css
+.confirmBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.confirmModal {
+    background-color: #F7F9FF;
+    padding: 64px;
+    border-radius: 24px;
+    max-width: 768px;
+    width: 100%;
+    position: relative;
+}
+
+.confirmcloseButton {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: transparent;
+    border: none;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.confirmTitle {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: #000;
+    padding-bottom: 16px;
+}
+
+.confirmText {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 150%;
+    text-align: center;
+    color: #000;
+}
+
+.buttons {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.cancelBtn {
+    border-radius: 8px;
+    padding: 6px 12px;
+    width: 203px;
+    height: 48px;
+    color:#000;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.cancelBtn:hover,
+.cancelBtn:focus {
+    background-color: #e8eeff;
+    border: 1px solid #4169e1;
+}
+
+.cancelBtn:active {
+    background-color: #7a96ea;
+    border: 1px solid #4169e1;
+}
+
+.confirmBtn {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    border: 1px solid #4169e1;
+    border-radius: 8px;
+    padding: 6px 12px;
+    width: 203px;
+    height: 48px;
+    background-color: #4169e1;
+    color: #fff;
+}
+
+.confirmBtn:hover,
+.confirmBtn:focus {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.confirmBtn:active {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: #1a2a5a;
+}

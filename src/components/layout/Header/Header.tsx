@@ -6,11 +6,14 @@ import Link from "next/link";
 import { ROUTES } from "@/utils/constants/routes";
 import { useAuthStore } from "@/store/useAuthStore";
 import styles from "./Header.module.css";
+import ConfirmModal from "@/components/modals/ConfirmModal/ConfirmModal";
+import { useModal } from "@/hooks/useModal";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const { user, isAuthenticated, logout } = useAuthStore();
+  const logoutModal = useModal();
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
@@ -30,11 +33,17 @@ export default function Header() {
       ];
 
   const handleLogout = () => {
-    logout();
+    logoutModal.onOpen();
     closeMenu();
   };
 
+  const confirmLogout = () => {
+    logout();
+    logoutModal.onClose();
+  };
+
   return (
+    <>
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href={ROUTES.HOME} className={styles.logo} onClick={closeMenu}>
@@ -103,5 +112,16 @@ export default function Header() {
         </button>
       </div>
     </header>
+    {logoutModal.open && (
+      <ConfirmModal
+          title="Ви точно хочете вийти?"
+          text="Ми будемо сумувати за вами!"
+          cancelButtonText="Відмінити"
+          confirmButtonText="Вийти"
+          onCancel={logoutModal.onClose}
+          onConfirm={confirmLogout}
+        />
+      )}
+    </>
   );
 }
