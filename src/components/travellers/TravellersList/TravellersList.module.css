@@ -1,1 +1,39 @@
-css
+
+/* контейнер для списка  карточек */
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 64px; /* мобильная и планшет */
+}
+/*  базовый grid всегда включён, чтобы карточки не тянулись на всю ширину */
+.grid {
+  display: grid;          
+  gap: 24px;               
+  grid-template-columns: 1fr; /* мобилка по умолчанию, 1 колонка */ 
+}
+
+/* Мобилка — 1 колонка */
+@media (max-width: 767px) {
+  .grid {
+    gap: 24px;
+    }
+}
+
+
+/* планшет - 2 колонки */
+@media (min-width: 768px){
+.grid{
+  grid-template-columns: repeat(2, 1fr); 
+}
+}
+
+
+/* Десктоп — 4 колонки */
+@media (min-width: 1024px) {
+  .wrap {
+    gap: 72px; 
+  }
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

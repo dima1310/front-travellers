@@ -1,3 +1,72 @@
-import { loadGetInitialProps } from "next/dist/shared/lib/utils";
+"use client";
 
-loadGetInitialProps;
+import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
+
+import { api } from "@/services/api/axiosConfig";
+import AuthForm from "../AuthForm/AuthForm";
+import styles from "./LoginForm.module.css";
+
+import {
+  loginFields,
+  loginInitialValues,
+} from "@/utils/constants/authFormConfig";
+import {
+  showErrorToast,
+  showSuccessToast,
+} from "@/components/ui/Toast/toastHelpers";
+import { LoginSchema } from "@/utils/validation/authSchemas";
+
+type LoginFormValues = typeof loginInitialValues;
+
+type ApiErrorShape = {
+  message?: string;
+  data?: {
+    message?: string;
+  };
+};
+
+export default function LoginForm() {
+  const router = useRouter();
+
+  const handleLogin = async (values: LoginFormValues) => {
+    try {
+      const res = await api.post("/auth/login", values);
+
+      if (res.status === 200 || res.status === 201) {
+        showSuccessToast("Логін успішний");
+        router.push("/");
+      } else {
+        showErrorToast("Помилка логіна");
+      }
+    } catch (error: unknown) {
+      let msg = "Помилка логіна";
+
+      if (error instanceof AxiosError) {
+        const data = error.response?.data as ApiErrorShape | undefined;
+        msg = data?.message || data?.data?.message || "Помилка логіна";
+      }
+
+      showErrorToast(msg);
+    }
+  };
+
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>Вхід</h1>
+      <p className={styles.subtitle}>Вітаємо знову у спільноті мандрівників!</p>
+
+      <AuthForm<LoginFormValues>
+        isLogin
+        fields={loginFields}
+        initialValues={loginInitialValues}
+        validationSchema={LoginSchema}
+        submitText="Увійти"
+        onSubmitAction={async (vals, actions) => {
+          await handleLogin(vals);
+          actions.setSubmitting(false);
+        }}
+      />
+    </div>
+  );
+}
