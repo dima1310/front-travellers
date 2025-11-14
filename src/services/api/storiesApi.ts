@@ -1,8 +1,20 @@
+import axios from "axios";
 import { api } from "./axiosConfig";
 import type { Story, StoriesApiPage, StoriesResponse } from "@/types/story.types";
 
+const BASE_URL = "https://podorozhniky-back.onrender.com/api";
+
+// 🔹 Створення історії 
+export const createStory = async (formData: FormData) => {
+  const response = await axios.post(`${BASE_URL}/stories`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+    withCredentials: true,
+  });
+  return response.data;
+};
+
+// 🔹 Основний storiesApi з main
 export const storiesApi = {
-  // 🔹 Популярні історії — сортируем по favoriteCount
   async popular(): Promise<Story[]> {
     const { data } = await api.get<{
       status: number;
@@ -11,17 +23,15 @@ export const storiesApi = {
     }>("/stories", {
       params: {
         page: 1,
-        perPage: 4,             // сколько карточек на главной
+        perPage: 4,
         sortBy: "favoriteCount",
         sortOrder: "desc",
       },
     });
 
-    // data: { status, message, data: StoriesApiPage }
-    return data.data.data;      // <-- здесь data.data: StoriesApiPage, у него есть .data: Story[]
+    return data.data.data;
   },
 
-  // 🔹 Пагінований список історій (для /stories и infiniteQuery)
   async list(page = 1, perPage = 12): Promise<StoriesResponse> {
     const { data } = await api.get<{
       status: number;
@@ -36,9 +46,8 @@ export const storiesApi = {
       },
     });
 
-    const pageData = data.data; // тип StoriesApiPage
+    const pageData = data.data;
 
-    // Маппим в удобный формат для UI
     return {
       items: pageData.data,
       page: pageData.page,
