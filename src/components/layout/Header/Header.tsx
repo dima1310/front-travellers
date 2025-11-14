@@ -49,10 +49,14 @@ export default function Header() {
         </Link>
 
         <nav className={`${styles.nav} ${menuOpen ? styles.open : ""}`}>
-          <ul>
+          <ul className={styles.navList}>
             {navItems.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} onClick={closeMenu}>
+              <li key={item.href} className={styles.navItem}>
+                <Link
+                  href={item.href}
+                  className={styles.navLink}
+                  onClick={closeMenu}
+                >
                   {item.label}
                 </Link>
               </li>
@@ -78,12 +82,16 @@ export default function Header() {
             </div>
           ) : (
             <div className={styles.authLinks}>
-              <Link href={ROUTES.AUTH.LOGIN} onClick={closeMenu}>
+              <Link
+                href={ROUTES.AUTH.LOGIN}
+                className={styles.loginBtn}
+                onClick={closeMenu}
+              >
                 Вхід
               </Link>
               <Link
                 href={ROUTES.AUTH.REGISTER}
-                className={styles.register}
+                className={styles.registerBtn}
                 onClick={closeMenu}
               >
                 Реєстрація

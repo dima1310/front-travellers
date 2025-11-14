@@ -1,15 +1,20 @@
 .header {
-  background: #0f0f0fe6;
-  position: sticky;
+  position: absolute;        /* поверх hero */
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 100;
-  backdrop-filter: blur(6px);
+
+  background: transparent;
+  padding: 20px 0;
+  backdrop-filter: blur(4px);
 }
 
 .container {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 20px 40px;
+  padding: 0 40px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,38 +24,109 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--color-primary);
+
+  color: #ffffff;
   font-weight: 700;
   font-size: 20px;
   text-decoration: none;
 }
 
+/* NAV */
+
 .nav {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
 }
 
-.nav ul {
+.navList {
   display: flex;
+  align-items: center;
   gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.nav a {
-  text-decoration: none;
-  color: var(--color-text);
-  font-weight: 500;
+.navItem {
 }
 
-.authLinks a {
-  margin-left: 16px;
+.navLink {
   text-decoration: none;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 4px 12px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.navLink:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* AUTH — кнопки "Вхід" и "Реєстрація" */
+
+.authLinks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* "Вхід" — Secondary / Small / Alternate
+   bg: Opacity/White 10, border: Opacity/White 10, padding 4 / 10 */
+.loginBtn {
+  padding: 4px 10px;
+
+  border-radius: 8px; /* Radius/Small */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
+
+  font-family: var(--font-nunito);
+  font-size: 14px;
   font-weight: 600;
+  line-height: 1.2;
+
+  color: #ffffff;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.register {
-  color: var(--color-primary);
+.loginBtn:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.18);
 }
+
+/* "Реєстрація" — Primary / Small
+   bg: White, border: White, padding 4 / 10 */
+.registerBtn {
+  padding: 4px 10px;
+
+  border-radius: 8px; /* Radius/Small */
+  border: 1px solid #ffffff;
+  background: #ffffff;
+
+  font-family: var(--font-nunito);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+
+  color: #1b1b1b; /* тёмный текст на белом фоне */
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.registerBtn:hover {
+  background-color: #f4f6ff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+/* BURGER */
 
 .burger {
   display: none;
@@ -66,13 +142,18 @@
 .burger span {
   height: 3px;
   width: 100%;
-  background: var(--color-text);
+  background: #ffffff;
   border-radius: 2px;
   transition: all 0.3s ease;
 }
 
-/* 🧱 Mobile */
+/* 🧱 Mobile (как у тебя было; дальше можно перевести на min-width при необходимости) */
+
 @media (max-width: 768px) {
+  .header {
+    position: fixed;
+  }
+
   .burger {
     display: flex;
   }
@@ -80,7 +161,7 @@
   .nav {
     position: fixed;
     inset: 0;
-    background: var(--color-bg);
+    background: #020617;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -93,7 +174,12 @@
     transform: translateY(0);
   }
 
-  body.no-scroll {
-    overflow: hidden;
+  .navList {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .authLinks {
+    flex-direction: column;
   }
 }
