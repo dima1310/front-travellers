@@ -16,11 +16,7 @@ const nunito = Nunito_Sans({
 });
 
 const sora = Sora({
-<<<<<<< HEAD
   subsets: ["latin", "latin-ext"], 
-=======
-  subsets: ["latin"],
->>>>>>> 324f4af9c1034f1c7e43129e6df49b8ddad30e55
   weight: ["400", "500", "600", "700"],
   variable: "--font-sora",
 });
