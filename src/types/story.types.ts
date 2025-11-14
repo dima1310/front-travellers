@@ -33,3 +33,22 @@ export type StoriesResponse = {
   totalPages: number;
   hasNextPage: boolean;
 };
+
+
+
+export interface CreatedStoryData {
+  _id: string;
+  title: string;
+  category: string;
+  description: string;
+  text: string;
+  cover: string;
+  author: string;
+  createdAt: string;
+}
+
+export interface CreatedStoryResponse {
+  status: number;
+  message: string;
+  data: CreatedStoryData;
+}

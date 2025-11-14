@@ -1,18 +1,29 @@
 "use client";
 
-import { redirect } from "next/navigation";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import AddStoryForm from "@/components/forms/AddStoryForm/AddStoryForm";
 import { useAuthStore } from "@/store/useAuthStore";
-
-
 import styles from "./page.module.css";
 
 export default function CreateStoryPage() {
-  const { isAuthenticated } = useAuthStore();
+  const router = useRouter();
+  const { isAuthenticated, hydrated } = useAuthStore();
 
-  // Redirect if not authenticated
+  useEffect(() => {
+    if (hydrated && !isAuthenticated) {
+      router.push("/auth/login");
+    }
+  }, [hydrated, isAuthenticated, router]);
+
+  // Поки store НЕ завантажив дані — не редіректимо
+  if (!hydrated) {
+    return <p className={styles.loading}>Завантаження...</p>;
+  }
+
+  // Якщо вже загідровано і юзер не авторизований
   if (!isAuthenticated) {
-    redirect("/auth/login");
+    return <p className={styles.loading}>Перенаправлення...</p>;
   }
 
   return (
