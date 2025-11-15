@@ -1,4 +1,4 @@
-/* === MOBILE FIRST === */
+/* === MOBILE FIRST (320–374px) === */
 
 .section {
   padding: 48px 0 80px;
@@ -13,18 +13,18 @@
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: flex-start;
 }
 
 /* заголовок — MOBILE (BASE) */
 .title {
-  font-family: var(--font-sora); 
+  font-family: var(--font-sora);
   font-size: 28px;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -1%;
   margin: 0 0 24px;
-  text-align: left;            
+  text-align: left;
   color: #171717;
 }
 
@@ -37,7 +37,7 @@
   border: 1px solid #d9e7ff;
 }
 
-/* кнопка под рамкой: центр */
+/* кнопка под рамкой */
 .button {
   margin: 32px auto 0;
   padding: 10px 32px;
@@ -64,10 +64,15 @@
   transform: translateY(-1px);
 }
 
-/* === TABLET === */
-@media (min-width: 768px) and (max-width: 1279px) {
+/* === ADAPTIVE MOBILE (375px+) === */
+@media (min-width: 375px) {
+  /* сейчас тут нет отличий, но место оставлено под адаптив */
+}
+
+/* === TABLET (768px+) === */
+@media (min-width: 768px) {
   .title {
-    font-size: 30px; 
+    font-size: 30px;
   }
 
   .cardsWrapper {
@@ -75,8 +80,8 @@
   }
 }
 
-/* === DESKTOP === */
-@media (min-width: 1280px) {
+/* === DESKTOP (1440px+) === */
+@media (min-width: 1440px) {
   .title {
     font-size: 32px;
     margin-bottom: 32px;

@@ -1,32 +1,38 @@
+/* === MOBILE FIRST (320–374px) === */
+
 .section {
-  padding: 100px 0;
+  padding: 48px 0 80px;
   background-color: var(--color-bg-light);
 }
 
-/* Контейнер */
+/* Контейнер — на всю доступну ширину макета */
 .container {
   max-width: 1440px;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 32px;
 }
 
-/* Заголовок зліва */
+/* Заголовок зліва — мобілка */
 .title {
-  font-size: 40px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--color-text);
   text-align: left;
 }
 
-/* Сетка карточек */
+/* Сітка карточок — 1 колонка */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 40px;
+  width: 100%;
+  box-sizing: border-box;
+
+  justify-content: center;
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
 
 /* Центрування кнопки */
@@ -38,7 +44,7 @@
 
 /* Додаткові стилі для LoadMoreButton */
 .button {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
 }
 
@@ -46,5 +52,63 @@
 .loading {
   text-align: center;
   color: var(--color-text-light);
-  font-size: 18px;
+  font-size: 16px;
+}
+
+/* === ADAPTIVE MOBILE (375px+) === */
+@media (min-width: 375px) {
+  .grid {
+    grid-template-columns: minmax(320px, 1fr);
+  }
+}
+
+/* === TABLET (768px+) — 2 карточки === */
+@media (min-width: 768px) {
+  .section {
+    padding: 80px 0;
+  }
+
+  .container {
+    gap: 40px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .grid {
+    gap: 32px;
+    grid-template-columns: repeat(2, minmax(320px, 1fr));
+    justify-content: center;
+  }
+
+  .button {
+    font-size: 18px;
+  }
+
+  .loading {
+    font-size: 18px;
+  }
+}
+
+/* === DESKTOP (1440px+) — карточки на всю ширину === */
+@media (min-width: 1440px) {
+  .section {
+    padding: 100px 0;
+  }
+
+  .container {
+    gap: 48px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .grid {
+    gap: 40px;
+    /* три рівні колонки, які розтягуються на весь контейнер */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-content: center;
+  }
 }

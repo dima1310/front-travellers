@@ -1,3 +1,5 @@
+/* === MOBILE FIRST === */
+
 .card {
   background-color: #e8eeff;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -8,8 +10,6 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-
-  /* всё внутри карточки — Nunito */
   font-family: var(--font-nunito);
 }
 
@@ -47,10 +47,9 @@
   text-align: left;
 }
 
-/* маленький текст сверху "Європа" — если будешь выводить */
 .category {
   font-size: 14px;
-  font-weight: 600;        /* SemiBold */
+  font-weight: 600;
   line-height: 150%;
   color: rgba(0, 0, 0, 0.8);
 }
@@ -58,8 +57,8 @@
 /* === TITLE === */
 
 .title {
-  font-size: 18px;         /* Figma: Text/Large/Bold */
-  font-weight: 700;        /* Bold */
+  font-size: 18px;
+  font-weight: 700;
   line-height: 150%;
   color: #000000;
 }
@@ -67,15 +66,14 @@
 /* === DESCRIPTION === */
 
 .text {
-  font-size: 16px;         /* Figma: Text/Regular */
+  font-size: 16px;
   font-weight: 400;
   line-height: 150%;
   color: #171717;
   flex: 1;
 
-  /* 🔒 показываем максимум 3 строки */
   display: -webkit-box;
-  -webkit-line-clamp: 3;       /* ровно 3 строки */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -107,12 +105,11 @@
 
 .authorName {
   font-size: 14px;
-  font-weight: 600;        /* SemiBold */
+  font-weight: 600;
   line-height: 150%;
   color: #000000;
 }
 
-/* дата + точка + количество + звезда */
 .authorMeta {
   display: flex;
   align-items: center;
@@ -143,8 +140,6 @@
   margin-top: 16px;
 }
 
-/* === BUTTONS === */
-
 .button {
   flex: 1;
   height: 48px;
@@ -152,7 +147,7 @@
   align-items: center;
   justify-content: center;
 
-  background: #f0f3ff; /* цвет из Figma */
+  background: #f0f3ff;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 8px;
 
@@ -194,4 +189,58 @@
 
 .iconButtonActive {
   color: var(--color-primary);
+}
+
+/* ========================================================= */
+/* === ADAPTIVE (375px+) — место, если что-то понадобится === */
+/* ========================================================= */
+
+@media (min-width: 375px) {
+  /* пока изменений нет */
+}
+
+/* =============================== */
+/* === TABLET (768px+) ========== */
+/* =============================== */
+
+@media (min-width: 768px) {
+  .content {
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .text {
+    font-size: 17px;
+  }
+
+  .authorAvatar {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* =============================== */
+/* === DESKTOP (1440px+) ======== */
+/* =============================== */
+
+@media (min-width: 1440px) {
+  .content {
+    padding: 28px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+
+  .authorAvatar {
+    width: 56px;
+    height: 56px;
+  }
 }
