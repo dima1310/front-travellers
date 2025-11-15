@@ -1,81 +1,75 @@
-.about {
-  background-color: var(--color-bg-light);
-  padding: 100px 0;
-}
-
-.container {
-  width: 90%;
-  max-width: 1440px;
-  margin: 0 auto;
+.section {
+  width: 100%;
+  padding: 80px 0;
+  background: #fff;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 80px;
-  flex-wrap: wrap;
-}
-
-.imageWrapper {
-  flex: 1 1 45%;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.image {
-  border-radius: var(--radius-large);
-  object-fit: cover;
-  box-shadow: var(--shadow-soft);
-}
-
-.textBlock {
-  flex: 1 1 45%;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
 }
 
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* как на макете */
+  gap: 24px;
+}
+
+/* ======= LEFT TITLE + TEXT ======= */
+
+.titleBlock {
+  grid-column: span 6; /* половина ширины */
+}
+
 .title {
-  font-size: 40px;
+  font-size: 42px;
+  line-height: 1.15;
   font-weight: 700;
-  color: var(--color-text);
-  line-height: 1.25;
-  margin-bottom: 24px;
-  max-width: 600px;
+  color: #111;
+  margin-bottom: 28px;
 }
 
+/* длинный текст справа от заголовка */
 .description {
-  font-size: 18px;
-  line-height: 1.7;
-  color: var(--color-text-light);
-  max-width: 550px;
+  grid-column: span 6;
+  font-size: 17px;
+  line-height: 1.55;
+  color: #333;
+  max-width: 500px;
+  margin-top: 8px;
 }
 
-/* 📱 Адаптивність */
-@media (max-width: 1024px) {
-  .container {
-    gap: 40px;
-  }
+/* ======= FEATURES (3 колонки) ======= */
 
-  .title {
-    font-size: 32px;
-  }
-
-  .description {
-    font-size: 16px;
-  }
+.features {
+  grid-column: span 12;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
 }
 
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    text-align: center;
-  }
+.featureItem {
+  width: 32%;
+  display: flex;
+  flex-direction: column;
+}
 
-  .imageWrapper {
-    order: -1;
-    justify-content: center;
-  }
+.icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 14px;
+  opacity: 0.9;
+}
 
-  .title {
-    font-size: 28px;
-  }
+.featureTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.featureText {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #444;
 }

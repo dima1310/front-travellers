@@ -1,4 +1,4 @@
-/* === MOBILE FIRST (320–374px) === */
+/* === MOBILE FIRST === */
 
 .section {
   padding: 48px 0 80px;
@@ -7,16 +7,17 @@
 
 /* главный контейнер */
 .container {
-  max-width: 1440px;
-  width: 90%;
+  width: 100%;
+  max-width: 1312px;
   margin: 0 auto;
+  padding: 0 16px;
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-start;       /* ← ВСЁ СЛЕВА */
 }
 
-/* заголовок — MOBILE (BASE) */
+/* заголовок — всегда слева */
 .title {
   font-family: var(--font-sora);
   font-size: 28px;
@@ -28,21 +29,16 @@
   color: #171717;
 }
 
-/* синяя рамка */
+/* обёртка с карточками */
 .cardsWrapper {
   width: 100%;
-  padding: 20px 16px 28px;
-  /* background-color: #f6f8ff; */
-  /* border-radius: 24px;
-  border: 1px solid #d9e7ff; */
+  padding: 20px 0 28px;          /* ← без боковых паддингов */
 }
 
-/* кнопка под рамкой — как в макете */
+/* кнопка “Переглянути всіх” */
 .button {
   margin: 32px auto 0;
-
-  /* размер по макету: ~173×48 */
-  padding: 12px ;
+  padding: 12px 24px;
   min-height: 48px;
 
   display: inline-flex;
@@ -54,7 +50,7 @@
   border-radius: 8px;
 
   font-family: var(--font-nunito);
-  font-weight: 500; /* Medium */
+  font-weight: 500;
   font-size: 18px;
   line-height: 1.5;
   color: #ffffff;
@@ -62,10 +58,7 @@
   cursor: pointer;
   text-decoration: none;
 
-  transition:
-    background-color 0.2s ease,
-    transform 0.1s ease,
-    box-shadow 0.1s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
 }
 
 .button:hover,
@@ -75,28 +68,18 @@
   transform: translateY(-1px);
 }
 
-.button:focus-visible {
-  outline: 2px solid #3156c4;
-  outline-offset: 2px;
-}
-
-/* === ADAPTIVE MOBILE (375px+) === */
-@media (min-width: 375px) {
-  /* сейчас тут нет отличий, но место оставлено под адаптив */
-}
-
-/* === TABLET (768px+) === */
+/* === TABLET === */
 @media (min-width: 768px) {
   .title {
     font-size: 30px;
   }
 
   .cardsWrapper {
-    padding: 24px 24px 32px;
+    padding: 24px 0 32px;
   }
 }
 
-/* === DESKTOP (1440px+) === */
+/* === DESKTOP === */
 @media (min-width: 1440px) {
   .title {
     font-size: 32px;
@@ -104,6 +87,7 @@
   }
 
   .cardsWrapper {
-    padding: 32px 40px 40px;
+    padding: 32px 0 40px;
   }
 }
+

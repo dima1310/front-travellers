@@ -1,37 +1,45 @@
-/* === MOBILE FIRST (320–374px) === */
+/* === MOBILE FIRST (320px+) === */
 
 .grid {
   display: grid;
-  gap: 24px;
-  justify-content: center;
   width: 100%;
   box-sizing: border-box;
+  gap: 24px;
 
-  /* мобилка — 1 колонка, но без фиксированной ширины */
+  /* мобилка — одна колонка, без фиксированной ширины */
   grid-template-columns: 1fr;
+
+  justify-items: stretch;        /* карточки растягиваются */
 }
 
 /* === ADAPTIVE MOBILE (375px+) === */
-/* 1 колонка, фиксированная ширина 335px */
+/* остаётся 1 колонка — но равномерно, без фиксированных px */
 @media (min-width: 375px) {
   .grid {
-    grid-template-columns: repeat(1, 335px);
+    grid-template-columns: 1fr;
   }
 }
 
 /* === TABLET (768px+) === */
-/* 2 колонки по 340px */
+/* 2 колонки — адаптивные */
 @media (min-width: 768px) {
   .grid {
-    grid-template-columns: repeat(2, 340px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* === DESKTOP (1440px+) === */
-/* 4 колонки по 310px */
-@media (min-width: 1440px) {
+/* === SMALL DESKTOP (1024px+) === */
+/* 3 колонки — как в макете */
+@media (min-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(4, 310px);
-    justify-content: space-between;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* === DESKTOP WIDE (1312px+) === */
+/* 4 колонки — как на твоём скрине */
+@media (min-width: 1312px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
