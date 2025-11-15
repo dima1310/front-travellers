@@ -1,21 +1,29 @@
-// Тип одной истории — совпадает с бэком
-export type Story = {
+export type StoryOwner = {
   _id: string;
-  title: string;
-  description: string;   // было content
-  img?: string;          // было coverUrl
-  owner?: {
-    name: string;
-    avatar?: string;     // было avatarUrl
-  };
-  date: string;          // было createdAt
-  favoriteCount: number; // было bookmarks
+  name: string;
+  avatar?: string;
+  bio?: string;
 };
 
-// ⚠️ Бэк отдает обёртку с полем data, внутри — страница
-// status/message опускаем на уровне API-клиента.
+export type StoryCategory = {
+  _id: string;
+  name: string;
+};
+
+export type Story = {
+  _id: string;
+  img: string; // бек всегда отдает uri картинки
+  title: string;
+  description: string;
+  date: string; // ISO-строка с датой
+  favoriteCount: number;
+  category: StoryCategory;
+  owner: StoryOwner;
+};
+
+// Ответ пагинации от бека: поле data = массив историй + мета
 export type StoriesApiPage = {
-  data: Story[];        // список историй
+  data: Story[];
   page: number;
   perPage: number;
   total: number;
@@ -24,31 +32,19 @@ export type StoriesApiPage = {
   hasPrevPage: boolean;
 };
 
-// Удобная форма для UI (если уже используешь items/limit):
+// Удобный формат для UI
 export type StoriesResponse = {
   items: Story[];
   page: number;
-  limit: number;        // = perPage
+  limit: number; // = perPage
   total: number;
   totalPages: number;
   hasNextPage: boolean;
 };
 
-
-
-export interface CreatedStoryData {
-  _id: string;
-  title: string;
-  category: string;
-  description: string;
-  text: string;
-  cover: string;
-  author: string;
-  createdAt: string;
-}
-
+// Ответ create / update / getById — те же поля, что у Story
 export interface CreatedStoryResponse {
   status: number;
   message: string;
-  data: CreatedStoryData;
+  data: Story;
 }

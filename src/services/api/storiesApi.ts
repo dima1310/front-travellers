@@ -1,26 +1,66 @@
-import axios from "axios";
 import { api } from "./axiosConfig";
-import type { Story, StoriesApiPage, StoriesResponse } from "@/types/story.types";
+import type {
+  Story,
+  StoriesApiPage,
+  StoriesResponse,
+  CreatedStoryResponse,
+} from "@/types/story.types";
 
-const BASE_URL = "https://podorozhniky-back.onrender.com/api";
+const STORIES_PREFIX = "/stories";
 
-// 🔹 Створення історії 
-export const createStory = async (formData: FormData) => {
-  const response = await axios.post(`${BASE_URL}/stories`, formData, {
-    headers: { "Content-Type": "multipart/form-data" },
-    withCredentials: true,
-  });
-  return response.data;
+// 🔹 Создание истории (POST /stories)
+export const createStory = async (
+  formData: FormData
+): Promise<CreatedStoryResponse> => {
+  const { data } = await api.post<CreatedStoryResponse>(
+    STORIES_PREFIX,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return data;
 };
 
-// 🔹 Основний storiesApi з main
+// 🔹 Обновление истории (PATCH /stories/:storyId)
+export const updateStory = async (
+  storyId: string,
+  formData: FormData
+): Promise<CreatedStoryResponse> => {
+  const { data } = await api.patch<CreatedStoryResponse>(
+    `${STORIES_PREFIX}/${storyId}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return data;
+};
+
+// 🔹 Получить историю по id (GET /stories/:storyId)
+export const getStoryById = async (storyId: string): Promise<Story> => {
+  const { data } = await api.get<{
+    status: number;
+    message: string;
+    data: Story;
+  }>(`${STORIES_PREFIX}/${storyId}`);
+
+  return data.data;
+};
+
+// 🔹 Основной storiesApi
 export const storiesApi = {
   async popular(): Promise<Story[]> {
     const { data } = await api.get<{
       status: number;
       message: string;
       data: StoriesApiPage;
-    }>("/stories", {
+    }>(STORIES_PREFIX, {
       params: {
         page: 1,
         perPage: 4,
@@ -37,7 +77,7 @@ export const storiesApi = {
       status: number;
       message: string;
       data: StoriesApiPage;
-    }>("/stories", {
+    }>(STORIES_PREFIX, {
       params: {
         page,
         perPage,
