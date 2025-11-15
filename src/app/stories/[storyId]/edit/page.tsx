@@ -1,39 +1,78 @@
 "use client";
 
-import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+import { redirect, useParams } from "next/navigation";
+
 import AddStoryForm from "@/components/forms/AddStoryForm/AddStoryForm";
 import { useAuthStore } from "@/store/useAuthStore";
+import { getStoryById } from "@/services/api/storiesApi";
+import { Loader } from "@/components/ui/Loader/Loader";
+import type { Story } from "@/types/story.types";
+
 import styles from "./page.module.css";
 
-interface EditStoryPageProps {
-  params: {
-    storyId: string;
-  };
-}
-
-// Mock story data for editing
-const mockStoryData = {
-  title: "Венеція без туристів: маршрути для справжніх мандрівників",
-  category: "Європа",
-  content: `Венеція — це місто, яке вражає своєю красою та унікальністю. Але як побачити справжню Венецію, далеко від натовпів туристів? У цій статті я поділюся з вами маршрутами, які допоможуть відкрити для себе автентичну Венецію.
-
-Найкращий час для прогулянок Венецією — це ранок. Коли місто тільки прокидається, ви можете насолодитися тишею та спокоєм. Рекомендую почати з площі Сан-Марко, коли там ще немає туристів.
-
-Каннареджо — один з найавтентичніших районів Венеції. Тут ви знайдете справжні венеціанські ресторани, де обідають місцеві жителі.`,
-  image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1200",
+type StoryWithCategory = Story & {
+  category?: { name: string } | string;
 };
 
-export default function EditStoryPage({ params }: EditStoryPageProps) {
-  const { isAuthenticated } = useAuthStore();
+export default function EditStoryPage() {
+  const { storyId } = useParams<{ storyId: string }>();
+  const { isAuthenticated, hydrated } = useAuthStore();
 
-  // Redirect if not authenticated
-  if (!isAuthenticated) {
-    redirect("/auth/login");
+  const [story, setStory] = useState<StoryWithCategory | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    if (!isAuthenticated) {
+      redirect("/auth/login");
+    }
+  }, [hydrated, isAuthenticated]);
+
+  useEffect(() => {
+    if (!storyId) return;
+
+    const loadStory = async () => {
+      try {
+        const data = await getStoryById(String(storyId));
+        setStory(data as StoryWithCategory);
+      } catch (error) {
+        console.error("Помилка завантаження історії", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadStory();
+  }, [storyId]);
+
+  if (!hydrated || loading) {
+    return (
+      <main className={styles.loaderWrapper}>
+        <Loader />
+      </main>
+    );
   }
 
-  // TODO: Fetch story data
-  // const story = await fetchStory(params.storyId);
-  // Check if user is the author
+  if (!story) {
+    return (
+      <main className={styles.error}>
+        <p>Історію не знайдено 🥲</p>
+      </main>
+    );
+  }
+
+  const category =
+    typeof story.category === "string"
+      ? story.category
+      : (story.category?.name ?? "");
+
+  const initialData = {
+    title: story.title,
+    category,
+    content: story.description,
+    imageUrl: story.img,
+  };
 
   return (
     <div className={styles.page}>
@@ -46,9 +85,9 @@ export default function EditStoryPage({ params }: EditStoryPageProps) {
         </header>
 
         <AddStoryForm
-          initialData={mockStoryData}
-          isEdit={true}
-          storyId={params.storyId}
+          initialData={initialData}
+          isEdit
+          storyId={String(storyId)}
         />
       </div>
     </div>

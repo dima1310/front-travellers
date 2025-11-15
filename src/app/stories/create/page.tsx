@@ -10,20 +10,18 @@ export default function CreateStoryPage() {
   const router = useRouter();
   const { isAuthenticated, hydrated } = useAuthStore();
 
+  // ждём, пока zustand восстановится из localStorage
   useEffect(() => {
-    if (hydrated && !isAuthenticated) {
-      router.push("/auth/login");
+    if (!hydrated) return;
+
+    if (!isAuthenticated) {
+      router.replace("/auth/login?from=/stories/create");
     }
   }, [hydrated, isAuthenticated, router]);
 
-  // Поки store НЕ завантажив дані — не редіректимо
+  // пока не знаем, авторизован юзер или нет – можно показать лоадер / пусто
   if (!hydrated) {
-    return <p className={styles.loading}>Завантаження...</p>;
-  }
-
-  // Якщо вже загідровано і юзер не авторизований
-  if (!isAuthenticated) {
-    return <p className={styles.loading}>Перенаправлення...</p>;
+    return null;
   }
 
   return (
