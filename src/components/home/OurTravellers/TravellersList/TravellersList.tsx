@@ -20,12 +20,8 @@ export default function TravellersList({ travellers }: TravellersListProps) {
             alt={traveller.name}
             className={styles.avatar}
           />
-
           <h3 className={styles.name}>{traveller.name}</h3>
-
-          {traveller.bio && (
-            <p className={styles.bio}>{traveller.bio}</p>
-          )}
+          {traveller.bio && <p className={styles.bio}>{traveller.bio}</p>}
         </li>
       ))}
     </ul>

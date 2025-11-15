@@ -6,7 +6,7 @@ import styles from "./MessageNoStories.module.css";
 interface MessageNoStoriesProps {
   text: string;
   buttonText: string;
-  redirectTo?: string; // за замовчуванням — /stories
+  redirectTo?: string;
 }
 
 export default function MessageNoStories({
@@ -22,9 +22,10 @@ export default function MessageNoStories({
 
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
+      <div className={styles.card}>
         <p className={styles.text}>{text}</p>
-        <button onClick={handleClick} className={styles.button}>
+
+        <button type="button" onClick={handleClick} className={styles.button}>
           {buttonText}
         </button>
       </div>

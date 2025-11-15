@@ -1,58 +1,72 @@
+/* ===== MOBILE FIRST ===== */
+
 .section {
-  padding: 120px 0;
+  width: 100%;
+  margin-top: 24px;
+
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--color-bg-light);
+  justify-content: flex-start;
 }
 
-.container {
-  text-align: center;
+.card {
+  max-width: 533px;
+  width: 100%;
+  padding: 32px;
+  background-color: #f6f8ff;
+  border-radius: 24px;
+  border: 1px solid #d9e7ff;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  background: #fff;
-  box-shadow: var(--shadow-soft);
-  border-radius: var(--radius-large);
-  padding: 40px 60px;
-  max-width: 600px;
+  gap: 16px;
 }
 
 .text {
-  font-size: 20px;
-  color: var(--color-text);
-  line-height: 1.6;
+  margin: 0;
+  font-family: var(--font-nunito);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.4;
+  color: #111827;
+  max-width: 100%;
 }
 
 .button {
-  background-color: var(--color-primary);
-  color: #fff;
+  align-self: flex-start;
+  height: 42px;
+  padding: 8px 24px;
+  border-radius: 8px;
   border: none;
-  border-radius: var(--radius-small);
-  padding: 14px 36px;
-  font-size: 16px;
+  font-family: var(--font-nunito);
   font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 14px;
+  background-color: #4169e1;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.button:hover {
-  background-color: var(--color-primary-hover);
+/* ===== TABLET 768–1439px ===== */
+@media (min-width: 768px) and (max-width: 1439px) {
+  .section {
+    margin-top: 32px;
+  }
+
+  /* ⚠️ На планшете — одна строка */
+  .text {
+    white-space: nowrap;
+    max-width: 100%;
+  }
 }
 
-/* 📱 Адаптивність */
-@media (max-width: 768px) {
-  .container {
-    padding: 30px 24px;
+/* ===== DESKTOP 1440+ ===== */
+@media (min-width: 1440px) {
+  .section {
+    margin-top: 40px;
   }
 
   .text {
-    font-size: 18px;
-  }
-
-  .button {
-    padding: 12px 28px;
-    font-size: 15px;
+    max-width: 100%;
   }
 }

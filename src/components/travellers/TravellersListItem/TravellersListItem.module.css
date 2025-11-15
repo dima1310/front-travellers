@@ -1,4 +1,4 @@
-/* === MOBILE FIRST (320–374px) === */
+/* === MOBILE FIRST (до 768px) === */
 /* карточка 335 × 363 */
 
 .card {
@@ -6,9 +6,9 @@
   max-width: 335px;
   min-height: 363px;
 
-  padding: 24px 20px 20px;
+  padding: 24px;
 
-  background-color: #ffffff;
+  background-color: #E8EEFF;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(24, 59, 86, 0.06);
 
@@ -65,37 +65,15 @@
   max-width: 260px;
 }
 
-/* ===================================================== */
-/* === ADAPTIVE MOBILE (375px+) — если нужно фиксировать */
-/* ===================================================== */
-@media (min-width: 375px) {
-  .card {
-    max-width: 335px;
-  }
-}
-
 /* =============================== */
-/* === TABLET (768px+) ========== */
-/* карточка 340 × 363            */
+/* === TABLET + DESKTOP (768px+) */
+/* карточка 310 × 384 как в макете */
 /* =============================== */
 
 @media (min-width: 768px) {
   .card {
-    max-width: 340px;
-    min-height: 363px;
-    padding: 24px 20px 20px;
-  }
-}
-
-/* =============================== */
-/* === DESKTOP (1440px+) ======== */
-/* карточка 310 × 384            */
-/* =============================== */
-
-@media (min-width: 1440px) {
-  .card {
     max-width: 310px;
     min-height: 384px;
-    padding: 24px 20px 20px;
+    padding: 24px;
   }
 }

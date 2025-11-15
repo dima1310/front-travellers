@@ -32,36 +32,52 @@
 .cardsWrapper {
   width: 100%;
   padding: 20px 16px 28px;
-  background-color: #f6f8ff;
-  border-radius: 24px;
-  border: 1px solid #d9e7ff;
+  /* background-color: #f6f8ff; */
+  /* border-radius: 24px;
+  border: 1px solid #d9e7ff; */
 }
 
-/* кнопка под рамкой */
+/* кнопка под рамкой — как в макете */
 .button {
   margin: 32px auto 0;
-  padding: 10px 32px;
 
-  background-color: #4169e1;
-  color: #fff;
-
-  border: none;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
+  /* размер по макету: ~173×48 */
+  padding: 12px ;
+  min-height: 48px;
 
   display: inline-flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  background-color: #4169e1;
+  border: 1px solid #4169e1;
+  border-radius: 8px;
+
+  font-family: var(--font-nunito);
+  font-weight: 500; /* Medium */
+  font-size: 18px;
+  line-height: 1.5;
+  color: #ffffff;
+
+  cursor: pointer;
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
 }
 
 .button:hover,
 .button:focus-visible {
   background-color: #3156c4;
+  box-shadow: 0 4px 10px rgba(65, 105, 225, 0.25);
   transform: translateY(-1px);
+}
+
+.button:focus-visible {
+  outline: 2px solid #3156c4;
+  outline-offset: 2px;
 }
 
 /* === ADAPTIVE MOBILE (375px+) === */

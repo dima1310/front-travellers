@@ -1,54 +1,99 @@
+/* === SECTION: фон страницы === */
 .section {
-  max-width: 1440px;              /* как на макете — широкий внешний блок */
-  margin: 80px auto 100px;
-  padding: 24px 16px 32px;        /* mobile first: самые маленькие отступы */
+  padding: 72px 0;
+  background-color: var(--color-bg-light);
+}
+
+/* === ВНУТРЕННИЙ КОНТЕЙНЕР === */
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px; /* Мобильные боковые отступы */
+
+  /* Планшет: 768px+ */
+  @media (min-width: 768px) {
+    padding: 0 24px;
+  }
+
+  /* Десктоп: 1440px+ */
+  @media (min-width: 1440px) {
+    padding: 0;
+  }
+}
+
+/* СИНЯЯ ПЛАШКА: и заголовок, и сетка, и кнопка */
+.cardsWrapper {
+  width: 100%;
   background-color: #f6f8ff;
   border-radius: 24px;
   border: 1px solid #d9e7ff;
 
   display: flex;
   flex-direction: column;
-  align-items: center;            /* центрируем контент внутри */
   gap: 32px;
+
+  /* Мобильные устройства: padding 32px сверху, 24px сбоку, 40px снизу */
+  padding: 32px 24px 40px;
+
+  box-sizing: border-box;
+
+  /* Планшет: 768px+ */
+  @media (min-width: 768px) {
+    padding: 48px 48px 56px;
+    gap: 40px;
+  }
+
+  /* Десктоп: 1280px+ */
+  @media (min-width: 1280px) {
+    padding: 64px 64px 72px;
+    gap: 32px;
+  }
 }
 
-/* Заголовок "Мандрівники" — mobile first */
+/* Заголовок "Наші мандрівники" — выровнен по левому краю */
 .title {
+  margin: 0;
   font-family: var(--font-sora);
+  font-weight: 700;
   font-size: 24px;
   line-height: 1.2;
-  font-weight: 700;
   color: #000000;
-  text-align: center;
-  margin: 0;
+  text-align: left; /* Выравнивание по левому краю */
+
+  /* Планшет: 768px+ */
+  @media (min-width: 768px) {
+    font-size: 32px;
+  }
+
+  /* Десктоп: 1440px+ */
+  @media (min-width: 1440px) {
+    font-size: 48px;
+  }
 }
 
-/* обёртка для сетки карточек — 1312px как в макете */
-.cardsWrapper {
-  width: 100%;
-  max-width: 1312px;              /* 4 карточки × 310 + 3×24 gap */
-}
-
+/* Статусы загрузки/ошибки */
 .status {
-  text-align: center;
   font-size: 16px;
+  text-align: left;
 }
 
+/* Обёртка снизу под кнопку "Переглянути всіх" */
 .loadMoreWrapper {
   display: flex;
   justify-content: center;
-  width: 100%;
-  margin-top: 16px;
 }
 
+/* Кнопка */
 .loadMoreButton {
   padding: 10px 32px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
+
   font-size: 14px;
   font-weight: 500;
   line-height: 1.4;
+
   background-color: #4169e1;
   color: #ffffff;
   transition: background-color 0.2s ease, transform 0.1s ease;
@@ -65,26 +110,4 @@
   opacity: 0.6;
   cursor: default;
   transform: none;
-}
-
-/* TABLET: з 768px */
-@media (min-width: 768px) {
-  .section {
-    padding: 40px 24px 48px;      /* уменьшили, чтобы не переполняло */
-  }
-
-  .title {
-    font-size: 28px;
-  }
-}
-
-/* DESKTOP: з 1440px */
-@media (min-width: 1440px) {
-  .section {
-    padding: 64px 64px 80px;      /* фигма: сверху 64, слева/справа 64 */
-  }
-
-  .title {
-    font-size: 32px;
-  }
 }
