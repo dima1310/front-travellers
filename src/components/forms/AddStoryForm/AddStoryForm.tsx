@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
-import styles from "./AddStoryForm.module.css";
+import Image from "next/image";
 
-import { createStory } from "@/services/api/storiesApi";
-import type { CreatedStoryResponse } from "@/types/story.types"
+import styles from "./AddStoryForm.module.css";
+import { createStory, updateStory } from "@/services/api/storiesApi";
+import type { CreatedStoryResponse } from "@/types/story.types";
 
 const categories = [
   "Європа",
@@ -22,41 +23,75 @@ const categories = [
   "Природа",
 ];
 
-interface StoryFormValues {
+export interface StoryFormValues {
   title: string;
   category: string;
   content: string;
   image: File | null;
 }
 
-const StorySchema = Yup.object().shape({
-  title: Yup.string()
-    .min(10, "Заголовок повинен містити мінімум 10 символів")
-    .max(100, "Заголовок не може перевищувати 100 символів")
-    .required("Обов'язкове поле"),
+export interface AddStoryFormProps {
+  initialData?: {
+    title: string;
+    category: string;
+    content: string;
+    imageUrl?: string;
+  };
+  isEdit?: boolean;
+  storyId?: string;
+}
 
-  category: Yup.string().required("Оберіть категорію"),
+/** Yup-схема — окрема для create та edit */
+const getStorySchema = (isEdit?: boolean) =>
+  Yup.object().shape({
+    title: Yup.string()
+      .min(10, "Заголовок повинен містити мінімум 10 символів")
+      .max(100, "Заголовок не може перевищувати 100 символів")
+      .required("Обов'язкове поле"),
 
-  content: Yup.string()
-    .min(100, "Текст історії повинен містити мінімум 100 символів")
-    .required("Обов'язкове поле"),
+    category: Yup.string().required("Оберіть категорію"),
 
-  image: Yup.mixed<File>()
-    .required("Завантажте обкладинку")
-    .nullable(),
-});
+    content: Yup.string()
+      .min(100, "Текст історії повинен містити мінімум 100 символів")
+      .required("Обов'язкове поле"),
+    image: isEdit
+      ? Yup.mixed().nullable()
+      : Yup.mixed().required("Завантажте обкладинку").nullable(),
+  });
 
-export default function AddStoryForm() {
+export default function AddStoryForm({
+  initialData,
+  isEdit,
+  storyId,
+}: AddStoryFormProps) {
   const router = useRouter();
-  const [imagePreview, setImagePreview] = useState<string>("");
 
-  /** Зміна фото */
+  const [imagePreview, setImagePreview] = useState<string>(
+    initialData?.imageUrl ?? ""
+  );
+
+  // якщо initialData приходять пізніше (після завантаження історії) —
+  // оновлюємо превʼю
+  useEffect(() => {
+    if (initialData?.imageUrl) {
+      setImagePreview(initialData.imageUrl);
+    }
+  }, [initialData?.imageUrl]);
+
+  const initialValues: StoryFormValues = {
+    title: initialData?.title ?? "",
+    category: initialData?.category ?? "",
+    content: initialData?.content ?? "",
+    image: null,
+  };
+
+  /** зміна фото */
   const handleImageChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     setFieldValue: (field: string, value: unknown) => void
   ) => {
-    const file = e.target.files?.[0];
-    setFieldValue("image", file || null);
+    const file = e.target.files?.[0] ?? null;
+    setFieldValue("image", file);
 
     if (file) {
       const reader = new FileReader();
@@ -65,144 +100,186 @@ export default function AddStoryForm() {
     }
   };
 
-  /** Відправлення форми */
   const handleSubmit = async (
     values: StoryFormValues,
     { setSubmitting }: FormikHelpers<StoryFormValues>
   ) => {
     try {
       const formData = new FormData();
+
       formData.append("title", values.title);
+      formData.append("description", values.content);
       formData.append("category", values.category);
-      formData.append("text", values.content);
-      formData.append("description", values.content.slice(0, 60));
-      if (values.image) formData.append("cover", values.image);
 
-      const newStory: CreatedStoryResponse = await createStory(formData);
+      if (values.image) {
+        formData.append("storyImage", values.image);
+      }
 
-      toast.success("Історію успішно створено!");
-      router.push(`/stories/${newStory.data._id}`);
+      const response = (await (isEdit && storyId
+        ? updateStory(storyId, formData)
+        : createStory(formData))) as CreatedStoryResponse;
 
+      if (isEdit && storyId) {
+        toast.success("Історію успішно оновлено!");
+      } else {
+        toast.success("Історію успішно створено!");
+      }
+
+      router.push(`/stories/${response.data._id}`);
     } catch (err) {
       const error = err as { response?: { data?: { message?: string } } };
-      toast.error(error.response?.data?.message || "Помилка створення історії");
+      toast.error(
+        error.response?.data?.message ||
+          (isEdit ? "Помилка оновлення історії" : "Помилка створення історії")
+      );
     } finally {
       setSubmitting(false);
     }
   };
 
+  const validationSchema = getStorySchema(isEdit);
+
   return (
     <div className={styles.formWrapper}>
       <Formik<StoryFormValues>
-        initialValues={{
-          title: "",
-          category: "",
-          content: "",
-          image: null,
-        }}
-        validationSchema={StorySchema}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={handleSubmit}
+        enableReinitialize={!!initialData} // щоб дані підхопились після завантаження
       >
-        {({ isSubmitting, setFieldValue, errors, touched, values }) => (
-          <Form className={styles.form}>
-            {/* ---- ЗОБРАЖЕННЯ ---- */}
-            <div className={styles.imageSection}>
-              <div className={styles.imagePreview}>
-                {imagePreview ? (
-                  <img src={imagePreview} alt="cover preview" />
-                ) : (
-                  <div className={styles.placeholder}></div>
-                )}
+        {({ isSubmitting, setFieldValue, errors, touched, values }) => {
+          const isDisabled =
+            isSubmitting ||
+            !values.title ||
+            !values.category ||
+            !values.content ||
+            // при створенні – обов'язкова картинка,
+            // при редагуванні – достатньо старої
+            (!values.image && !initialData?.imageUrl);
+
+          return (
+            <Form className={styles.form}>
+              {/* ---- ЗОБРАЖЕННЯ ---- */}
+              <div className={styles.imageSection}>
+                <div className={styles.imagePreview}>
+                  {imagePreview ? (
+                    <Image
+                      src={imagePreview}
+                      alt="cover preview"
+                      fill // или width/height
+                      className={styles.image}
+                    />
+                  ) : (
+                    <div className={styles.placeholder}></div>
+                  )}
+                </div>
+
+                <label htmlFor="image" className={styles.uploadBtn}>
+                  {imagePreview ? "Змінити зображення" : "Завантажити фото"}
+                </label>
+
+                <input
+                  id="image"
+                  name="image"
+                  type="file"
+                  accept="image/*"
+                  className={styles.fileInput}
+                  onChange={(e) => handleImageChange(e, setFieldValue)}
+                />
+
+                <ErrorMessage
+                  name="image"
+                  component="div"
+                  className={styles.error}
+                />
               </div>
 
-              <label htmlFor="image" className={styles.uploadBtn}>
-                {imagePreview ? "Змінити зображення" : "Завантажити фото"}
-              </label>
-
-              <input
-                id="image"
-                name="image"
-                type="file"
-                accept="image/*"
-                className={styles.fileInput}
-                onChange={(e) => handleImageChange(e, setFieldValue)}
-              />
-
-              <ErrorMessage name="image" component="div" className={styles.error} />
-            </div>
-
-            {/* ---- ЗАГОЛОВОК ---- */}
-            <div className={styles.fieldGroup}>
-              <label className={styles.label}>Заголовок</label>
-              <Field
-                name="title"
-                type="text"
-                placeholder="Введіть заголовок історії"
-                className={`${styles.input} ${errors.title && touched.title ? styles.inputError : ""
+              {/* ---- ЗАГОЛОВОК ---- */}
+              <div className={styles.fieldGroup}>
+                <label className={styles.label}>Заголовок</label>
+                <Field
+                  name="title"
+                  type="text"
+                  placeholder="Введіть заголовок історії"
+                  className={`${styles.input} ${
+                    errors.title && touched.title ? styles.inputError : ""
                   }`}
-              />
-              <ErrorMessage name="title" component="div" className={styles.error} />
-            </div>
+                />
+                <ErrorMessage
+                  name="title"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
 
-            {/* ---- КАТЕГОРІЯ ---- */}
-            <div className={styles.fieldGroup}>
-              <label className={styles.label}>Категорія</label>
-              <Field
-                as="select"
-                name="category"
-                className={`${styles.select} ${errors.category && touched.category ? styles.inputError : ""
+              {/* ---- КАТЕГОРІЯ ---- */}
+              <div className={styles.fieldGroup}>
+                <label className={styles.label}>Категорія</label>
+                <Field
+                  as="select"
+                  name="category"
+                  className={`${styles.select} ${
+                    errors.category && touched.category ? styles.inputError : ""
                   }`}
-              >
-                <option value="">Оберіть категорію</option>
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage name="category" component="div" className={styles.error} />
-            </div>
+                >
+                  <option value="">Оберіть категорію</option>
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="category"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
 
-            {/* ---- ТЕКСТ ---- */}
-            <div className={styles.fieldGroup}>
-              <label className={styles.label}>Текст історії</label>
-              <Field
-                as="textarea"
-                name="content"
-                placeholder="Ваша історія..."
-                rows={10}
-                className={`${styles.textarea} ${errors.content && touched.content ? styles.inputError : ""
+              {/* ---- ТЕКСТ ---- */}
+              <div className={styles.fieldGroup}>
+                <label className={styles.label}>Текст історії</label>
+                <Field
+                  as="textarea"
+                  name="content"
+                  placeholder="Ваша історія..."
+                  rows={10}
+                  className={`${styles.textarea} ${
+                    errors.content && touched.content ? styles.inputError : ""
                   }`}
-              />
-              <ErrorMessage name="content" component="div" className={styles.error} />
-            </div>
+                />
+                <ErrorMessage
+                  name="content"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
 
-            {/* ---- КНОПКИ ---- */}
-            <div className={styles.actions}>
-              <button
-                type="button"
-                className={styles.cancelBtn}
-                onClick={() => router.back()}
-              >
-                Відмінити
-              </button>
+              {/* ---- КНОПКИ ---- */}
+              <div className={styles.actions}>
+                <button
+                  type="button"
+                  className={styles.cancelBtn}
+                  onClick={() => router.back()}
+                >
+                  Відмінити
+                </button>
 
-              <button
-                type="submit"
-                disabled={
-                  isSubmitting ||
-                  !values.title ||
-                  !values.category ||
-                  !values.content ||
-                  !values.image
-                }
-                className={styles.submitBtn}
-              >
-                {isSubmitting ? "Збереження..." : "Зберегти"}
-              </button>
-            </div>
-          </Form>
-        )}
+                <button
+                  type="submit"
+                  disabled={isDisabled}
+                  className={styles.submitBtn}
+                >
+                  {isSubmitting
+                    ? "Збереження..."
+                    : isEdit
+                      ? "Оновити"
+                      : "Зберегти"}
+                </button>
+              </div>
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );
