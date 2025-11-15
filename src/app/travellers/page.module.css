@@ -1,7 +1,7 @@
 .section {
   max-width: 1440px;              /* как на макете — широкий внешний блок */
   margin: 80px auto 100px;
-  padding: 64px 64px 80px;        /* фигма: сверху 64, слева/справа 64 */
+  padding: 24px 16px 32px;        /* mobile first: самые маленькие отступы */
   background-color: #f6f8ff;
   border-radius: 24px;
   border: 1px solid #d9e7ff;
@@ -12,10 +12,10 @@
   gap: 32px;
 }
 
-/* Заголовок "Мандрівники" */
+/* Заголовок "Мандрівники" — mobile first */
 .title {
   font-family: var(--font-sora);
-  font-size: 32px;
+  font-size: 24px;
   line-height: 1.2;
   font-weight: 700;
   color: #000000;
@@ -67,8 +67,8 @@
   transform: none;
 }
 
-/* TABLET ≤ 1279px */
-@media (max-width: 1279px) {
+/* TABLET: з 768px */
+@media (min-width: 768px) {
   .section {
     padding: 40px 24px 48px;      /* уменьшили, чтобы не переполняло */
   }
@@ -78,13 +78,13 @@
   }
 }
 
-/* MOBILE ≤ 767px */
-@media (max-width: 767px) {
+/* DESKTOP: з 1440px */
+@media (min-width: 1440px) {
   .section {
-    padding: 24px 16px 32px;
+    padding: 64px 64px 80px;      /* фигма: сверху 64, слева/справа 64 */
   }
 
   .title {
-    font-size: 24px;
+    font-size: 32px;
   }
 }

@@ -2,27 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+
 import StoryDetails from "@/components/stories/StoryDetails/StoryDetails";
 import Popular from "@/components/home/Popular/Popular";
 import { Loader } from "@/components/ui/Loader/Loader";
-import styles from "./page.module.css";
 
-interface Story {
-  id: string;
-  title: string;
-  category: string;
-  image: string;
-  content: string;
-  author: {
-    id: string;
-    name: string;
-    avatar: string;
-  };
-  publishedDate: string;
-  country: string;
-  bookmarksCount: number;
-  isBookmarked: boolean;
-}
+import { getStoryById } from "@/services/api/storiesApi";
+import type { Story } from "@/types/story.types";
+
+import styles from "./page.module.css";
 
 export default function StoryPage() {
   const { storyId } = useParams<{ storyId: string }>();
@@ -34,18 +22,11 @@ export default function StoryPage() {
 
     const fetchStory = async () => {
       try {
-        const res = await fetch(
-          "http://podorozhniky-back.onrender.com/api/stories/${storyId}"
-        );
-
-        if (!res.ok) {
-          throw new Error("Помилка завантаження історії");
-        }
-
-        const data = await res.json();
+        // axios + baseURL + cookies уже настроены внутри api
+        const data = await getStoryById(String(storyId));
         setStory(data);
       } catch (err) {
-        console.error("❌ Помилка:", err);
+        console.error("❌ Помилка завантаження історії:", err);
       } finally {
         setLoading(false);
       }
