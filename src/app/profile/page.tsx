@@ -1,15 +1,30 @@
-"use client";
+import { redirect } from "next/navigation";
+import ProfilePageClient from "./ProfilePageClient";
 
-/**
- * 🧩 Заглушка сторінки профілю
- * Тимчасово, щоб Next.js не падав з "is not a module".
- * Замінити на реальний профіль, коли буде готовий.
- */
-export default function ProfilePage() {
+export default async function ProfilePage() {
+  const BASE = process.env.NEXT_PUBLIC_API_URL;
+
+  // Fetch current user with savedStories
+  const res = await fetch(`${BASE}/users/current`, {
+    cache: "no-store",
+    credentials: "include", // Important for cookies
+  });
+
+  if (!res.ok) {
+    redirect("/auth/login");
+  }
+
+  const json = await res.json();
+  const user = json.data;
+
+  if (!user) {
+    redirect("/auth/login");
+  }
+
   return (
-    <div style={{ padding: 40, textAlign: "center" }}>
-      <h1>Profile Page Placeholder</h1>
-      <p>Тут буде сторінка профілю користувача.</p>
-    </div>
+    <ProfilePageClient
+      userId={user._id}
+      savedStoryIds={user.savedStories ?? []}
+    />
   );
 }

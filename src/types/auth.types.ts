@@ -1,8 +1,19 @@
 export interface User {
-  id: string;
+  _id: string; // Changed from id
   name: string;
   email: string;
-  avatarUrl?: string;
+  avatar?: string; // Changed from avatarUrl
+  bio?: string;
+  onboardingCompleted?: boolean;
+  settings?: {
+    darkMode?: boolean;
+  };
+  socialLinks?: {
+    twitter?: string;
+    facebook?: string;
+    instagram?: string;
+  };
+  savedStories?: string[]; // Array of story IDs
 }
 
 export interface AuthResponse {

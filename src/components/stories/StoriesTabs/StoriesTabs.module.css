@@ -1,0 +1,41 @@
+.tabs {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 10px;
+  padding: 4px;
+  width: 422px;
+  height: 48px;
+  background: #e8eeff;
+
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 40px;
+  /* border-bottom: 1px solid #ddd; */
+}
+
+.tabButton {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #000;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.tabButton:hover {
+  color: #000;
+}
+
+.active {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 4px 12px;
+  width: 207px;
+  height: 40px;
+  background: #f7f9ff;
+
+  /* font-weight: 600;
+  color: #000;
+  border-bottom: 2px solid #0070f3; */
+}
