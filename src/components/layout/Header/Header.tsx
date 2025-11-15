@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ROUTES } from "@/utils/constants/routes";
 import { useAuthStore } from "@/store/useAuthStore";
-import styles from "./Header.module.css";
 import ConfirmModal from "@/components/modals/ConfirmModal/ConfirmModal";
 import { useModal } from "@/hooks/useModal";
+import styles from "./Header.module.css";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,19 +18,11 @@ export default function Header() {
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 
-  const navItems = isAuthenticated
-    ? [
-        { label: "Головна", href: ROUTES.HOME },
-        { label: "Історії", href: ROUTES.STORIES },
-        { label: "Мандрівники", href: "/travellers" },
-        { label: "Мій Профіль", href: ROUTES.AUTH.PROFILE },
-        { label: "Опублікувати історію", href: "/new-story" },
-      ]
-    : [
-        { label: "Головна", href: ROUTES.HOME },
-        { label: "Історії", href: ROUTES.STORIES },
-        { label: "Мандрівники", href: "/travellers" },
-      ];
+  // ТІЛЬКИ ГОЛОВНА + ІСТОРІЇ
+  const navItems = [
+    { label: "Головна", href: ROUTES.HOME },
+    { label: "Історії", href: ROUTES.STORIES },
+  ];
 
   const handleLogout = () => {
     logoutModal.onOpen();
@@ -44,84 +36,106 @@ export default function Header() {
 
   return (
     <>
-    <header className={styles.header}>
-      <div className={styles.container}>
-        <Link href={ROUTES.HOME} className={styles.logo} onClick={closeMenu}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M12 2L2 7l10 5 10-5-10-5zm0 8l-8-4 8-4 8 4-8 4zM2 17l10 5 10-5v-2l-10 5-10-5v2z" />
-          </svg>
-          Подорожники
-        </Link>
+      <header className={styles.header}>
+        <div className={styles.container}>
+          {/* ЛОГО */}
+          <Link href={ROUTES.HOME} className={styles.logo} onClick={closeMenu}>
+            <Image
+              src="/icons/logo.svg"
+              alt="Логотип Подорожники"
+              width={22}
+              height={22}
+              className={styles.logoIcon}
+              priority
+            />
+            <span>Подорожники</span>
+          </Link>
 
-        <nav className={`${styles.nav} ${menuOpen ? styles.open : ""}`}>
-          <ul className={styles.navList}>
-            {navItems.map((item) => (
-              <li key={item.href} className={styles.navItem}>
-                <Link
-                  href={item.href}
-                  className={styles.navLink}
-                  onClick={closeMenu}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {/* ПРАВАЯ ЧАСТЬ: publish + nav + burger */}
+          <div className={styles.rightBlock}>
+            {/* КНОПКА "Опублікувати історію" */}
+            <Link
+              href={ROUTES.STORIES}
+              className={styles.publishBtn}
+              onClick={closeMenu}
+            >
+              Опублікувати історію
+            </Link>
 
-          {isAuthenticated ? (
-            <div className={styles.user}>
-              <Image
-                src={user?.avatar || "/avatar.svg"}
-                alt={user?.name || "User avatar"}
-                width={32}
-                height={32}
-              />
-              <span>{user?.name}</span>
-              <button
-                type="button"
-                className={styles.logoutBtn}
-                onClick={handleLogout}
-              >
-                ⟶
-              </button>
-            </div>
-          ) : (
-            <div className={styles.authLinks}>
-              <Link
-                href={ROUTES.AUTH.LOGIN}
-                className={styles.loginBtn}
-                onClick={closeMenu}
-              >
-                Вхід
-              </Link>
-              <Link
-                href={ROUTES.AUTH.REGISTER}
-                className={styles.registerBtn}
-                onClick={closeMenu}
-              >
-                Реєстрація
-              </Link>
-            </div>
-          )}
-        </nav>
+            {/* НАВИГАЦІЯ + auth */}
+            <nav
+              className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`}
+            >
+              <ul className={styles.navList}>
+                {navItems.map((item) => (
+                  <li key={item.href} className={styles.navItem}>
+                    <Link
+                      href={item.href}
+                      className={styles.navLink}
+                      onClick={closeMenu}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
 
-        <button
-          type="button"
-          className={`${styles.burger} ${menuOpen ? styles.active : ""}`}
-          onClick={toggleMenu}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </div>
-    </header>
-    {logoutModal.open && (
-      <ConfirmModal
+              {isAuthenticated ? (
+                <div className={styles.user}>
+                  <Image
+                    src={user?.avatar || "/avatar.svg"}
+                    alt={user?.name || "User avatar"}
+                    width={32}
+                    height={32}
+                  />
+                  <span>{user?.name}</span>
+                  <button
+                    type="button"
+                    className={styles.logoutBtn}
+                    onClick={handleLogout}
+                  >
+                    ⟶
+                  </button>
+                </div>
+              ) : (
+                <div className={styles.authLinks}>
+                  <Link
+                    href={ROUTES.AUTH.LOGIN}
+                    className={styles.loginBtn}
+                    onClick={closeMenu}
+                  >
+                    Вхід
+                  </Link>
+                  <Link
+                    href={ROUTES.AUTH.REGISTER}
+                    className={styles.registerBtn}
+                    onClick={closeMenu}
+                  >
+                    Реєстрація
+                  </Link>
+                </div>
+              )}
+            </nav>
+
+            {/* БУРГЕР — мобілка + планшет */}
+            <button
+              type="button"
+              className={`${styles.burger} ${
+                menuOpen ? styles.burgerActive : ""
+              }`}
+              onClick={toggleMenu}
+              aria-label="Відкрити меню"
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {logoutModal.open && (
+        <ConfirmModal
           title="Ви точно хочете вийти?"
           text="Ми будемо сумувати за вами!"
           cancelButtonText="Відмінити"

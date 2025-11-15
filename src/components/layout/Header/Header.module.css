@@ -1,5 +1,7 @@
+/* ====== BASE ====== */
+
 .header {
-  position: absolute;        /* поверх hero */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -25,13 +27,54 @@
   align-items: center;
   gap: 8px;
 
+  font-family: var(--font-sora);
+  font-weight: 400;
+  font-size: 18px;
   color: #ffffff;
-  font-weight: 700;
-  font-size: 20px;
   text-decoration: none;
 }
 
-/* NAV */
+.logoIcon {
+  width: 22px;
+  height: 22px;
+}
+
+/* ====== RIGHT BLOCK ====== */
+
+.rightBlock {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Publish button — hidden on mobile */
+.publishBtn {
+  display: none;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(15, 23, 42, 0.7);
+
+  font-family: var(--font-nunito);
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+
+  white-space: nowrap;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.publishBtn:hover {
+  background-color: rgba(15, 23, 42, 0.9);
+  border-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+}
+
+/* ====== NAVIGATION ====== */
 
 .nav {
   display: flex;
@@ -48,14 +91,12 @@
   list-style: none;
 }
 
-.navItem {
-}
-
 .navLink {
   text-decoration: none;
-  color: #ffffff;
-  font-weight: 400;
+  font-family: var(--font-nunito);
   font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
   padding: 4px 12px;
   border-radius: 8px;
   transition: background 0.2s ease;
@@ -65,7 +106,7 @@
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* AUTH — кнопки "Вхід" и "Реєстрація" */
+/* ====== AUTH BUTTONS (only mobile) ====== */
 
 .authLinks {
   display: flex;
@@ -73,25 +114,19 @@
   gap: 8px;
 }
 
-/* "Вхід" — Secondary / Small / Alternate
-   bg: Opacity/White 10, border: Opacity/White 10, padding 4 / 10 */
 .loginBtn {
   padding: 4px 10px;
-
-  border-radius: 8px; /* Radius/Small */
+  border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.1);
 
   font-family: var(--font-nunito);
   font-size: 14px;
   font-weight: 600;
-  line-height: 1.2;
-
   color: #ffffff;
-  text-decoration: none;
 
+  text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .loginBtn:hover {
@@ -99,59 +134,110 @@
   background-color: rgba(255, 255, 255, 0.18);
 }
 
-/* "Реєстрація" — Primary / Small
-   bg: White, border: White, padding 4 / 10 */
 .registerBtn {
   padding: 4px 10px;
-
-  border-radius: 8px; /* Radius/Small */
+  border-radius: 8px;
   border: 1px solid #ffffff;
   background: #ffffff;
 
   font-family: var(--font-nunito);
   font-size: 14px;
   font-weight: 600;
-  line-height: 1.2;
+  color: #1b1b1b;
 
-  color: #1b1b1b; /* тёмный текст на белом фоне */
   text-decoration: none;
-
   cursor: pointer;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
 }
 
 .registerBtn:hover {
   background-color: #f4f6ff;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
-  transform: translateY(-1px);
 }
 
-/* BURGER */
+/* ====== USER (desktop) ====== */
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-family: var(--font-nunito);
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.user span {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logoutBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+/* ====== BURGER ====== */
 
 .burger {
   display: none;
   flex-direction: column;
-  justify-content: space-between;
-  width: 24px;
-  height: 18px;
-  background: none;
-  border: none;
+  justify-content: center;
+  align-items: center;
+
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(15, 23, 42, 0.6);
+
   cursor: pointer;
 }
 
 .burger span {
-  height: 3px;
-  width: 100%;
+  height: 2px;
+  width: 16px;
   background: #ffffff;
-  border-radius: 2px;
-  transition: all 0.3s ease;
+  border-radius: 999px;
+  transition: 0.3s;
 }
 
-/* 🧱 Mobile (как у тебя было; дальше можно перевести на min-width при необходимости) */
+.burger span + span {
+  margin-top: 3px;
+}
 
-@media (max-width: 768px) {
+/* Active */
+.burgerActive span:first-child {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.burgerActive span:nth-child(2) {
+  opacity: 0;
+}
+
+.burgerActive span:last-child {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+/* ==========================
+   MOBILE (до 767px)
+   ========================== */
+@media (max-width: 767px) {
   .header {
     position: fixed;
+  }
+
+  .publishBtn {
+    display: none;
   }
 
   .burger {
@@ -167,19 +253,93 @@
     align-items: center;
     gap: 24px;
     transform: translateY(-100%);
-    transition: transform 0.3s ease;
+    transition: 0.3s;
   }
 
-  .nav.open {
+  .navOpen {
     transform: translateY(0);
   }
 
   .navList {
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
   }
 
   .authLinks {
     flex-direction: column;
   }
 }
+
+/* ==========================
+   TABLET (768–1439px)
+   ========================== */
+@media (min-width: 768px) and (max-width: 1439px) {
+  .header {
+    position: fixed;
+  }
+
+  /* publish visible */
+  .publishBtn {
+    display: inline-flex;
+  }
+
+  /* burger visible */
+  .burger {
+    display: flex;
+  }
+
+  /* auth-buttons HIDDEN in header */
+  .container .authLinks {
+    display: none;
+  }
+
+  /* same overlay menu as mobile */
+  .nav {
+    position: fixed;
+    inset: 0;
+    background: #020617;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    transform: translateY(-100%);
+    transition: 0.3s;
+  }
+
+  .navOpen {
+    transform: translateY(0);
+  }
+
+  .navList {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+/* ==========================
+   DESKTOP (від 1440px)
+   ========================== */
+@media (min-width: 1440px) {
+  .publishBtn {
+    display: inline-flex;
+  }
+
+  .burger {
+    display: none;
+  }
+
+  .nav {
+    position: static;
+    transform: none;
+    background: transparent;
+  }
+
+  .navList {
+    flex-direction: row;
+  }
+
+  .authLinks {
+    display: flex;
+    flex-direction: row;
+  }
+} 

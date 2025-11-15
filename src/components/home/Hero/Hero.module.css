@@ -57,10 +57,10 @@
 }
 
 .button {
-  margin-top: 0; /* расстояние задаём через gap */
-  background-color: var(--color-primary);
+  margin-top: 0;
+  background-color: #4169E1; /* 🔵 Синий как в Figma */
   color: #fff;
-  border: none;
+  border: 1px solid #4169E1; /* 🔵 Обводка */
   border-radius: 12px;
   padding: 10px 24px;
   font-size: 14px;
@@ -68,6 +68,11 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
+.button:hover {
+  background-color: #3354c2; /* немного темнее для ховера */
+}
+
 
 .button:hover {
   background-color: var(--color-primary-hover);
