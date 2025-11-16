@@ -4,20 +4,16 @@
   justify-content: center;
 }
 
-/* ============ MOBILE FIRST ============ */
-
 .form {
   width: 100%;
-  /* общая «карточка» формы */
   display: flex;
   flex-direction: column;
   gap: 24px;
   background-color: #f5f7fa;
-  padding: 16px 12px 24px;
+  padding: 0 20px;
   border-radius: 16px;
 }
 
-/* верх: обкладинка + (потом) кнопки */
 .coverSection {
   display: flex;
   flex-direction: column;
@@ -25,7 +21,6 @@
   width: 100%;
 }
 
-/* левая колонка (обкладинка + upload) */
 .coverContainer {
   width: 100%;
   max-width: 865px;
@@ -73,13 +68,16 @@
 .uploadBtn {
   align-self: flex-start;
   margin-top: 4px;
-  padding: 8px 16px;
+  padding: 4px 10px;
+  width: 163px;
+  height: 32px;
   border-radius: 8px;
   border: 1px solid #d1d5db;
   background-color: #f3f4f6;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: #111827;
+  text-align: center;
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -91,10 +89,18 @@
   border-color: #c7cdd7;
 }
 
-/* правая колонка с кнопками (на мобилке — снизу, во всю ширину секции) */
+.actionsDesktop {
+  display: none;
+}
+
+.actionsMobile {
+  width: 100%;
+  display: block;
+}
+
 .actionButtons {
   width: 100%;
-  max-width: 335px; /* как в мобильном макете: 335 при ширине 375 */
+  max-width: 335px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -104,8 +110,10 @@
 .saveBtn,
 .cancelBtn {
   width: 100%;
+  height: 48px;
   border-radius: 8px;
-  padding: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   font-family: var(
     --font-family,
     system-ui,
@@ -115,7 +123,7 @@
     sans-serif
   );
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 150%;
   cursor: pointer;
   border: 1px solid transparent;
@@ -140,7 +148,6 @@
   opacity: 1;
 }
 
-/* hover / активний стан */
 .saveBtn:not(:disabled):hover {
   opacity: 1;
   background-color: #4b63ff;
@@ -158,8 +165,6 @@
   background-color: #e5e7eb;
 }
 
-/* нижняя часть: поля */
-
 .fieldsContainer {
   width: 100%;
   max-width: 865px;
@@ -175,8 +180,8 @@
 }
 
 .label {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 400;
   color: #111827;
 }
 
@@ -213,8 +218,6 @@
   color: #b91c1c;
 }
 
-/* ============ ≥385px: чуть больше отступы ============ */
-
 @media (min-width: 385px) {
   .form {
     padding: 20px 16px 28px;
@@ -225,11 +228,9 @@
   }
 }
 
-/* ============ TABLET ≥768px (всё ещё одна колонка) ============ */
-
 @media (min-width: 768px) {
   .form {
-    padding: 24px 24px 32px;
+    padding: 0 32px;
     gap: 24px;
   }
 
@@ -240,7 +241,8 @@
 
   .coverContainer,
   .fieldsContainer {
-    max-width: 704px; /* ширина контента из планшетного макета */
+    max-width: 704px;
+    margin: 0 auto;
   }
 
   .actionButtons {
@@ -256,29 +258,20 @@
   }
 }
 
-/* ============ DESKTOP ≥1440px (2 колонки) ============ */
-
 @media (min-width: 1440px) {
   .formWrapper {
-    max-width: 1320px; /* 865 левая + 24 gap + ~260 правая */
+    max-width: 1320px;
     min-width: 1149px;
-    margin: 0 auto;
   }
 
   .form {
-    padding: 32px 32px 40px;
+    padding: 0 64px;
   }
 
-  /* две колонки только у верхней части */
   .coverSection {
     flex-direction: row;
     align-items: flex-start;
     column-gap: 24px;
-  }
-  .coverSection > aside {
-    flex: 0 0 423px;
-    display: flex;
-    justify-content: flex-start;
   }
 
   .coverContainer {
@@ -286,8 +279,24 @@
     max-width: 865px;
   }
 
+  .uploadBtn {
+    width: 181px;
+    height: 35px;
+    font-size: 18px;
+  }
+
   .fieldsContainer {
     max-width: 865px;
+  }
+
+  .actionsDesktop {
+    display: flex;
+    flex: 0 0 423px;
+    justify-content: flex-start;
+  }
+
+  .actionsMobile {
+    display: none;
   }
 
   .actionButtons {
@@ -301,5 +310,9 @@
   .saveBtn,
   .cancelBtn {
     width: 100%;
+    font-size: 18px;
+  }
+  .label {
+    font-size: 18px;
   }
 }

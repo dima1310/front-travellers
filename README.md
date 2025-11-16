@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌿 Подорожники
 
-## Getting Started
+**Подорожники** — командний навчальний проєкт (Fullstack), створений у рамках курсу з веб-розробки.  
+Це застосунок для мандрівників, де користувачі можуть:
 
-First, run the development server:
+- знаходити та читати історії подорожей;
+- ділитися власним досвідом;
+- вести особистий профіль мандрівника;
+- зберігати улюблені історії в "Збережені".
 
-```bash
+Фронтенд реалізований на **Next.js + TypeScript**, бекенд — на **Node.js + Express + MongoDB**.
+
+---
+
+## 🚀 Demo
+
+- **Live (Frontend, Vercel):**
+- **Backend (Render / Railway):** https://podorozhniky.onrender.com
+- **Swagger UI:** https://podorozhniky.onrender.com/api-docs
+
+---
+
+## ✨ Основні можливості
+
+- 📱 **Адаптивний дизайн** ( 375 / 768 / 1440)
+- 🔐 **Аутентифікація та авторизація**  
+  Реєстрація / логін, захищені маршрути, робота з JWT-токенами.
+- 👤 **Профіль мандрівника**
+  - перегляд публічного профілю;
+  - вкладки **"Збережені історії"** та **"Мої історії"**;
+  - список усіх історій, створених користувачем.
+- 📝 **Історії подорожей**
+  - перегляд списку історій з пагінацією;
+  - детальна сторінка історії;
+  - створення нової історії з обкладинкою (завантаження зображення);
+  - редагування та видалення власних історій.
+- 🌍 **Каталог мандрівників**
+  - список користувачів з картками;
+  - публічний профіль мандрівника з його історіями.
+- ⭐ **Збережені історії**
+  - додавання / видалення історій зі "Збережених";
+  - лічильник популярності (favoriteCount) на бекенді.
+- ☁️ **Cloudinary** для зберігання зображень історій та аватарок.
+- 📡 **MongoDB + Mongoose** — зберігання користувачів, історій, категорій.
+- 🚨 **Обробка помилок** на бекенді + toast-повідомлення на фронтенді.
+- 📃 **Документація API** через Swagger.
+
+---
+
+## 🛠 Стек технологій
+
+### 🧩 Frontend
+
+- **Next.js** (App Router)
+- **React** + **TypeScript**
+- **@tanstack/react-query** — запити до API та кешування
+- **Axios** — HTTP-запити
+- **Formik + Yup** — форми та валідація (наприклад, форма створення історії)
+- **react-hot-toast** — нотифікації
+- **CSS Modules** — стилізація компонентів
+- ESLint, Prettier — кодстайл і форматування
+
+### 🧱 Backend
+
+- **Node.js** + **Express**
+- **MongoDB** + **Mongoose**
+- **JWT** — аутентифікація
+- **Multer + Cloudinary** — завантаження та зберігання зображень
+- **Joi / Yup** — валідація вхідних даних
+- **Swagger UI** — документація API
+- Логування та централізований **error handling**
+
+---
+
+### ⚙️ Встановлення та запуск
+
+First,clone repositorie
+git clone git@github.com:dima1310/front-travellers.git
+Second,open VS Code :
+npm install
+Next, run the development server:
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🔑 ENV змінні
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Frontend (.env.local)
+NEXT_PUBLIC_API_BASE_URL
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Backend (.env)
+PORT=3000
+MONGODB_USER=
+MONGODB_PASSWORD=
+MONGODB_URL=
+MONGODB_DB=
+JWT_SECRET=
 
-## Learn More
+# Frontend URL
 
-To learn more about Next.js, take a look at the following resources:
+APP_DOMAIN=http://localhost:3000/auth
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Cloudinary Configuration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 
-## Deploy on Vercel
+### 📌 Основні сторінки
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    •	/ — головна сторінка, популярні історії, блок із мандрівниками
+    •	/stories — список історій з пагінацією та сортуванням
+    •	/stories/[storyId] — детальна сторінка історії
+    •	/stories/create — створення нової історії (форма + завантаження фото)
+    •	/travellers — каталог мандрівників
+    •	/travellers/[id] — публічний профіль мандрівника та його історії
+    •	/profile — профіль поточного користувача:
+    •	вкладка “Збережені історії”
+    •	вкладка “Мої історії”
+    •	/auth/login, /auth/register — аутентифікація
