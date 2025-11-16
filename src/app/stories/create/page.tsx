@@ -10,7 +10,6 @@ export default function CreateStoryPage() {
   const router = useRouter();
   const { isAuthenticated, hydrated } = useAuthStore();
 
-  // ждём, пока zustand восстановится из localStorage
   useEffect(() => {
     if (!hydrated) return;
 
@@ -19,7 +18,6 @@ export default function CreateStoryPage() {
     }
   }, [hydrated, isAuthenticated, router]);
 
-  // пока не знаем, авторизован юзер или нет – можно показать лоадер / пусто
   if (!hydrated) {
     return null;
   }
@@ -29,9 +27,6 @@ export default function CreateStoryPage() {
       <div className={styles.container}>
         <header className={styles.header}>
           <h1 className={styles.title}>Створити нову історію</h1>
-          <p className={styles.subtitle}>
-            Поділіться своїм досвідом подорожей з іншими мандрівниками
-          </p>
         </header>
 
         <AddStoryForm />

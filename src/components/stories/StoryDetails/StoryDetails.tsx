@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
 import toast from "react-hot-toast";
-import type { Story } from "@/types/story.types"; // 👈 общий тип из types
+import type { Story } from "@/types/story.types";
 import styles from "./StoryDetails.module.css";
 
 interface StoryDetailsProps {
@@ -15,7 +15,6 @@ export default function StoryDetails({ story }: StoryDetailsProps) {
   const router = useRouter();
   const { isAuthenticated } = useAuthStore();
 
-  // на бэке нет флага isBookmarked, поэтому начинаем с false
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,7 +36,6 @@ export default function StoryDetails({ story }: StoryDetailsProps) {
     setIsLoading(true);
 
     try {
-      // TODO: сюда придёт реальний запит на бек
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       const newBookmarkedState = !isBookmarked;
