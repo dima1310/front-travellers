@@ -6,6 +6,8 @@ import { useAuthStore } from "@/store/useAuthStore";
 import toast from "react-hot-toast";
 import type { Story } from "@/types/story.types"; // 👈 общий тип из types
 import styles from "./StoryDetails.module.css";
+import ConfirmModal from "@/components/modals/ConfirmModal/ConfirmModal";
+import { useModal } from "@/hooks/useModal";
 
 interface StoryDetailsProps {
   story: Story;
@@ -14,6 +16,8 @@ interface StoryDetailsProps {
 export default function StoryDetails({ story }: StoryDetailsProps) {
   const router = useRouter();
   const { isAuthenticated } = useAuthStore();
+  const { open, onOpen, onClose } = useModal();
+
 
   // на бэке нет флага isBookmarked, поэтому начинаем с false
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -30,7 +34,7 @@ export default function StoryDetails({ story }: StoryDetailsProps) {
 
   const handleBookmark = async () => {
     if (!isAuthenticated) {
-      router.push("/auth/register");
+      onOpen();
       return;
     }
 
@@ -151,6 +155,22 @@ export default function StoryDetails({ story }: StoryDetailsProps) {
               </>
             )}
           </button>
+          {open && (
+            <ConfirmModal
+              title="Помилка під час збереження"
+              text="Щоб зберегти статтю вам треба увійти, якщо ще немає облікового запису зареєструйтесь"
+              cancelButtonText="Увійти"
+              confirmButtonText="Зареєструватись"
+              onCancel={() => {
+                router.push("/auth/login");
+                onClose();
+              }}
+              onConfirm={() => {
+                router.push("/auth/register");
+                onClose();
+              }}
+            />
+          )}
         </aside>
       </div>
     </article>
