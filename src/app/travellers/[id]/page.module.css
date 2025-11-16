@@ -1,141 +1,114 @@
-/* ===== ПУБЛІЧНИЙ ПРОФІЛЬ МАНДРІВНИКА ===== */
+/* ===========================================================
+   📌 MOBILE FIRST (320+)
+   =========================================================== */
 
 /* Корневой контейнер страницы */
 .publicProfile {
-  background: #ffffff;
+  background: var(--color-bg-light);
   padding: 24px 16px 48px;
-}
-
-@media (min-width: 768px) {
-  .publicProfile {
-    padding: 32px 24px 64px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .publicProfile {
-    padding: 64px 0 80px;
-  }
 }
 
 /* Блок TravellerInfo */
 .travellerInfo {
   max-width: 1312px;
   width: 100%;
-  margin: 0 auto 64px; /* расстояние до заголовка "Історії Мандрівника" */
+  margin: 0 auto 48px;
   padding: 0 16px;
 }
 
-@media (min-width: 1280px) {
-  .travellerInfo {
-    padding: 0;
-  }
-}
-
-/* Секция історій */
+/* Секция "Історії Мандрівника" */
 .travellerStories {
   max-width: 1312px;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 72px;
   padding: 0 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px; /* заголовок ↔ карточка */
 }
 
 /* Заголовок "Історії Мандрівника" */
 .travellerStoriesTitle {
-  margin: 0 0 48px;
-  font-size: 32px;
-  line-height: 1.3;
+  margin: 0;
+  font-family: var(--font-sora);
   font-weight: 700;
-  letter-spacing: 0.2px;
+  font-size: 32px;   /* mobile */
+  line-height: 1.2;
   color: #111827;
 }
 
+
+
+/* ===========================================================
+   📌 MOBILE 375+
+   =========================================================== */
+
+@media (min-width: 375px) {
+  .publicProfile {
+    padding: 28px 20px 56px;
+  }
+
+  .travellerInfo,
+  .travellerStories {
+    padding: 0 20px;
+  }
+}
+
+
+
+/* ===========================================================
+   📌 TABLET 768+
+   =========================================================== */
+
 @media (min-width: 768px) {
+  .publicProfile {
+    padding: 32px 24px 64px;
+  }
+
+  .travellerInfo,
+  .travellerStories {
+    padding: 0 24px;
+  }
+
+  .travellerInfo {
+    margin-bottom: 56px;
+  }
+
+  .travellerStories {
+    gap: 40px;
+  }
+
   .travellerStoriesTitle {
-    font-size: 36px;
+    font-size: 40px;
   }
 }
 
-@media (min-width: 1280px) {
+
+
+/* ===========================================================
+   📌 DESKTOP 1440+
+   =========================================================== */
+
+@media (min-width: 1440px) {
+  .publicProfile {
+    padding: 64px 0 80px;
+  }
+
+  .travellerInfo {
+    margin-bottom: 64px;
+    padding: 0;
+  }
+
+  .travellerStories {
+    padding: 0;
+    gap: 48px;
+  }
+
+  /* Display/xl · 52/120 по макету */
   .travellerStoriesTitle {
-    margin-bottom: 48px;
+    font-size: 52px;
+    line-height: 1.2;
   }
-}
-
-/* Сетка карточек історій */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-}
-
-/* Tablet */
-@media (min-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Desktop */
-@media (min-width: 1280px) {
-  .grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Обёртка для кнопки "Показати ще" */
-.travellerStoriesMore {
-  display: grid;
-  place-items: center;
-  margin-top: 40px; /* по макету — 40px до кнопки */
-}
-
-/* ===== Заглушка "Немає історій" ===== */
-
-.section {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.container {
-  background: #eef4ff; /* світло-блакитний фон */
-  border-radius: 24px;
-  padding: 32px 40px;
-  max-width: 533px; /* ширина по макету */
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.text {
-  font-size: 16px;
-  line-height: 1.4;
-  font-weight: 600;
-  color: #111827; /* темний текст */
-}
-
-.button {
-  align-self: flex-start;
-  background: #4169e1; /* синя кнопка */
-  color: #ffffff;
-  font-size: 14px;
-  line-height: 1.4;
-  font-weight: 600;
-
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-
-  transition: background 0.2s ease;
-}
-
-.button:hover {
-  background: #3154b8; /* hover — затемняем */
-}
-
-.button:active {
-  background: #25438e;
 }

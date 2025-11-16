@@ -1,101 +1,79 @@
-/* === MOBILE FIRST (320–374px) === */
-/* карточка 335 × 363 */
+  /* === MOBILE FIRST (до 768px) === */
+  /* карточка 335 × 363 */
 
-.card {
-  width: 100%;
-  max-width: 335px;
-  min-height: 363px;
-
-  padding: 24px 20px 20px;
-
-  background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(24, 59, 86, 0.06);
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-
-  gap: 0; /* строго как в Figma */
-
-  margin: 0 auto;
-}
-
-/* === АВАТАР === */
-.avatar {
-  width: 112px;
-  height: 112px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-}
-
-/* === ИМЯ === */
-.name {
-  margin-top: 24px;
-
-  font-family: var(--font-sora);
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 1.2;
-  color: #000;
-  margin-bottom: 0;
-}
-
-/* === ТЕКСТ === */
-.text {
-  margin-top: 16px;
-
-  font-family: var(--font-nunito);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #171717;
-  margin-bottom: 0;
-
-  max-height: 4.5em; /* 3 строки */
-  overflow: hidden;
-}
-
-/* === КНОПКА === */
-.card :global(button) {
-  margin-top: auto;
-  width: 100%;
-  max-width: 260px;
-}
-
-/* ===================================================== */
-/* === ADAPTIVE MOBILE (375px+) — если нужно фиксировать */
-/* ===================================================== */
-@media (min-width: 375px) {
   .card {
+    width: 100%;
     max-width: 335px;
-  }
-}
-
-/* =============================== */
-/* === TABLET (768px+) ========== */
-/* карточка 340 × 363            */
-/* =============================== */
-
-@media (min-width: 768px) {
-  .card {
-    max-width: 340px;
     min-height: 363px;
-    padding: 24px 20px 20px;
-  }
-}
 
-/* =============================== */
-/* === DESKTOP (1440px+) ======== */
-/* карточка 310 × 384            */
-/* =============================== */
+    padding: 24px;
 
-@media (min-width: 1440px) {
-  .card {
-    max-width: 310px;
-    min-height: 384px;
-    padding: 24px 20px 20px;
+    background-color: #E8EEFF;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(24, 59, 86, 0.06);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+
+    gap: 0; /* строго как в Figma */
+
+    margin: 0 auto;
   }
-}
+
+  /* === АВАТАР === */
+  .avatar {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* === ИМЯ === */
+  .name {
+    margin-top: 24px;
+
+    font-family: var(--font-sora);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #000;
+    margin-bottom: 0;
+  }
+
+  /* === ТЕКСТ === */
+  .text {
+    margin-top: 16px;
+
+    font-family: var(--font-nunito);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #171717;
+    margin-bottom: 0;
+
+    max-height: 4.5em; /* 3 строки */
+    overflow: hidden;
+  }
+
+  /* === КНОПКА === */
+  .card :global(button) {
+    margin-top: auto;
+    width: 100%;
+    max-width: 260px;
+  }
+
+  /* =============================== */
+  /* === TABLET + DESKTOP (768px+) */
+  /* карточка 310 × 384 как в макете */
+  /* =============================== */
+
+  @media (min-width: 768px) {
+    .card {
+      max-width: 310px;
+      min-height: 384px;
+      padding: 24px;
+    }
+  }

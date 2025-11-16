@@ -1,16 +1,18 @@
 .list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
 }
+
 
 .item {
   border-radius: 12px;
   padding: 12px;
   background: #f7f7f7;
-  width: 180px;
   text-align: center;
 }
+
 
 .avatar {
   width: 100px;

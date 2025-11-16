@@ -20,7 +20,7 @@ export default function TravellersPage() {
     isFetchingNextPage,
   } = useTravellersQuery();
 
-  // збираємо всі сторінки в один масив
+  // собираем все страницы в один массив
   const allTravellers =
     data?.pages?.flatMap((page) => (Array.isArray(page) ? page : [])) ?? [];
 
@@ -32,12 +32,12 @@ export default function TravellersPage() {
 
   const [visibleCount, setVisibleCount] = useState(initialCount);
 
-  // при зміні брейкпоінта або кількості мандрівників — скидаємо лічильник
+  // сбрасываем количество при смене брейкпоинта / новом наборе данных
   useEffect(() => {
     setVisibleCount(initialCount);
   }, [initialCount, allTravellers.length]);
 
-  // авто-догрузка сторінок, щоб на старті було 8/12, а не 4
+  // если участников меньше initialCount, дотягиваем с сервера
   useEffect(() => {
     if (
       !isLoading &&
@@ -58,7 +58,6 @@ export default function TravellersPage() {
 
   const visibleTravellers = allTravellers.slice(0, visibleCount);
 
-  // крок догрузки: +4 завжди
   const increment = 4;
 
   const canShowMore =
@@ -82,38 +81,46 @@ export default function TravellersPage() {
 
   return (
     <section className={styles.section}>
-      <h1 className={styles.title}>Мандрівники</h1>
+      <div className={styles.container}>
+        <div className={styles.cardsWrapper}>
+          {/* заголовок ВНУТРИ синего блока */}
+          <h1 className={styles.title}>Наші мандрівники</h1>
 
-      {isLoading && <p className={styles.status}>Завантаження...</p>}
-
-      {isError && (
-        <p className={styles.status}>
-          Сталася помилка під час завантаження мандрівників:{" "}
-          {error instanceof Error ? error.message : "спробуйте пізніше"}
-        </p>
-      )}
-
-      {!isLoading && !isError && (
-        <>
-          {/* обёртка шириною 1312px під сітку, як у макеті */}
-          <div className={styles.cardsWrapper}>
-            <TravellersList travellers={visibleTravellers} />
-          </div>
-
-          {canShowMore && (
-            <div className={styles.loadMoreWrapper}>
-              <button
-                type="button"
-                className={styles.loadMoreButton}
-                onClick={handleShowMore}
-                disabled={isFetchingNextPage}
-              >
-                {isFetchingNextPage ? "Завантаження..." : "Переглянути ще"}
-              </button>
-            </div>
+          {isLoading && (
+            <p className={styles.status}>Завантаження...</p>
           )}
-        </>
-      )}
+
+          {isError && (
+            <p className={styles.status}>
+              Сталася помилка під час завантаження мандрівників:{" "}
+              {error instanceof Error
+                ? error.message
+                : "спробуйте пізніше"}
+            </p>
+          )}
+
+          {!isLoading && !isError && (
+            <>
+              <TravellersList travellers={visibleTravellers} />
+
+              {canShowMore && (
+                <div className={styles.loadMoreWrapper}>
+                  <button
+                    type="button"
+                    className={styles.loadMoreButton}
+                    onClick={handleShowMore}
+                    disabled={isFetchingNextPage}
+                  >
+                    {isFetchingNextPage
+                      ? "Завантаження..."
+                      : "Переглянути всіх"}
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
     </section>
   );
 }

@@ -33,12 +33,13 @@ async function getTravellerStories(id: string): Promise<Story[]> {
 export default async function TravellerPublicProfilePage({
   params,
 }: {
-  params: { id: string };
+  // ⬇⬇⬇ params теперь Promise
+  params: Promise<{ id: string }>;
 }) {
-  const { id } = params;
+  // ⬇⬇⬇ обязательно await
+  const { id } = await params;
 
   const stories = await getTravellerStories(id);
-
   const hasStories = Array.isArray(stories) && stories.length > 0;
 
   return (
