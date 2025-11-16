@@ -44,7 +44,7 @@ export default function ConfirmModal({ title, text, confirmButtonText, cancelBut
         >
             <div className={css.confirmModal}>
                 <button
-                    className={css.confirmcloseButton}
+                    className={css.confirmСloseButton}
                     onClick={onCancel}
                     aria-label="Close modal"
                 >
