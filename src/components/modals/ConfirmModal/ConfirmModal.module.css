@@ -13,17 +13,17 @@
 
 .confirmModal {
     background-color: #F7F9FF;
-    padding: 64px;
+    padding: 64px 20px 20px;
     border-radius: 24px;
-    max-width: 768px;
+    max-width: 335px;
     width: 100%;
     position: relative;
 }
 
-.confirmcloseButton {
+.confirmСloseButton {
     position: absolute;
-    top: 24px;
-    right: 24px;
+    top: 20px;
+    right: 20px;
     background: transparent;
     border: none;
     width: 32px;
@@ -33,7 +33,7 @@
 
 .confirmTitle {
     font-weight: 700;
-    font-size: 48px;
+    font-size: 26px;
     line-height: 120%;
     letter-spacing: -0.01em;
     text-align: center;
@@ -43,7 +43,7 @@
 
 .confirmText {
     font-weight: 400;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 150%;
     text-align: center;
     color: #000;
@@ -51,6 +51,7 @@
 
 .buttons {
     display: flex;
+    flex-direction: column;
     gap: 24px;
     justify-content: center;
     margin-top: 32px;
@@ -59,20 +60,15 @@
 .cancelBtn {
     border-radius: 8px;
     padding: 6px 12px;
-    width: 203px;
+    width: 295px;
     height: 48px;
     color:#000;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 150%;
     background-color: rgba(0, 0, 0, 0.05);
     border: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-.cancelBtn:hover,
-.cancelBtn:focus {
-    background-color: #e8eeff;
-    border: 1px solid #4169e1;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .cancelBtn:active {
@@ -82,23 +78,68 @@
 
 .confirmBtn {
     font-weight: 500;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 150%;
     border: 1px solid #4169e1;
     border-radius: 8px;
     padding: 6px 12px;
-    width: 203px;
+    width: 295px;
     height: 48px;
     background-color: #4169e1;
     color: #fff;
-}
-
-.confirmBtn:hover,
-.confirmBtn:focus {
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .confirmBtn:active {
     border: 1px solid rgba(0, 0, 0, 0.05);
     background-color: #1a2a5a;
+}
+
+@media (min-width: 768px){
+    .confirmModal {
+        padding: 64px 32px;
+        max-width: 704px;
+    }
+    .confirmСloseButton {
+        top: 16px;
+        right: 16px;
+    }
+    .confirmTitle {
+        font-size: 32px;
+    }
+    .buttons {
+        flex-direction: row;
+    }
+    .cancelBtn,
+    .confirmBtn { 
+        width: 203px;
+    }
+    
+}
+
+@media (min-width: 1440px){
+    .confirmModal {
+        padding: 64px;
+        max-width: 768px;
+    }
+    .confirmСloseButton {
+        top: 24px;
+        right: 24px;
+    }
+    .confirmTitle {
+        font-size: 48px;
+    }
+    .confirmText {
+        font-size: 20px;
+    }
+    .cancelBtn:hover,
+    .cancelBtn:focus {
+        background-color: #e8eeff;
+        border: 1px solid #4169e1;
+    }
+    .confirmBtn:hover,
+    .confirmBtn:focus {
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
 }

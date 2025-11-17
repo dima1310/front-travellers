@@ -77,13 +77,7 @@ export default function EditStoryPage() {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>Редагувати історію</h1>
-          <p className={styles.subtitle}>
-            Внесіть зміни до вашої історії подорожі
-          </p>
-        </header>
-
+        <h1 className={styles.title}>Редагувати історію</h1>
         <AddStoryForm
           initialData={initialData}
           isEdit

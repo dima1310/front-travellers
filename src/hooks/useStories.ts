@@ -1,7 +1,7 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {axiosInstance} from "@/lib/axios";
 import toast from "react-hot-toast";
-import {Article, StoriesResponse} from "@/types/article.types";
+import {StoriesResponse, Story} from "@/types/story.types";
 
 interface StoriesParams {
     page: number;
@@ -19,7 +19,7 @@ export const useStories = (page: number = 1, limit: number = 9, category?: strin
                 params.category = category;
             }
 
-            const {data} = await axiosInstance.get<StoriesResponse>('/articles', {params});
+            const {data} = await axiosInstance.get<StoriesResponse>('/stories', {params});
             return data;
         },
     });
@@ -30,7 +30,7 @@ export const useStory = (storyId: string) => {
     return useQuery({
         queryKey: ['story', storyId],
         queryFn: async () => {
-            const {data} = await axiosInstance.get<Article>(`/articles/${storyId}`);
+            const {data} = await axiosInstance.get<Story>(`/stories/${storyId}`);
             return data;
         },
         enabled: !!storyId,

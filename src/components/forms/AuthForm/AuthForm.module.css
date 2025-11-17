@@ -70,7 +70,7 @@
 .submitBtn {
   width: 100%;
   padding: 14px 24px;
-  background-color: #2563eb;
+  background-color: #3b5ccc;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -81,12 +81,18 @@
   margin-top: 8px;
 }
 
-.submitBtn:hover:not(:disabled) {
-  background-color: #1d4ed8;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+.submitBtn:hover,
+.submitBtn:focus-visible {
+  background-color: #cdd9fc;
+  color: #111827;
+  border: 1px solid #2563eb;
+  box-shadow: 0 4px 10px rgba(65, 105, 225, 0.25);
+  transform: translateY(-1px);
 }
-
+.submitBtn:active {
+  background-color: #94a3ff;
+  color: #000;
+}
 .submitBtn:disabled {
   opacity: 0.6;
   cursor: not-allowed;

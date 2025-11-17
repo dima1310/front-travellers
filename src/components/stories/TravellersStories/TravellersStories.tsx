@@ -1,56 +1,68 @@
 "use client";
 
+import { useState } from "react";
 import { useInfiniteStories } from "@/services/queries/useStoriesQuery";
 import TravellersStoriesItem from "@/components/stories/TravellersStoriesItem/TravellersStoriesItem";
+import StoriesFilter, {
+  type StoriesFilterValue,
+} from "@/components/stories/StoriesFilter/StoriesFilter";
 import styles from "./TravellersStories.module.css";
 import type { Story } from "@/types/story.types";
 
 type Props = {
-  stories?: Story[]; // If provided, use these (Profile page mode)
+  stories?: Story[]; // If provided — profile mode
 };
 
 export default function TravellersStories({ stories }: Props) {
-  // Determine if we're in "managed mode" (stories passed from parent)
-  const isManagedMode = Array.isArray(stories);
+  // Mode: managed (profile) or infinite (homepage/browse)
+  const isManaged = Array.isArray(stories);
 
-  // Only fetch data if stories not provided (Homepage/Browse mode)
-  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useInfiniteStories();
+  // Filter (only in browse mode)
+  const [filter, setFilter] = useState<StoriesFilterValue>("all");
 
-  const fetchedStories: Story[] = data?.pages?.flatMap((p) => p.items) ?? [];
-  const displayStories: Story[] = isManagedMode ? stories : fetchedStories;
+  // Fetch only if not managed mode
+  const {
+    data,
+    isLoading,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteStories(isManaged ? undefined : filter === "all" ? undefined : filter);
 
-  // Show loading only when fetching in browse mode
-  if (!isManagedMode && isLoading) {
-    return (
-      <section className={styles.section}>
-        <div className={styles.container}>
-          <p className={styles.loading}>Завантаження...</p>
-        </div>
-      </section>
-    );
-  }
+  const fetched: Story[] = data?.pages?.flatMap((p) => p.items) ?? [];
+
+  // What to display
+  const list: Story[] = isManaged ? (stories as Story[]) : fetched;
 
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        {/* Show title only in browse/homepage mode */}
-        {!isManagedMode && (
+        
+        {/* Title only in browse mode */}
+        {!isManaged && (
           <h2 className={styles.title}>Історії мандрівників</h2>
         )}
 
-        {displayStories.length === 0 ? (
+        {/* Filter only in browse mode */}
+        {!isManaged && (
+          <StoriesFilter value={filter} onChange={setFilter} />
+        )}
+
+        {/* Loading / Empty / Grid */}
+        {!isManaged && isLoading ? (
+          <p className={styles.loading}>Завантаження...</p>
+        ) : list.length === 0 ? (
           <p className={styles.loading}>Немає історій</p>
         ) : (
           <div className={styles.grid}>
-            {displayStories.map((story) => (
+            {list.map((story) => (
               <TravellersStoriesItem key={story._id} story={story} />
             ))}
           </div>
         )}
 
-        {/* Show "Load more" button only in browse/homepage mode */}
-        {!isManagedMode && hasNextPage && (
+        {/* Load more button only in browse mode */}
+        {!isManaged && hasNextPage && (
           <button
             onClick={() => fetchNextPage()}
             className={styles.button}
@@ -59,6 +71,7 @@ export default function TravellersStories({ stories }: Props) {
             {isFetchingNextPage ? "Завантаження..." : "Показати ще"}
           </button>
         )}
+
       </div>
     </section>
   );
