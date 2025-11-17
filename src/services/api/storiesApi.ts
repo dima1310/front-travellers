@@ -8,7 +8,6 @@ import type {
 
 const STORIES_PREFIX = "/stories";
 
-// 🔹 Создание истории (POST /stories)
 export const createStory = async (
   formData: FormData
 ): Promise<CreatedStoryResponse> => {
@@ -24,7 +23,6 @@ export const createStory = async (
   return data;
 };
 
-// 🔹 Обновление истории (PATCH /stories/:storyId)
 export const updateStory = async (
   storyId: string,
   formData: FormData
@@ -42,7 +40,6 @@ export const updateStory = async (
   return data;
 };
 
-// 🔹 Получить историю по id (GET /stories/:storyId)
 export const getStoryById = async (storyId: string): Promise<Story> => {
   const { data } = await api.get<{
     status: number;
@@ -53,7 +50,6 @@ export const getStoryById = async (storyId: string): Promise<Story> => {
   return data.data;
 };
 
-// 🔹 Основной storiesApi
 export const storiesApi = {
   async popular(): Promise<Story[]> {
     const { data } = await api.get<{
@@ -95,6 +91,7 @@ export const storiesApi = {
       total: pageData.total,
       totalPages: pageData.totalPages,
       hasNextPage: pageData.hasNextPage,
+      hasPrevPage: pageData.hasPrevPage,
     };
   },
 };

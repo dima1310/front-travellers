@@ -1,33 +1,25 @@
-import React from "react";
-import type { TravellerCard } from "@/services/api/travellersApi";
-import styles from "./TravellersList.module.css";
+"use client";
 
-interface TravellersListProps {
-  travellers: TravellerCard[];
+import css from "./TravellersList.module.css";
+import { TravellersListItem } from "@/components/travellers/TravellersListItem/TravellersListItem";
+import type { Traveller } from "@/types/traveller.types";
+
+interface Props {
+  travellers: Traveller[];
 }
 
-export default function TravellersList({ travellers }: TravellersListProps) {
-  if (!travellers || travellers.length === 0) {
-    return <p className={styles.empty}>No travellers found.</p>;
-  }
-
+export default function TravellersList({ travellers }: Props) {
   return (
-    <ul className={styles.list}>
-      {travellers.map((traveller) => (
-        <li key={traveller._id} className={styles.item}>
-          <img
-            src={traveller.avatarUrl || "/default-avatar.png"}
-            alt={traveller.name}
-            className={styles.avatar}
-          />
-
-          <h3 className={styles.name}>{traveller.name}</h3>
-
-          {traveller.bio && (
-            <p className={styles.bio}>{traveller.bio}</p>
-          )}
-        </li>
+    <div className={css.list}>
+      {travellers.map((t) => (
+        <TravellersListItem
+          key={t._id}
+          _id={t._id}
+          name={t.name}
+          bio={t.bio}
+          avatar={t.avatar}
+        />
       ))}
-    </ul>
+    </div>
   );
 }

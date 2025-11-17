@@ -1,34 +1,21 @@
-"use client";
-
-import { ROUTES } from "@/utils/constants/routes";
-import { useAuthStore } from "@/store/useAuthStore";
 import styles from "./Join.module.css";
 
-export default function Join() {
-  const isAuth = useAuthStore((s) => s.isAuthenticated);
-
-  const handleClick = () => {
-    if (isAuth) {
-      window.location.href = ROUTES.AUTH.PROFILE;
-    } else {
-      window.location.href = ROUTES.AUTH.REGISTER;
-    }
-  };
-
+export default function CTA() {
   return (
-    <section className={styles.join} id="join">
-      <div className={styles.overlay}>
-        <div className={styles.container}>
+    <section className={styles.section}>
+      <div className={styles.wrapper}>
+        <div className={styles.background}></div>
+        <div className={styles.overlay}></div>
+
+        <div className={styles.content}>
           <h2 className={styles.title}>Приєднуйтесь до нашої спільноти</h2>
+
           <p className={styles.text}>
-            Станьте частиною всесвітньої спільноти мандрівників. Діліться своїми
-            історіями, надихайте інших і відкривайте для себе світ очима тих,
-            хто вже його пізнав.
+            Долучайтеся до мандрівників, які діляться своїми історіями та
+            надихають на нові пригоди.
           </p>
 
-          <button className={styles.button} onClick={handleClick}>
-            {isAuth ? "Збережені" : "Зареєструватися"}
-          </button>
+          <button className={styles.button}>Зареєструватися</button>
         </div>
       </div>
     </section>
