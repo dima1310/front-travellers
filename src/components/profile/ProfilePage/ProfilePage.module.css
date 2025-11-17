@@ -8,6 +8,32 @@
 .container {
   max-width: 1312px;
   margin: 0 auto;
+  /* padding: 48px 64px 72px; */
+}
+
+/* Loader wrapper */
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+/* Error and empty states */
+.error,
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 16px;
+  color: #6b4560;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.error {
+  color: #c41e3a;
+  background: rgba(255, 220, 230, 0.6);
 }
 
 /* Loader wrapper */

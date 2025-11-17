@@ -24,6 +24,10 @@
   color: #111827;
   max-width: 100%;
 }
+@media (min-width: 375px) {
+  .section {
+    justify-content: center;
+  }
 
 .button {
   align-self: flex-start;
