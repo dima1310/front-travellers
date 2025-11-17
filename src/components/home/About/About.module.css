@@ -11,65 +11,62 @@
   max-width: 1200px;
   padding: 0 40px;
   display: grid;
-  grid-template-columns: repeat(12, 1fr); /* как на макете */
+  grid-template-columns: repeat(12, 1fr);
   gap: 24px;
 }
 
-/* ======= LEFT TITLE + TEXT ======= */
+/* ==== ЗАГОЛОВОК + ОПИСАНИЕ ==== */
 
 .titleBlock {
-  grid-column: span 6; /* половина ширины */
+  grid-column: 1 / span 6;
 }
 
 .title {
-  font-size: 42px;
-  line-height: 1.15;
+  font-size: 52px;
+  line-height: 1.2;
   font-weight: 700;
   color: #111;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
 
-/* длинный текст справа от заголовка */
 .description {
-  grid-column: span 6;
-  font-size: 17px;
-  line-height: 1.55;
+  grid-column: 7 / span 6;
+  font-size: 18px;
+  line-height: 1.6;
   color: #333;
-  max-width: 500px;
-  margin-top: 8px;
+  max-width: 520px;
 }
 
-/* ======= FEATURES (3 колонки) ======= */
+/* ==== 3 КАРТОЧКИ ==== */
 
 .features {
-  grid-column: span 12;
-  display: flex;
-  justify-content: space-between;
+  grid-column: 1 / span 12;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
   margin-top: 50px;
 }
 
 .featureItem {
-  width: 32%;
   display: flex;
   flex-direction: column;
 }
 
 .icon {
-  width: 32px;
-  height: 32px;
-  margin-bottom: 14px;
-  opacity: 0.9;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 18px;
 }
 
 .featureTitle {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
+  margin-bottom: 10px;
   color: #111;
-  margin-bottom: 8px;
 }
 
 .featureText {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.55;
-  color: #444;
+  color: #555;
 }

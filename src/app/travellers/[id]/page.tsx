@@ -12,7 +12,7 @@ import type { Story } from "@/types/story.types";
 
 async function getTravellerStories(id: string): Promise<Story[]> {
   try {
-    const base = process.env.NEXT_PUBLIC_API_URL!;
+    const base = process.env.NEXT_PUBLIC_API_BASE_URL!;
     const res = await fetch(`${base}/users/${id}`, { cache: "no-store" });
 
     if (!res.ok) return [];

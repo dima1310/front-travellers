@@ -31,8 +31,7 @@ export default function TravellerInfo({ id }: TravellerInfoProps) {
   };
 
   // безопасный src: если пусто — показываем ту же заглушку, что и в списке
-  const avatarSrc =
-    avatar && avatar.trim() !== "" ? avatar : "/icons/user.svg";
+  const avatarSrc = avatar && avatar.trim() !== "" ? avatar : "/icons/user.svg";
 
   return (
     <section className={styles.section}>
@@ -43,8 +42,8 @@ export default function TravellerInfo({ id }: TravellerInfoProps) {
             <Image
               src={avatarSrc}
               alt={name}
-              width={240}
-              height={240}
+              width={199}
+              height={199}
               className={styles.avatar}
             />
           </div>

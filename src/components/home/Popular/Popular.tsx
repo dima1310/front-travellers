@@ -1,13 +1,13 @@
 "use client";
 
 import { useInfiniteStories } from "@/services/queries/useStoriesQuery";
-import PopularStoriesItem from "./PopularStoriesItem/PopularStoriesItem";
 import LoadMoreButton from "@/components/ui/Button/LoadMoreButton/LoadMoreButton";
 import styles from "./Popular.module.css";
 
 import type { Story, StoriesResponse } from "@/types/story.types";
 import type { InfiniteData } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import TravellersStoriesItem from "@/components/stories/TravellersStoriesItem/TravellersStoriesItem";
 
 export default function Popular() {
   const router = useRouter();
@@ -35,7 +35,7 @@ export default function Popular() {
         ) : (
           <div className={styles.grid}>
             {stories.map((story: Story) => (
-              <PopularStoriesItem key={story._id} story={story} />
+              <TravellersStoriesItem key={story._id} story={story} />
             ))}
           </div>
         )}

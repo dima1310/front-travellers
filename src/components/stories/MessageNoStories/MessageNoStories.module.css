@@ -8,10 +8,9 @@
   max-width: 533px;
   width: 100%;
   padding: 32px;
-  background-color: #f6f8ff;
+  background: #e8eeff;
   border-radius: 24px;
   border: 1px solid #d9e7ff;
-
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -24,6 +23,21 @@
   line-height: 1.4;
   color: #111827;
   max-width: 100%;
+}
+
+.button {
+  align-self: flex-start;
+  height: 42px;
+  padding: 8px 24px;
+  border-radius: 8px;
+  border: 1px solid #4169e1;
+  font-weight: 600;
+  font-size: 14px;
+  background-color: #4169e1;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 @media (min-width: 375px) {
   .section {
@@ -38,6 +52,7 @@
   }
 
   .text {
+    font-family: var(--font-sora);
     width: 295px;
     height: 75px;
     font-family: "Sora", sans-serif;
@@ -48,15 +63,12 @@
     color: #000;
   }
   .button {
-    align-self: flex-start;
-    height: 42px;
-    padding: 8px 24px;
-    border-radius: 8px;
-    border: none;
-    font-family: var(--font-nunito);
-    font-weight: 600;
-    font-size: 14px;
-    background-color: #4169e1;
+    align-self: center;
+    width: 295px;
+    height: 48px;
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 16px;
     color: #fff;
     display: inline-flex;
     align-items: center;
@@ -64,26 +76,50 @@
   }
 }
 
-/* ===== TABLET 768–1439px ===== */
-@media (min-width: 768px) and (max-width: 1439px) {
+/* ===== TABLET 768 ===== */
+@media (min-width: 768px) {
   .section {
-    margin-top: 32px;
+    justify-content: flex-start;
   }
 
-  /* ⚠️ На планшете — одна строка */
+  .card {
+    padding: 40px 32px;
+    width: 533px;
+    height: 210px;
+    max-width: 768px;
+    gap: 32px;
+    border-radius: 24px;
+  }
+
   .text {
-    white-space: nowrap;
-    max-width: 100%;
+    width: 469px;
+    height: 50px;
+  }
+  .button {
+    align-self: flex-start;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #fff;
+    width: 101px;
+    height: 48px;
+    padding: 6px 12px;
   }
 }
 
 /* ===== DESKTOP 1440+ ===== */
 @media (min-width: 1440px) {
-  .section {
-    margin-top: 40px;
+  .card {
+    height: 268px;
+  }
+  .text {
+    width: 400px;
+    height: 108px;
+    font-size: 26px;
   }
 
-  .text {
-    max-width: 100%;
+  .button {
+    font-size: 17px;
+    width: 111px;
   }
 }

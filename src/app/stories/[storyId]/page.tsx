@@ -22,7 +22,6 @@ export default function StoryPage() {
 
     const fetchStory = async () => {
       try {
-        // axios + baseURL + cookies уже настроены внутри api
         const data = await getStoryById(String(storyId));
         setStory(data);
       } catch (err) {

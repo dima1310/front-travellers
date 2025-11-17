@@ -1,6 +1,10 @@
 /* Section container */
 .section {
+
   width: 100%;
+  padding: 0;
+  background-color: var(--color-bg);
+
 }
 
 .container {
@@ -27,7 +31,7 @@
   border-radius: 12px;
 }
 
-/* Stories grid */
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));

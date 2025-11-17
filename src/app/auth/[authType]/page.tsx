@@ -9,12 +9,10 @@ type AuthPageParams = {
 };
 
 type AuthPageProps = {
-  // В Next сейчас params приходит как Promise
   params: Promise<AuthPageParams>;
 };
 
 export default async function AuthPage({ params }: AuthPageProps) {
-  // обязательно await
   const { authType } = await params;
 
   const current =
