@@ -68,7 +68,11 @@ export const storiesApi = {
         return data.data.data;
     },
 
-    async list(page = 1, perPage = 12, categoryName?: string): Promise<StoriesResponse> {
+    async list(
+        page = 1,
+        perPage = 12,
+        categoryName?: string
+    ): Promise<StoriesResponse> {
         const params: Record<string, unknown> = {
             page,
             perPage,
@@ -86,13 +90,7 @@ export const storiesApi = {
             message: string;
             data: StoriesApiPage;
         }>(STORIES_PREFIX, {
-            params: {
-                page,
-                perPage,
-                sortBy: "date",
-                sortOrder: "desc",
-            },
-        });
+            params });
 
         const pageData = data.data;
 
