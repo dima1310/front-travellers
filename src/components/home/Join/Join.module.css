@@ -1,59 +1,98 @@
-.join {
-  position: relative;
-  height: 600px;
-  background: url("/images/") center/cover no-repeat;
-  color: #fff;
+.section {
+  padding: 80px 0;
+  background-color: var(--color-bg-light);
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
+/* Карточка с фото */
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1312px;
+  min-height: 260px;
+
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+/* Картинка на фоне */
+.background {
+  position: absolute;
+  inset: 0;
+
+  background: url("/images/moonlit-coral-reef-1.jpg") center/cover no-repeat;
+}
+
+/* Синее затемнение, как в макете */
 .overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.5) 0%,
-    rgba(0, 0, 0, 0.8) 100%
+    90deg,
+    rgba(0, 15, 40, 0.9) 0%,
+    rgba(0, 15, 40, 0.65) 55%,
+    rgba(0, 15, 40, 0.25) 100%
   );
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.container {
+/* Контент внутри карточки */
+.content {
   position: relative;
   z-index: 2;
-  max-width: 800px;
-  width: 90%;
-  text-align: center;
+
+  height: 100%;
+  padding: 64px; /* слева/справа/сверху/снизу 64 как на фигме */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 24px;
+  align-items: flex-start;
+  gap: 16px; /* расстояние между заголовком и текстом */
+  color: #ffffff;
 }
 
+/* Заголовок — 558 × 116 в макете */
 .title {
-  font-size: 48px;
+  margin: 0;
+  max-width: 558px;
+  width: 100%;
+
+  font-family: var(--font-sora);
   font-weight: 700;
-  line-height: 1.2;
+  font-size: 32px;
+  line-height: 1.2; /* 120% */
+  letter-spacing: -0.01em;
 }
 
+/* Описание — тоже ширина 558 */
 .text {
-  font-size: 18px;
+  margin: 0;
+  max-width: 558px;
+  width: 100%;
+
+  font-family: var(--font-nunito);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5; /* 150% */
+  letter-spacing: 0;
   color: #eaeaea;
-  max-width: 600px;
-  line-height: 1.6;
 }
 
+/* Кнопка 513 × 48 Hug, прижата влево */
 .button {
-  margin-top: 20px;
+  margin-top: 24px; /* расстояние от текста до кнопки ~ как в фигме */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 32px;
+  min-height: 48px;
+
   background-color: var(--color-primary);
-  color: #fff;
+  color: #ffffff;
   border: none;
-  border-radius: var(--radius-small);
-  padding: 14px 36px;
-  font-size: 18px;
+  border-radius: 999px;
+  font-family: var(--font-nunito);
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -63,22 +102,33 @@
   background-color: var(--color-primary-hover);
 }
 
-/* 📱 Адаптивність */
+/* Адаптив */
 @media (max-width: 768px) {
-  .join {
-    height: 500px;
+  .section {
+    padding: 48px 0;
+  }
+
+  .wrapper {
+    min-height: 220px;
+  }
+
+  .content {
+    padding: 32px 24px;
+    gap: 12px;
   }
 
   .title {
-    font-size: 36px;
+    font-size: 24px;
   }
 
   .text {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .button {
-    padding: 12px 28px;
-    font-size: 16px;
+    margin-top: 16px;
+    padding: 0 24px;
+    min-height: 44px;
+    font-size: 14px;
   }
 }

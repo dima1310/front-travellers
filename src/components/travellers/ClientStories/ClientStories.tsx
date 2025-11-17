@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import type { Story } from "@/types/story.types";
-import PopularStoriesItem from "@/components/home/Popular/PopularStoriesItem/PopularStoriesItem";
+import PopularStoriesItem from "@/components/stories/TravellersStoriesItem/TravellersStoriesItem";
 import styles from "./ClientStories.module.css";
 
 type Props = {

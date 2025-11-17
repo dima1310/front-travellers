@@ -1,46 +1,69 @@
 .footer {
   background-color: var(--color-secondary);
-  color: #fff;
-  padding: 60px 0;
+  padding: 24px 0 32px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .container {
-  max-width: 1440px;
-  width: 90%;
+  max-width: 1312px;
+  width: 100%;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 40px;
-}
+  padding: 0 16px;
 
-.logoSection {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 32px;
 }
 
+/* ===== ВЕРХНЯЯ СТРОКА ===== */
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* ===== ЛОГОТИП ===== */
 .logo {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.logoText {
+  font-family: var(--font-sora);
   font-weight: 700;
-  font-size: 22px;
-  text-decoration: none;
-  color: var(--color-primary);
+  font-size: 18px;
+  line-height: 1.2;
+  color: #171717;
 }
 
-.copy {
-  font-size: 14px;
-  color: #aaa;
-}
-
-.nav ul {
+/* ===== СОЦСЕТИ ===== */
+.socials {
   list-style: none;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+}
+
+.socials img {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease;
+}
+
+.socials img:hover {
+  transform: scale(1.05);
+}
+
+/* ===== НАВИГАЦИЯ ===== */
+.navList {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 24px;
   padding: 0;
   margin: 0;
 }
@@ -48,47 +71,50 @@
 .linkBtn {
   background: none;
   border: none;
-  color: #fff;
+  padding: 0;
   cursor: pointer;
+
+  font-family: var(--font-nunito);
   font-size: 16px;
-  text-align: left;
-  transition: color 0.3s ease;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #171717;
+
+  transition: color 0.2s ease;
 }
 
 .linkBtn:hover {
   color: var(--color-primary);
 }
 
-.socials {
-  list-style: none;
-  display: flex;
-  gap: 16px;
-  padding: 0;
+/* ===== КОПИРАЙТ ===== */
+.copy {
   margin: 0;
+  font-family: var(--font-nunito);
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  color: #6b6b6b;
 }
 
-.socials img {
-  width: 28px;
-  height: 28px;
-  transition: transform 0.3s ease;
-}
-
-.socials img:hover {
-  transform: scale(1.1);
-}
-
-/* 📱 Адаптивність */
+/* ===== АДАПТИВ ===== */
 @media (max-width: 768px) {
-  .container {
+  .topRow {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    gap: 16px;
   }
 
-  .nav ul {
-    flex-direction: row;
-    justify-content: center;
+  .socials {
+    justify-content: flex-start;
+  }
+
+  .navList {
     flex-wrap: wrap;
     gap: 16px;
+  }
+
+  .copy {
+    text-align: left;
   }
 }
