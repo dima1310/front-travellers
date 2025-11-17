@@ -7,7 +7,6 @@ import { api } from "@/services/api/axiosConfig";
 import AuthForm from "../AuthForm/AuthForm";
 import styles from "./LoginForm.module.css";
 
-// ✅ ДОДАНО — підключаємо Zustand Auth Store
 import { useAuthStore } from "@/store/useAuthStore";
 
 import {
@@ -32,7 +31,6 @@ type ApiErrorShape = {
 export default function LoginForm() {
   const router = useRouter();
 
-  // ✅ ДОДАНО — отримуємо login() зі стору
   const login = useAuthStore((state) => state.login);
 
   const handleLogin = async (values: LoginFormValues) => {
@@ -40,10 +38,6 @@ export default function LoginForm() {
       const res = await api.post("/auth/login", values);
 
       if (res.status === 200 || res.status === 201) {
-
-        // ⬇️⬇️⬇️ ГОЛОВНА ЗМІНА !!!
-        // ТУТ ми зберігаємо user + token у Zustand
-        // щоб isAuthenticated став true
         login(res.data.user, res.data.token);
 
         showSuccessToast("Логін успішний");

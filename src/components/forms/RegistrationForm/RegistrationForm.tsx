@@ -29,7 +29,6 @@ export default function RegistrationForm() {
   const router = useRouter();
 
   const handleRegister = async (values: RegistrationFormValues) => {
-    // просто формируем payload без confirmPassword, чтобы не было warning про unused
     const { name, email, password } = values;
     const payload = { name, email, password };
 

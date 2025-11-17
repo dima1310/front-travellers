@@ -59,7 +59,7 @@
 /* Desktop (1440px+) */
 @media (min-width: 1440px) {
   .page {
-    padding: 100px 0;
+    padding: 0;
   }
 
   .container {
