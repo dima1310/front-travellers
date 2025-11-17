@@ -147,11 +147,33 @@ export default function AddStoryForm({
             !values.content ||
             (!values.image && !initialData?.imageUrl);
 
+          const Actions = () => (
+            <div className={styles.actionButtons}>
+              <button
+                type="submit"
+                disabled={isDisabled}
+                className={styles.saveBtn}
+              >
+                {isSubmitting
+                  ? "Збереження..."
+                  : isEdit
+                    ? "Оновити"
+                    : "Зберегти"}
+              </button>
+
+              <button
+                type="button"
+                className={styles.cancelBtn}
+                onClick={() => router.back()}
+              >
+                Відмінити
+              </button>
+            </div>
+          );
+
           return (
             <Form className={styles.form}>
-              {/* ВЕРХ: обкладинка + кнопки */}
               <section className={styles.coverSection}>
-                {/* Левая колонка — обкладинка */}
                 <div className={styles.coverContainer}>
                   <p className={styles.coverLabel}>Обкладинка статті</p>
 
@@ -169,7 +191,7 @@ export default function AddStoryForm({
                   </div>
 
                   <label htmlFor="image" className={styles.uploadBtn}>
-                    {imagePreview ? "Змінити зображення" : "Завантажити фото"}
+                    {imagePreview ? "Змінити фото" : "Завантажити фото"}
                   </label>
 
                   <input
@@ -188,33 +210,10 @@ export default function AddStoryForm({
                   />
                 </div>
 
-                {/* Правая колонка — кнопки */}
-                <aside>
-                  <div className={styles.actionButtons}>
-                    <button
-                      type="submit"
-                      disabled={isDisabled}
-                      className={styles.saveBtn}
-                    >
-                      {isSubmitting
-                        ? "Збереження..."
-                        : isEdit
-                          ? "Оновити"
-                          : "Зберегти"}
-                    </button>
-
-                    <button
-                      type="button"
-                      className={styles.cancelBtn}
-                      onClick={() => router.back()}
-                    >
-                      Відмінити
-                    </button>
-                  </div>
+                <aside className={styles.actionsDesktop}>
+                  <Actions />
                 </aside>
               </section>
-
-              {/* НИЗ: поля форми */}
               <div className={styles.fieldsContainer}>
                 <div className={styles.fieldGroup}>
                   <label className={styles.label}>Заголовок</label>
@@ -275,6 +274,10 @@ export default function AddStoryForm({
                     className={styles.error}
                   />
                 </div>
+              </div>
+
+              <div className={styles.actionsMobile}>
+                <Actions />
               </div>
             </Form>
           );

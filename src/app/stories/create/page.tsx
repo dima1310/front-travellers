@@ -25,10 +25,7 @@ export default function CreateStoryPage() {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>Створити нову історію</h1>
-        </header>
-
+        <h1 className={styles.title}>Створити нову історію</h1>
         <AddStoryForm />
       </div>
     </div>
