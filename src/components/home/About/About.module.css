@@ -1,43 +1,53 @@
 .section {
   width: 100%;
-  padding: 80px 0;
   background: #fff;
-  display: flex;
-  justify-content: center;
+  padding: 72px 0;
 }
+
+/* ====== GRID CONTAINER ====== */
 
 .container {
   width: 100%;
-  max-width: 1200px;
-  padding: 0 40px;
+  max-width: 1312px;
+  margin: 0 auto;
+
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 24px;
 }
 
-/* ==== ЗАГОЛОВОК + ОПИСАНИЕ ==== */
+/* ====== TITLE BLOCK ====== */
+/* было: span 6 → делаем span 7, чтобы ширина ≈ 755px */
 
 .titleBlock {
-  grid-column: 1 / span 6;
+  grid-column: 1 / span 7;
 }
+
+/* ====== TITLE ====== */
 
 .title {
   font-size: 52px;
   line-height: 1.2;
   font-weight: 700;
-  color: #111;
-  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+  color: #000;
+
+  margin: 0 0 20px 0; /* без margin-top */
+  /* НИКАКОГО height тут не нужно */
 }
 
+/* ====== DESCRIPTION ====== */
+/* сдвигаем описание так, чтобы в сумме было 12 колонок: 7 + 5 */
+
 .description {
-  grid-column: 7 / span 6;
+  grid-column: 8 / span 5;
   font-size: 18px;
   line-height: 1.6;
   color: #333;
   max-width: 520px;
 }
 
-/* ==== 3 КАРТОЧКИ ==== */
+/* ====== FEATURES (3 карточки) ====== */
 
 .features {
   grid-column: 1 / span 12;

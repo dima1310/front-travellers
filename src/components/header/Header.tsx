@@ -9,7 +9,6 @@ import ConfirmModal from "@/components/modals/ConfirmModal/ConfirmModal";
 import { useModal } from "@/hooks/useModal";
 import styles from "./Header.module.css";
 
-
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -19,11 +18,11 @@ export default function Header() {
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 
-  // ТІЛЬКИ ГОЛОВНА + ІСТОРІЇ
+  // ТІЛЬКИ ГОЛОВНА + ІСТОРІЇ + Мандрівники
   const navItems = [
     { label: "Головна", href: ROUTES.HOME },
     { label: "Історії", href: ROUTES.STORIES },
-    { label: "Мандрівники", href: ROUTES.TRAVELLERS}
+    { label: "Мандрівники", href: ROUTES.TRAVELLERS },
   ];
 
   const handleLogout = () => {
@@ -47,26 +46,25 @@ export default function Header() {
               alt="Логотип Подорожники"
               width={19}
               height={22}
-              // className={styles.logoIcon}
             />
             <span className={styles.logoText}>Подорожники</span>
           </Link>
 
-          {/* ПРАВАЯ ЧАСТЬ: publish + nav + burger */}
+          {/* ПРАВАЯ ЧАСТЬ */}
           <div className={styles.rightBlock}>
-            {/* КНОПКА "Опублікувати історію" */}
-            {/* <Link
+            {/* КНОПКА "Опублікувати історію" — выключена */}
+            {/*
+            <Link
               href={ROUTES.STORIES}
               className={styles.publishBtn}
               onClick={closeMenu}
             >
               Опублікувати історію
-            </Link> */}
+            </Link>
+            */}
 
-            {/* НАВИГАЦІЯ + auth */}
-            <nav
-              className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`}
-            >
+            {/* НАВИГАЦИЯ */}
+            <nav className={`⁠${styles.nav} ${menuOpen ? styles.navOpen : ""}`}>
               <ul className={styles.navList}>
                 {navItems.map((item) => (
                   <li key={item.href} className={styles.navItem}>
@@ -118,7 +116,7 @@ export default function Header() {
               )}
             </nav>
 
-            {/* БУРГЕР — мобілка + планшет */}
+            {/* Бургер */}
             <button
               type="button"
               className={`${styles.burger} ${
