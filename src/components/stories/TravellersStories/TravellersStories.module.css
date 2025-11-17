@@ -1,5 +1,5 @@
 .section {
-  padding: 100px 0;
+  padding: 0;
   background-color: var(--color-bg);
 }
 
@@ -16,6 +16,8 @@
   color: var(--color-text);
   margin-bottom: 48px;
 }
+
+
 
 .grid {
   display: grid;
