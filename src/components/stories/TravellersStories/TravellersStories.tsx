@@ -6,54 +6,57 @@ import styles from "./TravellersStories.module.css";
 import type { Story } from "@/types/story.types";
 
 type Props = {
-  // 👇 робимо проп опціональним
-  stories?: Story[];
+  stories?: Story[]; // If provided, use these (Profile page mode)
 };
 
 export default function TravellersStories({ stories }: Props) {
-  // якщо stories передані ззовні (наприклад, з ClientStories) — не грузимо дані тут
-  const isManaged = Array.isArray(stories);
+  // Determine if we're in "managed mode" (stories passed from parent)
+  const isManagedMode = Array.isArray(stories);
 
-  // дані з хука — тільки якщо проп не переданий
-  const {
-    data,
-    isLoading,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteStories();
+  // Only fetch data if stories not provided (Homepage/Browse mode)
+  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useInfiniteStories();
 
-  const fetched: Story[] = data?.pages?.flatMap((p) => p.items) ?? [];
+  const fetchedStories: Story[] = data?.pages?.flatMap((p) => p.items) ?? [];
+  const displayStories: Story[] = isManagedMode ? stories : fetchedStories;
 
-  // фактичний список до рендеру
-  const list: Story[] = isManaged ? (stories as Story[]) : fetched;
+  // Show loading only when fetching in browse mode
+  if (!isManagedMode && isLoading) {
+    return (
+      <section className={styles.section}>
+        <div className={styles.container}>
+          <p className={styles.loading}>Завантаження...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.title}>Історії мандрівників</h2>
+        {/* Show title only in browse/homepage mode */}
+        {!isManagedMode && (
+          <h2 className={styles.title}>Історії мандрівників</h2>
+        )}
 
-        {/* якщо список керується зовні, isLoading і кнопки не показуємо */}
-        {!isManaged && isLoading ? (
-          <p className={styles.loading}>Завантаження...</p>
-        ) : list.length === 0 ? (
+        {displayStories.length === 0 ? (
           <p className={styles.loading}>Немає історій</p>
         ) : (
           <div className={styles.grid}>
-            {list.map((story) => (
+            {displayStories.map((story) => (
               <TravellersStoriesItem key={story._id} story={story} />
             ))}
           </div>
         )}
 
-        {/* Кнопка "Показати ще" тільки коли ми самі вантажимо дані */}
-        {!isManaged && hasNextPage && (
+        {/* Show "Load more" button only in browse/homepage mode */}
+        {!isManagedMode && hasNextPage && (
           <button
             onClick={() => fetchNextPage()}
             className={styles.button}
             disabled={isFetchingNextPage}
           >
-            {isFetchingNextPage ? "Завантаження..." : "Переглянути всі"}
+            {isFetchingNextPage ? "Завантаження..." : "Показати ще"}
           </button>
         )}
       </div>

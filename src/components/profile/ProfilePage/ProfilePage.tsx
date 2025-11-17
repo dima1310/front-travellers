@@ -10,6 +10,7 @@ import { api } from "@/services/api/axiosConfig";
 import type { Story } from "@/types/story.types";
 
 import styles from "./ProfilePage.module.css";
+import MessageNoStories from "@/components/stories/MessageNoStories/MessageNoStories";
 
 type SavedStoryRef = string | { _id: string };
 
@@ -24,11 +25,7 @@ type CurrentUser = {
 
 type PublicProfileResponse = {
   data?: {
-    user?: {
-      _id: string;
-    };
     articles?: Story[];
-    stories?: Story[];
   };
 };
 
@@ -46,6 +43,7 @@ type ActiveTab = (typeof TABS)[keyof typeof TABS];
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<ActiveTab>(TABS.SAVED);
 
+  // Fetch current user
   const {
     data: currentUser,
     isLoading: isUserLoading,
@@ -59,13 +57,12 @@ export default function ProfilePage() {
   });
 
   const userId = currentUser?._id;
-
   const savedIds =
     currentUser?.savedStories?.map((s) =>
       typeof s === "string" ? s : s._id
     ) ?? [];
 
-  // 2️⃣ Мої історії (створені користувачем)
+  // Fetch user's created stories
   const {
     data: myStories = [],
     isLoading: isMyLoading,
@@ -76,14 +73,11 @@ export default function ProfilePage() {
     queryFn: async () => {
       if (!userId) return [];
       const { data } = await api.get<PublicProfileResponse>(`/users/${userId}`);
-      const payload = data.data;
-      if (!payload) return [];
-      // на всякий випадок підтримуємо і articles, і stories
-      return (payload.articles || payload.stories || []) as Story[];
+      return (data.data?.articles || []) as Story[];
     },
   });
 
-  // 3️⃣ Збережені історії
+  // Fetch saved stories
   const {
     data: savedStories = [],
     isLoading: isSavedLoading,
@@ -107,9 +101,7 @@ export default function ProfilePage() {
 
   const isStoriesLoading =
     activeTab === TABS.SAVED ? isSavedLoading : isMyLoading;
-
   const isStoriesError = activeTab === TABS.SAVED ? isSavedError : isMyError;
-
   const stories = activeTab === TABS.SAVED ? savedStories : myStories;
 
   return (
@@ -129,33 +121,27 @@ export default function ProfilePage() {
 
         {currentUser && (
           <>
-            {/* 🧍‍♀️ Інформація про мандрівника */}
             <TravellerInfo id={currentUser._id} />
 
-            {/* 📚 Секція історій */}
             <section className={styles.storiesSection}>
-              <div className={styles.storiesHeader}>
-                <h2 className={styles.storiesTitle}>Історії мандрівника</h2>
+              <div className={styles.tabs}>
+                <button
+                  className={`${styles.tabButton} ${
+                    activeTab === TABS.SAVED ? styles.tabButtonActive : ""
+                  }`}
+                  onClick={() => setActiveTab(TABS.SAVED)}
+                >
+                  Збережені історії
+                </button>
 
-                <div className={styles.tabs}>
-                  <button
-                    className={`${styles.tabButton} ${
-                      activeTab === TABS.SAVED ? styles.tabButtonActive : ""
-                    }`}
-                    onClick={() => setActiveTab(TABS.SAVED)}
-                  >
-                    Збережені історії
-                  </button>
-
-                  <button
-                    className={`${styles.tabButton} ${
-                      activeTab === TABS.MINE ? styles.tabButtonActive : ""
-                    }`}
-                    onClick={() => setActiveTab(TABS.MINE)}
-                  >
-                    Мої історії
-                  </button>
-                </div>
+                <button
+                  className={`${styles.tabButton} ${
+                    activeTab === TABS.MINE ? styles.tabButtonActive : ""
+                  }`}
+                  onClick={() => setActiveTab(TABS.MINE)}
+                >
+                  Мої історії
+                </button>
               </div>
 
               <div className={styles.storiesInner}>
@@ -171,17 +157,27 @@ export default function ProfilePage() {
                   </p>
                 )}
 
+                {/* Empty state with MessageNoStories */}
                 {!isStoriesLoading &&
                   !isStoriesError &&
                   stories.length === 0 && (
-                    <p className={styles.empty}>
-                      {activeTab === TABS.SAVED
-                        ? "У вас ще немає збережених історій."
-                        : "Ви ще не додали жодної історії."}
-                    </p>
+                    <MessageNoStories
+                      text={
+                        activeTab === TABS.SAVED
+                          ? "У вас ще немає збережених історій, мерщій збережіть вашу першу історію!"
+                          : "Ви ще нічого не публікували, поділіться своєю першою історією!"
+                      }
+                      buttonText={
+                        activeTab === TABS.SAVED
+                          ? "До історій"
+                          : "Опублікувати історію"
+                      }
+                      redirectTo={
+                        activeTab === TABS.SAVED ? "/stories" : "/new-story"
+                      }
+                    />
                   )}
 
-                {/* ⭐ Тут вже використовуємо TravellersStories як в ТЗ */}
                 {!isStoriesLoading && !isStoriesError && stories.length > 0 && (
                   <TravellersStories stories={stories} />
                 )}

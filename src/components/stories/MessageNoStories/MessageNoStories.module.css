@@ -1,9 +1,5 @@
-/* ===== MOBILE FIRST ===== */
-
 .section {
   width: 100%;
-  margin-top: 24px;
-
   display: flex;
   justify-content: flex-start;
 }
@@ -20,7 +16,6 @@
   flex-direction: column;
   gap: 16px;
 }
-
 .text {
   margin: 0;
   font-family: var(--font-nunito);
@@ -30,21 +25,43 @@
   color: #111827;
   max-width: 100%;
 }
+@media (min-width: 375px) {
+  .section {
+    justify-content: center;
+  }
 
-.button {
-  align-self: flex-start;
-  height: 42px;
-  padding: 8px 24px;
-  border-radius: 8px;
-  border: none;
-  font-family: var(--font-nunito);
-  font-weight: 600;
-  font-size: 14px;
-  background-color: #4169e1;
-  color: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  .card {
+    padding: 20px;
+    width: 335px;
+    height: 195px;
+    max-width: 768px;
+  }
+
+  .text {
+    width: 295px;
+    height: 75px;
+    font-family: "Sora", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: #000;
+  }
+  .button {
+    align-self: flex-start;
+    height: 42px;
+    padding: 8px 24px;
+    border-radius: 8px;
+    border: none;
+    font-family: var(--font-nunito);
+    font-weight: 600;
+    font-size: 14px;
+    background-color: #4169e1;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 /* ===== TABLET 768–1439px ===== */
