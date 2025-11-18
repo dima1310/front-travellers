@@ -50,13 +50,6 @@ export default function Header() {
           </Link>
 
           <div className={styles.rightBlock}>
-            <Link
-              href={ROUTES.STORIES}
-              className={styles.publishBtn}
-              onClick={closeMenu}
-            >
-              Опублікувати історію
-            </Link>
 
             <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`}>
               <ul className={styles.navList}>

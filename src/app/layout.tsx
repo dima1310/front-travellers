@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   },
   description:
     "Проєкт «Подорожники» — Travel App, створений для тих, хто живе подорожами (Next.js, Redux Toolkit, React Query).",
+  icons: {
+    icon: "/icons/logo.svg",
+  },
 };
 
 export default function RootLayout({
