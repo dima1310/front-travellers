@@ -4,20 +4,16 @@
   padding: 72px 0;
 }
 
-/* ====== GRID CONTAINER ====== */
+/* ====== GRID CONTAINER ВНУТРИ ГЛОБАЛЬНОГО .container ====== */
 
-.container {
+.content {
   width: 100%;
-  max-width: 1312px;
-  margin: 0 auto;
-
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 24px;
 }
 
 /* ====== TITLE BLOCK ====== */
-/* было: span 6 → делаем span 7, чтобы ширина ≈ 755px */
 
 .titleBlock {
   grid-column: 1 / span 7;
@@ -31,13 +27,10 @@
   font-weight: 700;
   letter-spacing: -0.01em;
   color: #000;
-
-  margin: 0 0 20px 0; /* без margin-top */
-  /* НИКАКОГО height тут не нужно */
+  margin: 0 0 20px 0;
 }
 
 /* ====== DESCRIPTION ====== */
-/* сдвигаем описание так, чтобы в сумме было 12 колонок: 7 + 5 */
 
 .description {
   grid-column: 8 / span 5;

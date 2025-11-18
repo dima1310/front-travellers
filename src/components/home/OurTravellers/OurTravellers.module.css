@@ -1,20 +1,13 @@
-/* === MOBILE FIRST === */
-
 .section {
   padding: 48px 0 80px;
   background-color: var(--color-bg-light);
 }
 
-/* главный контейнер */
-.container {
-  width: 100%;
-  max-width: 1312px;
-  margin: 0 auto;
-  padding: 0 16px;
-
+/* главный контейнер внутри глобального .container */
+.inner {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;       /* ← ВСЁ СЛЕВА */
+  align-items: flex-start;
 }
 
 /* заголовок — всегда слева */
@@ -32,7 +25,7 @@
 /* обёртка с карточками */
 .cardsWrapper {
   width: 100%;
-  padding: 20px 0 28px;          /* ← без боковых паддингов */
+  padding: 20px 0 28px;
 }
 
 /* кнопка “Переглянути всіх” */
@@ -58,7 +51,10 @@
   cursor: pointer;
   text-decoration: none;
 
-  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
 }
 
 .button:hover,
@@ -90,4 +86,3 @@
     padding: 32px 0 40px;
   }
 }
-

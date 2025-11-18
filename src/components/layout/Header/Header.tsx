@@ -18,7 +18,6 @@ export default function Header() {
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 
-  // ТІЛЬКИ ГОЛОВНА + ІСТОРІЇ
   const navItems = [
     { label: "Головна", href: ROUTES.HOME },
     { label: "Історії", href: ROUTES.STORIES },
@@ -37,8 +36,7 @@ export default function Header() {
   return (
     <>
       <header className={styles.header}>
-        <div className={styles.container}>
-          {/* ЛОГО */}
+        <div className={`container ${styles.inner}`}>
           <Link href={ROUTES.HOME} className={styles.logo} onClick={closeMenu}>
             <Image
               src="/icons/logo.svg"
@@ -51,9 +49,7 @@ export default function Header() {
             <span>Подорожники</span>
           </Link>
 
-          {/* ПРАВАЯ ЧАСТЬ: publish + nav + burger */}
           <div className={styles.rightBlock}>
-            {/* КНОПКА "Опублікувати історію" */}
             <Link
               href={ROUTES.STORIES}
               className={styles.publishBtn}
@@ -62,10 +58,7 @@ export default function Header() {
               Опублікувати історію
             </Link>
 
-            {/* НАВИГАЦІЯ + auth */}
-            <nav
-              className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`}
-            >
+            <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`}>
               <ul className={styles.navList}>
                 {navItems.map((item) => (
                   <li key={item.href} className={styles.navItem}>
@@ -117,7 +110,6 @@ export default function Header() {
               )}
             </nav>
 
-            {/* БУРГЕР — мобілка + планшет */}
             <button
               type="button"
               className={`${styles.burger} ${

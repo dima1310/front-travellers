@@ -1,22 +1,17 @@
-/* === MOBILE FIRST (320–374px) === */
-
 .section {
   padding: 48px 0 80px;
   background-color: var(--color-bg-light);
 }
 
-/* Контейнер — на всю доступну ширину макета */
-.container {
-  max-width: 1440px;
+/* Контейнер внутри глобального .container */
+.inner {
   width: 100%;
-  margin: 0 auto;
-
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-/* Заголовок зліва — мобілка */
+/* Заголовок */
 .title {
   font-size: 28px;
   font-weight: 700;
@@ -55,20 +50,20 @@
   font-size: 16px;
 }
 
-/* === ADAPTIVE MOBILE (375px+) === */
+/* === 375px+ === */
 @media (min-width: 375px) {
   .grid {
     grid-template-columns: minmax(320px, 1fr);
   }
 }
 
-/* === TABLET (768px+) — 2 карточки === */
+/* === TABLET (768px+) === */
 @media (min-width: 768px) {
   .section {
     padding: 80px 0;
   }
 
-  .container {
+  .inner {
     gap: 40px;
   }
 
@@ -91,13 +86,13 @@
   }
 }
 
-/* === DESKTOP (1440px+) — карточки на всю ширину === */
+/* === DESKTOP (1440px+) === */
 @media (min-width: 1440px) {
   .section {
     padding: 100px 0;
   }
 
-  .container {
+  .inner {
     gap: 48px;
   }
 
@@ -107,7 +102,6 @@
 
   .grid {
     gap: 40px;
-    /* три рівні колонки, які розтягуються на весь контейнер */
     grid-template-columns: repeat(3, minmax(0, 1fr));
     justify-content: center;
   }
