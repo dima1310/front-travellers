@@ -64,9 +64,6 @@
   list-style: none;
 }
 
-.navItem {
-}
-
 .navLink {
   text-decoration: none;
   font-family: var(--font-nunito);
