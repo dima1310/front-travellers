@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./Join.module.css";
 
 export default function CTA() {
@@ -15,8 +16,9 @@ export default function CTA() {
               Долучайтеся до мандрівників, які діляться своїми історіями та
               надихають на нові пригоди.
             </p>
-
-            <button className={styles.button}>Зареєструватися</button>
+            <Link href="/auth/register">
+              <button className={styles.button}>Зареєструватися</button>
+            </Link>
           </div>
         </div>
       </div>

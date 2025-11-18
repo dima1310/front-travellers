@@ -32,6 +32,7 @@
 }
 
 .confirmTitle {
+    font-family: "Sora", sans-serif;
     font-weight: 700;
     font-size: 26px;
     line-height: 120%;
@@ -42,6 +43,7 @@
 }
 
 .confirmText {
+    font-family: "Nunito Sans", sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
@@ -50,6 +52,7 @@
 }
 
 .buttons {
+    font-family: "Nunito Sans", sans-serif;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -66,6 +69,7 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
+    cursor: pointer;
     background-color: rgba(0, 0, 0, 0.05);
     border: 1px solid rgba(0, 0, 0, 0.15);
     transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -85,6 +89,7 @@
     padding: 6px 12px;
     width: 295px;
     height: 48px;
+    cursor: pointer;
     background-color: #4169e1;
     color: #fff;
     transition: background-color 0.3s ease, border-color 0.3s ease;
