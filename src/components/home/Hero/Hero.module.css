@@ -1,6 +1,5 @@
 .hero {
   position: relative;
-  /* MOBILE базово */
   height: 600px;
   max-width: 100%;
   margin: 0 auto;
@@ -15,14 +14,14 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.22); /* было 0.42 / 0.52 */
+  background: rgba(0, 0, 0, 0.22);
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 64px 20px 0; /* mobile */
+  padding: 64px 0 0; /* только вертикальный отступ, боковые — из .container */
 }
 
-.container {
+.content {
   position: relative;
   z-index: 2;
   width: 100%;
@@ -58,9 +57,9 @@
 
 .button {
   margin-top: 0;
-  background-color: #4169e1; /* 🔵 Синий как в Figma */
+  background-color: #4169e1;
   color: #fff;
-  border: 1px solid #4169e1; /* 🔵 Обводка */
+  border: 1px solid #4169e1;
   border-radius: 12px;
   padding: 10px 24px;
   font-size: 14px;
@@ -70,14 +69,10 @@
 }
 
 .button:hover {
-  background-color: #3354c2; /* немного темнее для ховера */
-}
-
-.button:hover {
   background-color: var(--color-primary-hover);
 }
 
-/* ==== 375px+ (адаптивная мобильная) ==== */
+/* ==== 375px+ ==== */
 @media (min-width: 375px) {
   .title {
     font-size: 36px;
@@ -100,10 +95,10 @@
   }
 
   .overlay {
-    padding: 72px 40px 0;
+    padding-top: 72px; /* только top */
   }
 
-  .container {
+  .content {
     gap: 24px;
   }
 
@@ -129,12 +124,12 @@
   }
 
   .overlay {
-    padding: 64px 72px 0;
+    padding-top: 64px;
   }
 
-  .container {
+  .content {
     width: 759px;
-    gap: 32px; /* как в макете */
+    gap: 32px;
   }
 
   .title {

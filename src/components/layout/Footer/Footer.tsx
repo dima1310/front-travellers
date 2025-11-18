@@ -46,10 +46,8 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.container}>
-        {/* ВЕРХНЯЯ СТРОКА */}
+      <div className={`container ${styles.content}`}>
         <div className={styles.topRow}>
-          {/* Логотип */}
           <Link href={ROUTES.HOME} className={styles.logo}>
             <Image
               src="/icons/logo.svg"
@@ -60,7 +58,6 @@ export default function Footer() {
             <span className={styles.logoText}>Подорожники</span>
           </Link>
 
-          {/* Соцсети */}
           <ul className={styles.socials}>
             {socials.map((s) => (
               <li key={s.href}>
@@ -71,7 +68,6 @@ export default function Footer() {
             ))}
           </ul>
 
-          {/* Навигация */}
           <nav>
             <ul className={styles.navList}>
               {navItems.map((item) => (
@@ -89,7 +85,6 @@ export default function Footer() {
           </nav>
         </div>
 
-        {/* НИЖНЯЯ СТРОКА — копирайт */}
         <p className={styles.copy}>©️ 2025 Подорожники. Усі права захищені.</p>
       </div>
     </footer>

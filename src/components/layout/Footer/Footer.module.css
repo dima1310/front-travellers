@@ -4,12 +4,8 @@
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.container {
-  max-width: 1312px;
+.content {
   width: 100%;
-  margin: 0 auto;
-  padding: 0 16px;
-
   display: flex;
   flex-direction: column;
   gap: 32px;
