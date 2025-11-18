@@ -1,4 +1,5 @@
 import "./globals.css";
+import "@/app/reset.css";
 import type { Metadata } from "next";
 import Header from "@/components/layout/Header/Header";
 import Footer from "@/components/layout/Footer/Footer";
@@ -16,7 +17,7 @@ const nunito = Nunito_Sans({
 });
 
 const sora = Sora({
-  subsets: ["latin", "latin-ext"], 
+  subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-sora",
 });
