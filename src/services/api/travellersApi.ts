@@ -34,7 +34,7 @@ type TravellersApiResponse =
   | WithDataUsers
   | WithItems;
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 
 // =====================
 //  AVATAR NORMALIZER
@@ -123,8 +123,8 @@ export async function listTravellers(
   a?: number | { page?: number; limit?: number },
   b?: number
 ): Promise<Traveller[]> {
-  const page = typeof a === "number" ? a : a?.page ?? 1;
-  const limit = typeof a === "number" ? b ?? 12 : a?.limit ?? 12;
+  const page = typeof a === "number" ? a : (a?.page ?? 1);
+  const limit = typeof a === "number" ? (b ?? 12) : (a?.limit ?? 12);
 
   const res = await api.get<TravellersApiResponse>("/users", {
     params: { page, limit },

@@ -4,11 +4,10 @@ import styles from "./StoriesFilter.module.css";
 
 export type StoriesFilterValue =
     | "all"
-    | "europe"
-    | "asia"
-    | "africa"
-    | "desert"
-    | "other"; // підлаштуй під реальні категорії з бекенду
+    | "Європа"
+    | "Азія"
+    | "Пустелі"
+    | "Африка";
 
 type CategoryConfig = {
     value: StoriesFilterValue;
@@ -18,10 +17,10 @@ type CategoryConfig = {
 // тексти й порядок — як у Figma (підстав свої точні назви)
 const CATEGORIES: CategoryConfig[] = [
     { value: "all", label: "Всі історії" },
-    { value: "europe", label: "Європа" },
-    { value: "asia", label: "Азія" },
-    { value: "desert", label: "Пустелі" },
-    { value: "africa", label: "Африка" },
+    { value: "Європа", label: "Європа" },
+    { value: "Азія", label: "Азія" },
+    { value: "Пустелі", label: "Пустелі" },
+    { value: "Африка", label: "Африка" },
 ];
 
 type Props = {

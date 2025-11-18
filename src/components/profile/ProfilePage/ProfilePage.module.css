@@ -2,11 +2,10 @@
 .page {
   min-height: 100vh;
   background: #f7f9ff;
-  /* padding: 48px 64px 72px; */
+  padding: 32px 20px 64px;
 }
 
 .container {
-  /* height: 1555px; */
   max-width: 1312px;
   margin: 0 auto;
   /* padding: 48px 64px 72px; */
@@ -37,30 +36,43 @@
   background: rgba(255, 220, 230, 0.6);
 }
 
+/* Loader wrapper */
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+/* Error and empty states */
+.error,
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 16px;
+  color: #6b4560;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  margin: 60px 0 20px;
+}
+
+.error {
+  color: #c41e3a;
+  background: rgba(255, 220, 230, 0.6);
+}
+
 /* Stories section */
 .storiesSection {
   margin-top: 32px;
 }
 
-/* .storiesHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
-  flex-wrap: wrap;
-  gap: 20px;
-} */
-
 /* Tabs */
 .tabs {
   display: flex;
-  justify-content: center;
-  align-items: center;
   margin-bottom: 40px;
-  width: fit-content;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-
   gap: 8px;
   background: #e8eeff;
   padding: 4px;
@@ -70,7 +82,8 @@
 }
 
 .tabButton {
-  padding: 12px 28px;
+  flex: 1;
+  padding: 4px 12px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -84,6 +97,9 @@
 }
 
 .tabButtonActive {
+  border-radius: 8px;
+  font-size: 16px;
+
   border: 1px solid rgba(0, 0, 0, 0.15);
   background: #f7f9ff;
   color: #000;
@@ -91,37 +107,62 @@
 }
 
 /* Stories inner container */
-.storiesInner {
-  min-height: 400px;
-}
+/* .storiesInner {
+  /* min-height: 400px; 
+} */
 
 /* ===== MOBILE 375px  ===== */
 
-@media (min-width: 375px) and (max-width: 767px) {
+@media (min-width: 375px) {
   .container {
     padding: 0;
   }
+  .tabs {
+    max-width: 335px;
+  }
 }
 
-/* ===== TABLET 768–1439px ===== */
-@media (min-width: 768px) and (max-width: 1439px) {
+/* ===== TABLET 768 ===== */
+@media (min-width: 768px) {
   .page {
-    padding: 32px 32px;
+    padding: 0px 32px 64px;
+  }
+
+  .tabs {
+    max-width: 422px;
+    margin-left: 0;
   }
 
   .tabButton {
-    padding: 10px 20px;
-    font-size: 14px;
+    flex: start;
+    font-size: 16px;
+  }
+
+  .storiesSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* justify-content: flex-start; */
   }
 }
 
 @media (min-width: 1440px) {
-  .storiesTitle {
-    font-size: 20px;
+  .page {
+    min-height: 100vh;
+    background: #f7f9ff;
+    padding: 0px 64px 72px;
   }
 
   .tabButton {
-    padding: 10px 16px;
-    font-size: 13px;
+    padding: 4px 12px;
+    font-size: 18px;
+  }
+
+  .storiesSection {
+    margin-top: 48px;
+  }
+
+  .error {
+    margin: 100px 0 20px;
   }
 }
