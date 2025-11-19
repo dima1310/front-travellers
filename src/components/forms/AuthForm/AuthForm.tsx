@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, FormikHelpers, useField } from "formik";
 import type { AnyObjectSchema } from "yup";
 
@@ -42,21 +42,41 @@ const FormikTextInput: React.FC<FormikTextInputProps> = ({
   autoComplete,
 }) => {
   const [field, meta] = useField<string>(name);
+  const [showPassword, setShowPassword] = useState(false);
 
   const hasError = meta.touched && Boolean(meta.error);
 
+  const isPassword = type === "password";
+  const actualType = isPassword && showPassword ? "text" : type;
+
   return (
     <div className={styles.fieldGroup}>
-      <input
-        {...field}
-        id={name}
-        type={type}
-        placeholder={placeholder}
-        autoComplete={autoComplete}
-        className={`${styles.input} ${hasError ? styles.inputError : ""}`}
-        aria-invalid={hasError}
-        aria-describedby={hasError ? `${name}-error` : undefined}
-      />
+      {/* обёртка нужна, чтобы кнопка была внутри инпута справа */}
+      <div className={isPassword ? styles.passwordWrapper : undefined}>
+        <input
+          {...field}
+          id={name}
+          type={actualType}
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+          className={`${styles.input} ${hasError ? styles.inputError : ""}`}
+          aria-invalid={hasError}
+          aria-describedby={hasError ? `${name}-error` : undefined}
+        />
+
+        {isPassword && (
+          <button
+            type="button"
+            className={styles.passwordToggle}
+            onClick={() => setShowPassword((prev) => !prev)}
+            aria-label={showPassword ? "Сховати пароль" : "Показати пароль"}
+          >
+            {showPassword ? "👁️‍🗨️" : "👁️"}
+            {/* сюда можно поставить свою SVG-иконку */}
+          </button>
+        )}
+      </div>
+
       {hasError && (
         <span id={`${name}-error`} className={styles.error}>
           {meta.error}

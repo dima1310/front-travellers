@@ -1,6 +1,6 @@
 .section {
   padding: 80px 0;
-  background-color: var(--color-bg-light);
+  background: var(--color-scheme-2-background);
 }
 
 /* Карточка с фото */
