@@ -179,7 +179,10 @@ export default function ProfilePage() {
                   )}
 
                 {!isStoriesLoading && !isStoriesError && stories.length > 0 && (
-                  <TravellersStories stories={stories} />
+                  <TravellersStories
+                    stories={stories}
+                    key={activeTab} // This resets the component when tab changes
+                  />
                 )}
               </div>
             </section>
