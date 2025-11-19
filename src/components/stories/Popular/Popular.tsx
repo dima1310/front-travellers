@@ -3,7 +3,7 @@
 import styles from "./Popular.module.css";
 import { useStories } from "@/hooks/useStories";
 import { Loader } from "@/components/ui/Loader/Loader";
-import { TravellersStoriesItem } from "@/components/stories";
+import TravellersStoriesItem from "@/components/stories/TravellersStoriesItem/TravellersStoriesItem";
 
 interface PopularProps {
   limit?: number;
@@ -17,16 +17,19 @@ export const Popular = ({ limit = 3, excludeId }: PopularProps) => {
     return <Loader />;
   }
 
-  if (error || !data || data.articles.length === 0) {
+  // масив історій з твого StoriesResponse (items: Story[])
+  const items = data?.items ?? [];
+
+  if (error || !data || items.length === 0) {
     return null;
   }
 
   // Виключаємо поточну статтю зі списку
-  const filteredArticles = excludeId
-    ? data.articles.filter((article) => article._id !== excludeId)
-    : data.articles;
+  const filteredStories = excludeId
+    ? items.filter((story) => story._id !== excludeId)
+    : items;
 
-  if (filteredArticles.length === 0) {
+  if (filteredStories.length === 0) {
     return null;
   }
 
@@ -34,8 +37,8 @@ export const Popular = ({ limit = 3, excludeId }: PopularProps) => {
     <section className={styles.section}>
       <h2 className={styles.title}>Популярні історії</h2>
       <div className={styles.grid}>
-        {filteredArticles.slice(0, limit).map((article) => (
-          <TravellersStoriesItem key={article._id} article={article} />
+        {filteredStories.slice(0, limit).map((story) => (
+          <TravellersStoriesItem key={story._id} story={story} />
         ))}
       </div>
     </section>
