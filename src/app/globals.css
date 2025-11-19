@@ -266,13 +266,6 @@ body {
   position: relative;
 }
 
-/* ================================
-   UTILITY: MAIN CONTAINER
-   1312px как в макете
-================================ */
-/* ================================
-   MAIN LAYOUT CONTAINER
-================================ */
 .container {
   width: 100%;
   max-width: 1312px;
