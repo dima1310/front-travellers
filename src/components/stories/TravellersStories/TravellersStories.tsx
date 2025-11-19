@@ -21,7 +21,7 @@ export default function TravellersStories({ stories }: Props) {
   const [filter, setFilter] = useState<StoriesFilterValue>("all");
 
   // Pagination for managed mode (Profile page)
-  const [visibleCount, setVisibleCount] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(6);
 
   // Fetch only if not managed mode
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
