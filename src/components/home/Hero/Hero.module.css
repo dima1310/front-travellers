@@ -56,17 +56,25 @@
 }
 
 .button {
-  margin-top: 0;
-  background-color: #4169e1;
-  color: #fff;
-  border: 1px solid #4169e1;
+  background-color: #4169E1;
+  color: #FFFFFF;
+  border: 1px solid #4169E1;
   border-radius: 12px;
-  padding: 10px 24px;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 6px 12px;
+  font-family: var(--font-sora);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.2;
+ 
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
+.button:hover,
+.button:focus-visible {
+  background-color: #2F4CBD;
+}
+
 
 .button:hover {
   background-color: var(--color-primary-hover);

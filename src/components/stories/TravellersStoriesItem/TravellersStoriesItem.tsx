@@ -23,89 +23,104 @@ export default function TravellersStoriesItem({ story }: StoryProps) {
       window.location.href = ROUTES.AUTH.REGISTER;
       return;
     }
+
     try {
       setLoading(true);
       await new Promise((res) => setTimeout(res, 800));
       setBookmarked((prev) => !prev);
       setCount((prev) => (bookmarked ? Math.max(0, prev - 1) : prev + 1));
-    } catch {
-      alert("Помилка при збереженні статті");
     } finally {
       setLoading(false);
     }
   };
 
-    return (
-        <div className={styles.card}>
-            <div className={styles.imageWrapper}>
-                <Image
-                    src={story.img || "/images/story-placeholder.jpg"}
-                    alt={story.title}
-                    width={400}
-                    height={260}
-                    className={styles.image}
-                />
-            </div>
+  return (
+    <div className={styles.card}>
+      <div className={styles.imageWrapper}>
+        <Image
+          src={story.img || "/images/story-placeholder.jpg"}
+          alt={story.title}
+          width={400}
+          height={260}
+          className={styles.image}
+        />
+      </div>
 
-            <div className={styles.content}>
-                <span className={styles.category}>{story.category.name}</span>
-                <h3 className={styles.title}>{story.title}</h3>
+      <div className={styles.content}>
+        <span className={styles.category}>{story.category.name}</span>
+        <h3 className={styles.title}>{story.title}</h3>
 
-                {!!story.description && (
-                    // ✅ даём полный текст, сокращать будем через CSS (3 строки)
-                    <p className={styles.text}>{story.description}</p>
-                )}
+        {!!story.description && (
+          <p className={styles.text}>{story.description}</p>
+        )}
 
-                {/* === Автор, дата, кількість === */}
-                <div className={styles.authorRow}>
-                    <div className={styles.author}>
-                        <Image
-                            src={story.owner?.avatar || "/avatar.svg"}
-                            alt={story.owner?.name || "Автор"}
-                            width={48}
-                            height={48}
-                            className={styles.authorAvatar}
-                        />
+        {/* === Автор, дата, кол-во === */}
+        <div className={styles.authorRow}>
+          <div className={styles.author}>
+            <Image
+              src={story.owner?.avatar || "/avatar.svg"}
+              alt={story.owner?.name || "Автор"}
+              width={48}
+              height={48}
+              className={styles.authorAvatar}
+            />
 
-                        <div className={styles.authorInfo}>
+            <div className={styles.authorInfo}>
               <span className={styles.authorName}>
                 {story.owner?.name || "Автор"}
               </span>
 
-                            <div className={styles.authorMeta}>
-                                <span className={styles.authorDate}>{new Date(story.date).toLocaleDateString("uk-UA")}</span>
-                                <span className={styles.authorDot}>•</span>
-                                <span className={styles.authorCount}>{count}</span>
-                                <span className={styles.authorIcon}>★</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <div className={styles.authorMeta}>
+                <span className={styles.authorDate}>
+                  {new Date(story.date).toLocaleDateString("uk-UA")}
+                </span>
 
-                {/* === Низ: кнопка + bookmark === */}
-                <div className={styles.footer}>
-                    <Link href={`/stories/${story._id}`} className={styles.button}>
-                        Переглянути статтю
-                    </Link>
+                <span className={styles.authorDot}>•</span>
 
-                    <button
-                        type="button"
-                        onClick={handleBookmark}
-                        className={`${styles.iconButton} ${
-                            bookmarked ? styles.iconButtonActive : ""
-                        }`}
-                        disabled={loading}
-                        aria-pressed={bookmarked}
-                        aria-label={
-                            bookmarked
-                                ? "Видалити історію з обраних"
-                                : "Додати історію в обрані"
-                        }
-                    >
-                        {loading ? "…" : "★"}
-                    </button>
-                </div>
+                <span className={styles.authorCount}>
+                  {count}
+                  <Image
+                    src="/icons/vector.svg"
+                    alt="Закладка"
+                    width={16}
+                    height={16}
+                    className={styles.authorBookmarkIcon}
+                  />
+                </span>
+              </div>
             </div>
+          </div>
         </div>
-    );
+
+        {/* === Низ карточки === */}
+        <div className={styles.footer}>
+          <Link href={`/stories/${story._id}`} className={styles.button}>
+            Переглянути статтю
+          </Link>
+
+          <button
+            type="button"
+            onClick={handleBookmark}
+            className={`${styles.iconButton} ${
+              bookmarked ? styles.iconButtonActive : ""
+            }`}
+            disabled={loading}
+            aria-pressed={bookmarked}
+          >
+            {loading ? (
+              "…"
+            ) : (
+              <Image
+                src="/icons/vector.svg"
+                alt="Обрані"
+                width={20}
+                height={20}
+                className={styles.iconSvg}
+              />
+            )}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
