@@ -84,7 +84,7 @@ export default function TravellersPage() {
       <div className={styles.container}>
         <div className={styles.cardsWrapper}>
           {/* заголовок ВНУТРИ синего блока */}
-          <h1 className={styles.title}>Наші мандрівники</h1>
+          <h1 className={styles.title}>Мандрівники</h1>
 
           {isLoading && (
             <p className={styles.status}>Завантаження...</p>
