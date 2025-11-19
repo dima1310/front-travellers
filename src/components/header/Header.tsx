@@ -18,7 +18,6 @@ export default function Header() {
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 
-  // ТІЛЬКИ ГОЛОВНА + ІСТОРІЇ + Мандрівники
   const navItems = [
     { label: "Головна", href: ROUTES.HOME },
     { label: "Історії", href: ROUTES.STORIES },
