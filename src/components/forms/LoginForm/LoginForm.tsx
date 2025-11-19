@@ -18,6 +18,7 @@ import {
   showSuccessToast,
 } from "@/components/ui/Toast/toastHelpers";
 import { LoginSchema } from "@/utils/validation/authSchemas";
+import { translateAuthError } from "@/utils/helpers/translateAuthError";
 
 type LoginFormValues = typeof loginInitialValues;
 
@@ -50,7 +51,8 @@ export default function LoginForm() {
 
       if (error instanceof AxiosError) {
         const data = error.response?.data as ApiErrorShape | undefined;
-        msg = data?.message || data?.data?.message || "Помилка логіна";
+        const rawMessage = data?.message || data?.data?.message;
+        msg = translateAuthError(rawMessage);
       }
 
       showErrorToast(msg);

@@ -15,6 +15,7 @@ import {
   showSuccessToast,
 } from "@/components/ui/Toast/toastHelpers";
 import { RegistrationSchema } from "@/utils/validation/authSchemas";
+import { translateAuthError } from "@/utils/helpers/translateAuthError";
 
 type RegistrationFormValues = typeof registerInitialValues;
 
@@ -46,7 +47,8 @@ export default function RegistrationForm() {
 
       if (error instanceof AxiosError) {
         const data = error.response?.data as ApiErrorShape | undefined;
-        msg = data?.message || data?.data?.message || "Помилка реєстрації";
+        const rawMessage = data?.message || data?.data?.message;
+        msg = translateAuthError(rawMessage);
       }
 
       showErrorToast(msg);

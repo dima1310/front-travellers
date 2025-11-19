@@ -19,7 +19,6 @@ type AuthFormProps<TValues extends Record<string, unknown>> = {
   isLogin?: boolean;
   fields: FieldConfig[];
   initialValues: TValues;
-  /** Yup-схема валідації */
   validationSchema: AnyObjectSchema;
   submitText: string;
   onSubmitAction: (
@@ -47,16 +46,18 @@ const FormikTextInput: React.FC<FormikTextInputProps> = ({
   const hasError = meta.touched && Boolean(meta.error);
 
   const isPassword = type === "password";
-  const actualType = isPassword && showPassword ? "text" : type;
+  const isEmail = type === "email";
+
+  const actualType = isPassword ? (showPassword ? "text" : "password") : "text";
 
   return (
     <div className={styles.fieldGroup}>
-      {/* обёртка нужна, чтобы кнопка была внутри инпута справа */}
       <div className={isPassword ? styles.passwordWrapper : undefined}>
         <input
           {...field}
           id={name}
           type={actualType}
+          inputMode={isEmail ? "email" : undefined}
           placeholder={placeholder}
           autoComplete={autoComplete}
           className={`${styles.input} ${hasError ? styles.inputError : ""}`}
@@ -72,7 +73,6 @@ const FormikTextInput: React.FC<FormikTextInputProps> = ({
             aria-label={showPassword ? "Сховати пароль" : "Показати пароль"}
           >
             {showPassword ? "👁️‍🗨️" : "👁️"}
-            {/* сюда можно поставить свою SVG-иконку */}
           </button>
         )}
       </div>
@@ -117,7 +117,7 @@ function AuthFormInner<TValues extends Record<string, unknown>>({
       validateOnChange={false}
     >
       {({ isSubmitting }) => (
-        <Form className={styles.form}>
+        <Form className={styles.form} noValidate>
           <div className={styles.fieldsWrapper}>
             {fields.map(
               ({ name, label, type, placeholder, autoComplete, required }) => (
