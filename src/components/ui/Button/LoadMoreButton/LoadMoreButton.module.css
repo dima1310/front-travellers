@@ -1,6 +1,6 @@
 .loadMore {
   padding: 6px 12px;
-  border-radius: 999px; /* Делаем как Figma */
+  border-radius: 8px; 
   background-color: #4169e1;
   border: 1px solid #4169e1;
   color: #fff;
