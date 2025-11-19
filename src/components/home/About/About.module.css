@@ -1,6 +1,6 @@
 .section {
   width: 100%;
-  background: #fff;
+  background: var(--color-scheme-2-background);
   padding: 72px 0;
 }
 

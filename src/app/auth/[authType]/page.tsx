@@ -20,7 +20,7 @@ export default async function AuthPage({ params }: AuthPageProps) {
 
   return (
     <main className={styles.authBgc}>
-      <header className={styles.authHeader}>
+      <Link href="/" className={styles.authHeader}>
         <svg
           width="23"
           height="23"
@@ -85,7 +85,7 @@ export default async function AuthPage({ params }: AuthPageProps) {
           </defs>
         </svg>
         <span className={styles.logoText}>Подорожники</span>
-      </header>
+      </Link>
       <section className={styles.wrapper}>
         <div className={styles.content}>
           <ul className={styles.nav}>

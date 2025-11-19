@@ -1,6 +1,6 @@
 .section {
   padding: 48px 0 80px;
-  background-color: var(--color-bg-light);
+  background: var(--color-scheme-2-background);
 }
 
 /* главный контейнер внутри глобального .container */
