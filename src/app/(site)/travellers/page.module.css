@@ -21,7 +21,7 @@
   }
 }
 
-/* СИНЯЯ ПЛАШКА: и заголовок, и сетка, и кнопка */
+/* === СИНЯЯ ПЛАШКА: заголовок, сетка, кнопка === */
 .cardsWrapper {
   width: 100%;
   background-color: #f6f8ff;
@@ -32,25 +32,25 @@
   flex-direction: column;
   gap: 32px;
 
-  /* Мобильные устройства: padding 32px сверху, 24px сбоку, 40px снизу */
+  /* Мобильные устройства */
   padding: 32px 24px 40px;
 
   box-sizing: border-box;
 
-  /* Планшет: 768px+ */
+  /* Планшет */
   @media (min-width: 768px) {
     padding: 48px 48px 56px;
     gap: 40px;
   }
 
-  /* Десктоп: 1280px+ */
+  /* Десктоп */
   @media (min-width: 1280px) {
     padding: 64px 64px 72px;
     gap: 32px;
   }
 }
 
-/* Заголовок "Наші мандрівники" — выровнен по левому краю */
+/* === Заголовок "Мандрівники" === */
 .title {
   margin: 0;
   font-family: var(--font-sora);
@@ -58,32 +58,32 @@
   font-size: 24px;
   line-height: 1.2;
   color: #000000;
-  text-align: left; /* Выравнивание по левому краю */
+  text-align: center;
 
-  /* Планшет: 768px+ */
+  /* Планшет */
   @media (min-width: 768px) {
     font-size: 32px;
   }
 
-  /* Десктоп: 1440px+ */
+  /* Десктоп */
   @media (min-width: 1440px) {
     font-size: 48px;
   }
 }
 
-/* Статусы загрузки/ошибки */
+/* === Статусы загрузки/ошибки === */
 .status {
   font-size: 16px;
   text-align: left;
 }
 
-/* Обёртка снизу под кнопку "Переглянути всіх" */
+/* === Обёртка под кнопку "Переглянути всіх" === */
 .loadMoreWrapper {
   display: flex;
   justify-content: center;
 }
 
-/* Кнопка */
+/* === Кнопка === */
 .loadMoreButton {
   padding: 10px 32px;
   border-radius: 999px;
