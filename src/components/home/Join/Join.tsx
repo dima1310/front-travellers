@@ -1,4 +1,4 @@
-import Link from "next/link";
+import LoadMoreButton from "@/components/ui/Button/LoadMoreButton/LoadMoreButton";
 import styles from "./Join.module.css";
 
 export default function CTA() {
@@ -16,9 +16,11 @@ export default function CTA() {
               Долучайтеся до мандрівників, які діляться своїми історіями та
               надихають на нові пригоди.
             </p>
-            <Link href="/auth/register">
-              <button className={styles.button}>Зареєструватися</button>
-            </Link>
+
+            {/* Правильная кнопка */}
+            <LoadMoreButton className={styles.button} width={169}>
+                Зареєструватися
+              </LoadMoreButton>
           </div>
         </div>
       </div>

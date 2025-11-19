@@ -72,29 +72,41 @@
   color: #eaeaea;
 }
 
-/* Кнопка */
+/* === КНОПКА — точь-в-точь как в макете === */
 .button {
   margin-top: 24px;
+  width: 169px;
+  height: 48px;
+  padding: 6px 12px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  padding: 0 32px;
-  min-height: 48px;
+  background-color: #4169e1;
+  border: 1px solid #4169e1;
+  border-radius: 8px;
 
-  background-color: var(--color-primary);
-  color: #ffffff;
-  border: none;
-  border-radius: 999px;
   font-family: var(--font-nunito);
-  font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 13.333px;
+  line-height: 1.5;
+  color: #ffffff;
+
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
 }
 
-.button:hover {
-  background-color: var(--color-primary-hover);
+.button:hover,
+.button:focus-visible {
+  background-color: #3156c4;
+  box-shadow: 0 4px 10px rgba(65, 105, 225, 0.25);
+  transform: translateY(-1px);
 }
 
 /* Адаптив */
@@ -121,9 +133,6 @@
   }
 
   .button {
-    margin-top: 16px;
-    padding: 0 24px;
-    min-height: 44px;
-    font-size: 14px;
+    width: 169px; /* фикс — как в макете */
   }
 }
