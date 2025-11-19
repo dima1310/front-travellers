@@ -5,8 +5,10 @@ import Image from "next/image";
 import styles from "./TravellersStoriesItem.module.css";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
-import { ROUTES } from "@/utils/constants/routes";
 import type { Story } from "@/types/story.types";
+import ConfirmModal from "@/components/modals/ConfirmModal/ConfirmModal";
+import { useModal } from "@/hooks/useModal";
+import { useRouter } from "next/navigation";
 
 interface StoryProps {
   story: Story;
@@ -17,10 +19,12 @@ export default function TravellersStoriesItem({ story }: StoryProps) {
   const [bookmarked, setBookmarked] = useState(false);
   const [count, setCount] = useState<number>(story.favoriteCount ?? 0);
   const [loading, setLoading] = useState(false);
+  const { open, onOpen, onClose } = useModal();
+  const router = useRouter();
 
   const handleBookmark = async () => {
     if (!isAuth) {
-      window.location.href = ROUTES.AUTH.REGISTER;
+      onOpen();
       return;
     }
 
@@ -119,6 +123,22 @@ export default function TravellersStoriesItem({ story }: StoryProps) {
               />
             )}
           </button>
+          {open && (
+            <ConfirmModal
+              title="Помилка під час збереження"
+              text="Щоб зберегти статтю вам треба увійти, якщо ще немає облікового запису зареєструйтесь"
+              cancelButtonText="Увійти"
+              confirmButtonText="Зареєструватись"
+              onCancel={() => {
+                router.push("/auth/login");
+                onClose();
+              }}
+              onConfirm={() => {
+                router.push("/auth/register");
+                onClose();
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

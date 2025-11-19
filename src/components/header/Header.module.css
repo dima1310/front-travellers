@@ -82,6 +82,30 @@
   background: rgba(15, 23, 42, 0.6);
 }
 
+.publishBtn {
+  display: inline-block;
+  width: 202px;
+  height: 35px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid #4169E1;
+  background: #4169E1;
+
+  font-family: var(--font-nunito);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #ffffff;
+
+
+  white-space: nowrap;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    transform 0.1s ease;
+}
+
 /* ====== AUTH BUTTONS ====== */
 
 .authLinks {
