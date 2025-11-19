@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./reset.css";
 import type { Metadata } from "next";
 import ReduxProvider from "@/providers/ReduxProvider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";

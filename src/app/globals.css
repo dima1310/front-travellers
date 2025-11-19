@@ -270,26 +270,29 @@ body {
    UTILITY: MAIN CONTAINER
    1312px как в макете
 ================================ */
+/* ================================
+   MAIN LAYOUT CONTAINER
+================================ */
 .container {
-  max-width: 1312px;
   width: 100%;
+  max-width: 1312px;
   margin: 0 auto;
-  padding: 0 64px; /* мобильные паддинги */
-
-  /* flex не задаём — зависит от секции */
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
-/* ================================
-   UTILITY: VISUALLY HIDDEN
-================================ */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
+/* Tablet 768+ */
+@media (min-width: 768px) {
+  .container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+/* Desktop 1440+ */
+@media (min-width: 1440px) {
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }

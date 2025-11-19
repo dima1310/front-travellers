@@ -56,25 +56,26 @@
 }
 
 .button {
-  background-color: #4169E1;
-  color: #FFFFFF;
-  border: 1px solid #4169E1;
+  background-color: #4169e1;
+  color: #ffffff;
+  border: 1px solid #4169e1;
   border-radius: 12px;
   padding: 6px 12px;
   font-family: var(--font-sora);
   font-weight: 500;
   font-size: 18px;
   line-height: 1.2;
- 
+
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .button:hover,
 .button:focus-visible {
-  background-color: #2F4CBD;
+  background-color: #2f4cbd;
 }
-
 
 .button:hover {
   background-color: var(--color-primary-hover);
