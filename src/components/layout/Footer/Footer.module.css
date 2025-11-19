@@ -1,18 +1,9 @@
-/* components/Footer.module.css */
-
 .footer {
   padding: 48px 0px;
   background: var(--color-scheme-2-foreground);
   text-align: center;
   min-width: 335px;
   margin-top: auto;
-}
-
-.logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 40px;
 }
 
 .logo_link {
@@ -37,7 +28,10 @@
   color: var(--text);
 }
 
-.links {
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 40px;
 }
 
@@ -46,6 +40,10 @@
   justify-content: center;
   align-items: center;
   gap: 16px;
+}
+
+.links {
+  margin-bottom: 40px;
 }
 
 .footer_icon {
@@ -67,16 +65,16 @@
   gap: 16px;
 }
 
-.nav_item {
-  padding: 8px 0;
-}
-
 .nav_link {
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
   color: var(--text);
+}
+
+.nav_item {
+  padding: 8px 0;
 }
 
 .inscription {
@@ -135,14 +133,14 @@
     padding-top: 6px;
   }
 
-  .footer_icon {
-    width: 24px;
-    height: 24px;
-  }
-
   .nav_list {
     flex-direction: row;
     gap: 32px;
+  }
+
+  .footer_icon {
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -164,6 +162,10 @@
     gap: 454px;
   }
 
+  .text {
+    font-size: 16px;
+  }
+
   .links_list {
     padding-top: 0px;
   }
@@ -174,9 +176,5 @@
 
   .nav_link {
     font-size: 18px;
-  }
-
-  .text {
-    font-size: 16px;
   }
 }
