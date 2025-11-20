@@ -4,13 +4,11 @@
 
 .popularSection {
   background-color: #f9fafb;
-  padding: 60px 0;
 }
 
 /* Tablet (768px+) */
 @media (min-width: 768px) {
   .popularSection {
-    padding: 80px 0;
   }
 }
 
