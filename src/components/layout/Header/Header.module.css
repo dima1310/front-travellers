@@ -4,11 +4,8 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-
   --header-bg: var(--background);
   --header-text: var(--text);
-
-  background: var(--color-scheme-2-background);
   color: var(--header-text);
 }
 
@@ -23,12 +20,9 @@
   margin: 0 auto;
   min-width: 320px;
   padding: 16px 20px;
-  background: var(--color-scheme-2-background);
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   font-family: var(--font-nunito-sans);
   font-size: 17px;
   min-height: 72px;
