@@ -54,9 +54,10 @@ export default function StoryPage() {
     <div className={styles.page}>
       <StoryDetails story={story} />
 
-      <div className={styles.popularSection}>
+      {/* ❗ новый уникальный класс, чтобы НЕ конфликтовал */}
+      <section className={styles.storyPopularWrapper}>
         <Popular />
-      </div>
+      </section>
     </div>
   );
 }
