@@ -3,6 +3,7 @@
 import { useInfiniteStories } from "@/services/queries/useStoriesQuery";
 import LoadMoreButton from "@/components/ui/Button/LoadMoreButton/LoadMoreButton";
 import TravellersStoriesItem from "@/components/stories/TravellersStoriesItem/TravellersStoriesItem";
+import HomeStyles from "@/app/Home.module.css";
 import styles from "./Popular.module.css";
 
 import type { Story, StoriesResponse } from "@/types/story.types";
@@ -25,23 +26,28 @@ export default function Popular() {
 
   return (
     <section className={styles.section} id="popular">
-      <div className={`container ${styles.inner}`}>
-        <h2 className={styles.title}>Популярні історії</h2>
+      <div className={HomeStyles.container}>
+        <div className={`container ${styles.inner}`}>
+          <h2 className={styles.title}>Популярні історії</h2>
 
-        {isLoading ? (
-          <p className={styles.loading}>Завантаження...</p>
-        ) : (
-          <div className={styles.grid}>
-            {stories.map((story: Story) => (
-              <TravellersStoriesItem key={story._id} story={story} />
-            ))}
+          {isLoading ? (
+            <p className={styles.loading}>Завантаження...</p>
+          ) : (
+            <div className={styles.grid}>
+              {stories.map((story: Story) => (
+                <TravellersStoriesItem key={story._id} story={story} />
+              ))}
+            </div>
+          )}
+
+          <div className={styles.buttonWrapper}>
+            <LoadMoreButton
+              onClick={handleGoToStories}
+              className={styles.button}
+            >
+              Переглянути всі
+            </LoadMoreButton>
           </div>
-        )}
-
-        <div className={styles.buttonWrapper}>
-          <LoadMoreButton onClick={handleGoToStories} className={styles.button}>
-            Переглянути всі
-          </LoadMoreButton>
         </div>
       </div>
     </section>

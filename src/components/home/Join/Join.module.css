@@ -141,3 +141,10 @@
     padding: 12px 6px;
   }
 }
+/* Внутренний контейнер секции */
+.inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
