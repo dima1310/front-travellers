@@ -70,7 +70,6 @@
   align-self: flex-start;
   margin-top: 4px;
   padding: 4px 10px;
-  width: 163px;
   height: 32px;
   border-radius: 8px;
   border: 1px solid #d1d5db;
@@ -282,7 +281,6 @@
   .uploadBtn {
     width: 181px;
     height: 35px;
-    font-size: 18px;
   }
 
   .fieldsContainer {
