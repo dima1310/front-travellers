@@ -43,7 +43,6 @@ type ActiveTab = (typeof TABS)[keyof typeof TABS];
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<ActiveTab>(TABS.SAVED);
 
-  // Fetch current user
   const {
     data: currentUser,
     isLoading: isUserLoading,
@@ -62,7 +61,6 @@ export default function ProfilePage() {
       typeof s === "string" ? s : s._id
     ) ?? [];
 
-  // Fetch user's created stories
   const {
     data: myStories = [],
     isLoading: isMyLoading,
@@ -77,7 +75,6 @@ export default function ProfilePage() {
     },
   });
 
-  // Fetch saved stories
   const {
     data: savedStories = [],
     isLoading: isSavedLoading,
@@ -121,6 +118,7 @@ export default function ProfilePage() {
 
         {currentUser && (
           <>
+            {/* TravellerInfo как был, без обёрток */}
             <TravellerInfo id={currentUser._id} />
 
             <section className={styles.storiesSection}>
@@ -157,7 +155,6 @@ export default function ProfilePage() {
                   </p>
                 )}
 
-                {/* Empty state with MessageNoStories */}
                 {!isStoriesLoading &&
                   !isStoriesError &&
                   stories.length === 0 && (
@@ -179,10 +176,7 @@ export default function ProfilePage() {
                   )}
 
                 {!isStoriesLoading && !isStoriesError && stories.length > 0 && (
-                  <TravellersStories
-                    stories={stories}
-                    key={activeTab} // This resets the component when tab changes
-                  />
+                  <TravellersStories stories={stories} key={activeTab} />
                 )}
               </div>
             </section>

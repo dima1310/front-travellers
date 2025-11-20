@@ -1,9 +1,14 @@
-/* Обёртка — выравнивание по левому краю внутри секции */
+/* Обёртка — ВСЕГДА ровно по левому краю, без горизонтальных паддингов */
 .wrapper {
   width: 100%;
+  padding: 0;
+
+  display: flex;
   justify-content: flex-start;
+  align-items: flex-start;
 }
 
+/* Карточка */
 .card {
   background: #e8eeff;
   display: flex;
@@ -13,29 +18,27 @@
   padding: 20px;
   width: 335px;
   height: 195px;
-  /* max-width: 768px; */
 }
 
 .text {
   font-family: var(--font-sora);
   width: 280px;
-  height: 75px;
   font-weight: 700;
   font-size: 18px;
   line-height: 1.4;
   letter-spacing: -0.01em;
   color: #000;
   margin: 0;
-  font-weight: 700;
-  line-height: 1.4;
-  /* max-width: 100%; */
 }
 
+/* Кнопка по макету: Hug 165 × 48, padding 6×12, radius 8 */
 .button {
   align-self: flex-start;
+
   padding: 6px 12px;
   height: 48px;
-  width: 295px;
+  width: auto;
+  min-width: 165px; /* чтобы не ужималась меньше макета */
 
   border-radius: 8px;
   border: 1px solid #4169e1;
@@ -44,7 +47,7 @@
   font-family: var(--font-nunito);
   font-weight: 500;
   font-size: 16px;
-  line-height: 150%;
+  line-height: 1.5;
   color: #ffffff;
 
   display: inline-flex;
@@ -52,10 +55,7 @@
   justify-content: center;
 
   cursor: pointer;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s,
-    color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
 .button:hover,
@@ -70,18 +70,12 @@
   color: #000000;
 }
 
+/* TABLET */
 @media (min-width: 768px) {
   .wrapper {
-    padding-left: 32px;
-    padding-bottom: 64px;
+    padding: 0;
   }
 
-  .button {
-    width: 101px;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.5;
-  }
   .card {
     border-radius: 24px;
     padding: 40px 32px;
@@ -89,8 +83,15 @@
     height: 210px;
     max-width: 768px;
   }
+
   .text {
     width: 469px;
-    height: 50px;
+  }
+
+  /* На планшете кнопка остаётся той же — Hug 165 × 48 */
+  .button {
+    min-width: 165px;
+    height: 48px;
+    padding: 6px 12px;
   }
 }

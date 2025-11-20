@@ -4,32 +4,29 @@
 
 .publicProfile {
   background: var(--color-bg-light);
-  padding: 24px 0 48px; /* УБРАЛО лишний горизонтальный padding */
+  /* только вертикальные отступы, без left/right */
+  padding: 24px 0 48px;
 }
 
-/* TravellerInfo — ЖЁСТКО ПО ЛЕВОЙ СЕТКЕ */
+/* Блок с TravellerInfo */
 .travellerInfo {
   max-width: 1312px;
   width: 100%;
-  margin: 0 auto 64px; /* Figma: 64px */
-  padding-left: 0;
-  padding-right: 0;
-  display: flex;
-  justify-content: flex-start;  /* ← ВАЖНО */
-  align-items: flex-start;       /* ← ВАЖНО */
+  margin: 0 auto 64px; /* отступ снизу по макету */
+  /* БЕЗ padding-left / padding-right!
+     горизонтальные отступы даёт глобальный container */
 }
 
-/* Секция историй */
+/* Секция історій */
 .travellerStories {
   max-width: 1312px;
   width: 100%;
   margin: 0 auto 72px;
-  padding-left: 0;
-  padding-right: 0;
 
+  /* без своих горизонтальных паддингов */
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* ← чтобы NoStories был слева */
+  align-items: flex-start;
   gap: 48px; /* Figma desktop */
 }
 
@@ -50,14 +47,10 @@
 
 @media (min-width: 375px) {
   .publicProfile {
-    padding: 28px 0 56px;
+    padding: 28px 0 56px; /* только top/bottom */
   }
 
-  .travellerInfo,
-  .travellerStories {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+  /* travellerInfo / travellerStories — без padding-left/right */
 }
 
 
@@ -68,12 +61,6 @@
 @media (min-width: 768px) {
   .publicProfile {
     padding: 32px 0 64px;
-  }
-
-  .travellerInfo,
-  .travellerStories {
-    padding-left: 24px;
-    padding-right: 24px;
   }
 
   .travellerInfo {
@@ -101,13 +88,9 @@
 
   .travellerInfo {
     margin-bottom: 64px;
-    padding-left: 0;   /* ← Figma: НОЛЬ */
-    padding-right: 0;
   }
 
   .travellerStories {
-    padding-left: 0;
-    padding-right: 0;
     gap: 48px;
   }
 
@@ -116,4 +99,3 @@
     line-height: 1.2;
   }
 }
-

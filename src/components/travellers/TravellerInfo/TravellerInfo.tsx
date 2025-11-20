@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import HomeStyles from "@/app/Home.module.css";
 import styles from "./TravellerInfo.module.css";
 import { getTravellerById } from "@/services/api/travellersApi";
 import { Avatar } from "../Avatar/Avatar";
@@ -17,23 +16,11 @@ export default function TravellerInfo({ id }: TravellerInfoProps) {
   });
 
   if (isLoading) {
-    return (
-      <section className={styles.section}>
-        <div className={styles.inner}>
-          <p className={styles.loading}>Завантаження...</p>
-        </div>
-      </section>
-    );
+    return <p className={styles.loading}>Завантаження...</p>;
   }
 
   if (isError || !data) {
-    return (
-      <section className={styles.section}>
-        <div className={styles.inner}>
-          <p className={styles.error}>Помилка завантаження профілю.</p>
-        </div>
-      </section>
-    );
+    return <p className={styles.error}>Помилка завантаження профілю.</p>;
   }
 
   const { name, avatar, bio } = data as {
@@ -43,21 +30,15 @@ export default function TravellerInfo({ id }: TravellerInfoProps) {
   };
 
   return (
-    <section className={styles.section}>
-      <div className={HomeStyles.container}>
-        <div className={`container ${styles.inner}`}>
-          <div className={styles.profile}>
-            <Avatar src={avatar} name={name} />
+    <div className={styles.profile}>
+      <Avatar src={avatar} name={name} />
 
-            <div className={styles.info}>
-              <h1 className={styles.name}>{name}</h1>
-              <p className={styles.bio}>
-                {bio || "Мандрівник поки не додав опис."}
-              </p>
-            </div>
-          </div>
-        </div>
+      <div className={styles.info}>
+        <h1 className={styles.name}>{name}</h1>
+        <p className={styles.bio}>
+          {bio || "Мандрівник поки не додав опис."}
+        </p>
       </div>
-    </section>
+    </div>
   );
 }
