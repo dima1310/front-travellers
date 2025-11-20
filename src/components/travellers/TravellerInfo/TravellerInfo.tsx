@@ -2,7 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import HomeStyles from "@/app/Home.module.css";
 import styles from "./TravellerInfo.module.css";
 import { getTravellerById } from "@/services/api/travellersApi";
 
@@ -19,10 +18,8 @@ export default function TravellerInfo({ id }: TravellerInfoProps) {
   if (isLoading) {
     return (
       <section className={styles.section}>
-        <div className={HomeStyles.container}>
-          <div className={`container ${styles.inner}`}>
-            <p className={styles.loading}>Завантаження...</p>
-          </div>
+        <div className={styles.inner}>
+          <p className={styles.loading}>Завантаження...</p>
         </div>
       </section>
     );
@@ -31,10 +28,8 @@ export default function TravellerInfo({ id }: TravellerInfoProps) {
   if (isError || !data) {
     return (
       <section className={styles.section}>
-        <div className={HomeStyles.container}>
-          <div className={`container ${styles.inner}`}>
-            <p className={styles.error}>Помилка завантаження профілю.</p>
-          </div>
+        <div className={styles.inner}>
+          <p className={styles.error}>Помилка завантаження профілю.</p>
         </div>
       </section>
     );
@@ -51,25 +46,23 @@ export default function TravellerInfo({ id }: TravellerInfoProps) {
 
   return (
     <section className={styles.section}>
-      <div className={HomeStyles.container}>
-        <div className={`container ${styles.inner}`}>
-          <div className={styles.profile}>
-            <div className={styles.avatarWrapper}>
-              <Image
-                src={avatarSrc}
-                alt={name}
-                width={199}
-                height={199}
-                className={styles.avatar}
-              />
-            </div>
+      <div className={styles.inner}>
+        <div className={styles.profile}>
+          <div className={styles.avatarWrapper}>
+            <Image
+              src={avatarSrc}
+              alt={name}
+              width={199}
+              height={199}
+              className={styles.avatar}
+            />
+          </div>
 
-            <div className={styles.info}>
-              <h1 className={styles.name}>{name}</h1>
-              <p className={styles.bio}>
-                {bio || "Мандрівник поки не додав опис."}
-              </p>
-            </div>
+          <div className={styles.info}>
+            <h1 className={styles.name}>{name}</h1>
+            <p className={styles.bio}>
+              {bio || "Мандрівник поки не додав опис."}
+            </p>
           </div>
         </div>
       </div>

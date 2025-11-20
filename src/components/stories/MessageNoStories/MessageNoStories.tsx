@@ -21,7 +21,7 @@ export default function MessageNoStories({
   };
 
   return (
-    <section className={styles.section}>
+    <div className={styles.wrapper}>
       <div className={styles.card}>
         <p className={styles.text}>{text}</p>
 
@@ -29,6 +29,6 @@ export default function MessageNoStories({
           {buttonText}
         </button>
       </div>
-    </section>
+    </div>
   );
 }

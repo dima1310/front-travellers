@@ -1,98 +1,67 @@
-.section {
+/* Обёртка — выравнивание по левому краю внутри секции */
+.wrapper {
   width: 100%;
   display: flex;
   justify-content: flex-start;
 }
 
+
 .card {
-  max-width: 533px;
-  width: 100%;
-  padding: 32px;
-  background-color: #f6f8ff;
-  border-radius: 24px;
-  border: 1px solid #d9e7ff;
+  width: 533px;
+  padding: 40px 32px;
+  background: #e8eeff;
+  border-radius: 16px;
 
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 32px;
 }
+
+
 .text {
   margin: 0;
-  font-family: var(--font-nunito);
+  font-family: var(--font-sora); 
   font-weight: 700;
-  font-size: 26px;
-  line-height: 1.4;
-  color: #111827;
+  font-size: 28px;       
+  line-height: 1.4;       
+  letter-spacing: -0.01em; 
+  color: #000;
   max-width: 100%;
 }
-@media (min-width: 375px) {
-  .section {
-    justify-content: center;
-  }
 
-  .card {
-    padding: 20px;
-    width: 335px;
-    height: 195px;
-    max-width: 768px;
-  }
+.button {
+  align-self: flex-start;
+  padding: 6px 12px;
+  height: 48px;
 
-  .text {
-    width: 274px;
-    height: 75px;
-    font-family: "Sora", sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-    color: #000;
-  }
-  .button {
-    align-self: center;
-    height: 48px;
-    width: 295px;
-    padding: 8px 24px;
-    border-radius: 8px;
-    border: none;
-    font-family: var(--font-nunito);
-    font-weight: 600;
-    font-size: 14px;
-    background-color: #4169e1;
-    color: #fff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
+  border-radius: 8px;
+  border: 1px solid #4169e1;
+  background-color: #4169e1;
+
+  font-family: var(--font-nunito);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #ffffff;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: background-color .2s, border-color .2s, color .2s;
 }
 
-/* ===== TABLET 768 ===== */
-@media (min-width: 768px) {
-  .card {
-    border-radius: 24px;
-    padding: 40px 32px;
-    width: 533px;
-    height: 210px;
-    max-width: 768px;
-    gap: 32px;
-  }
 
-  .text {
-    width: 469px;
-    height: 50px;
-  }
-  .button {
-    align-self: flex-start;
-    border: 1px solid #4169e1;
-    border-radius: 8px;
-    padding: 8px 12px;
-    width: fit-content;
-    height: 48px;
-  }
+.button:hover,
+.button:focus-visible {
+  background-color: #e8eeff;
+  border-color: #4169e1;
+  color: #000000;
 }
 
-/* ===== DESKTOP 1440+ ===== */
-@media (min-width: 1440px) {
-  .text {
-    max-width: 100%;
-  }
+.button:active {
+  background-color: #7a96ea;
+  color: #000000;
 }
+

@@ -2,43 +2,46 @@
    📌 MOBILE FIRST (320+)
    =========================================================== */
 
-/* Корневой контейнер страницы */
 .publicProfile {
   background: var(--color-bg-light);
-  padding: 24px 16px 48px;
+  padding: 24px 0 48px; /* УБРАЛО лишний горизонтальный padding */
 }
 
-/* Блок TravellerInfo */
+/* TravellerInfo — ЖЁСТКО ПО ЛЕВОЙ СЕТКЕ */
 .travellerInfo {
   max-width: 1312px;
   width: 100%;
-  margin: 0 auto 48px;
-  padding: 0 16px;
+  margin: 0 auto 64px; /* Figma: 64px */
+  padding-left: 0;
+  padding-right: 0;
+  display: flex;
+  justify-content: flex-start;  /* ← ВАЖНО */
+  align-items: flex-start;       /* ← ВАЖНО */
 }
 
-/* Секция "Історії Мандрівника" */
+/* Секция историй */
 .travellerStories {
   max-width: 1312px;
   width: 100%;
   margin: 0 auto 72px;
-  padding: 0 16px;
+  padding-left: 0;
+  padding-right: 0;
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 32px; /* заголовок ↔ карточка */
+  align-items: flex-start; /* ← чтобы NoStories был слева */
+  gap: 48px; /* Figma desktop */
 }
 
-/* Заголовок "Історії Мандрівника" */
+/* Заголовок */
 .travellerStoriesTitle {
   margin: 0;
   font-family: var(--font-sora);
   font-weight: 700;
-  font-size: 32px;   /* mobile */
+  font-size: 32px;
   line-height: 1.2;
   color: #111827;
 }
-
 
 
 /* ===========================================================
@@ -47,15 +50,15 @@
 
 @media (min-width: 375px) {
   .publicProfile {
-    padding: 28px 20px 56px;
+    padding: 28px 0 56px;
   }
 
   .travellerInfo,
   .travellerStories {
-    padding: 0 20px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
-
 
 
 /* ===========================================================
@@ -64,12 +67,13 @@
 
 @media (min-width: 768px) {
   .publicProfile {
-    padding: 32px 24px 64px;
+    padding: 32px 0 64px;
   }
 
   .travellerInfo,
   .travellerStories {
-    padding: 0 24px;
+    padding-left: 24px;
+    padding-right: 24px;
   }
 
   .travellerInfo {
@@ -86,7 +90,6 @@
 }
 
 
-
 /* ===========================================================
    📌 DESKTOP 1440+
    =========================================================== */
@@ -98,17 +101,19 @@
 
   .travellerInfo {
     margin-bottom: 64px;
-    padding: 0;
+    padding-left: 0;   /* ← Figma: НОЛЬ */
+    padding-right: 0;
   }
 
   .travellerStories {
-    padding: 0;
+    padding-left: 0;
+    padding-right: 0;
     gap: 48px;
   }
 
-  /* Display/xl · 52/120 по макету */
   .travellerStoriesTitle {
     font-size: 52px;
     line-height: 1.2;
   }
 }
+
