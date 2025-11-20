@@ -61,7 +61,7 @@ export default function StoriesFilter({ value, onChange }: Props) {
             {/* Mobile: select */}
             <div className={styles.selectWrapper}>
                 <select
-                    className={styles.select}
+                    className={`${styles.select} ${styles.category}`}
                     value={value}
                     onChange={handleSelectChange}
                     aria-label="Фільтр за категоріями"

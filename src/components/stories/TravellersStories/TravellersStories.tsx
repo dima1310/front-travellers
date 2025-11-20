@@ -53,6 +53,7 @@ export default function TravellersStories({ stories }: Props) {
               <h1 className={styles.title}>Історії мандрівників</h1>
             </header>
           )}
+            <p className={styles.category}> Категорії</p>
 
           {/* Filter only in browse mode */}
           {!isManaged && <StoriesFilter value={filter} onChange={setFilter} />}

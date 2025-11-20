@@ -1,5 +1,5 @@
 .wrapper {
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 
 /* DESKTOP / TABLET – таби */
@@ -48,14 +48,13 @@
 
 .select {
     width: 100%;
-    padding: 10px 16px;
-    border-radius: 999px;
+    padding: 8px 48px 8px 8px;
+    border-radius: 8px;
     border: 1px solid #d3d7df;
     background-color: #ffffff;
-    color: #1f2430;
+    color: #000;
     font-size: 14px;
     line-height: 20px;
-    appearance: none;
 }
 
 /* Breakpoints: <768px – показуємо select, ховаємо таби */
@@ -66,5 +65,32 @@
 
     .selectWrapper {
         display: block;
+    }
+
+    .select {
+        width: 100%;
+        padding: 8px 48px 8px 8px;
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        background: rgba(255, 255, 255, 0);
+        color: #000;
+        font-size: 14px;
+        line-height: 20px;
+        appearance: none;
+    }
+
+    .category {
+        font-family: var(--font-family);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #000;
+    }
+
+    .select.category {
+        background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.9998 15.2019C11.8878 15.2019 11.7822 15.1813 11.683 15.1399C11.5837 15.0986 11.4884 15.0323 11.397 14.9409L6.45305 9.99694C6.28305 9.82694 6.20221 9.62385 6.21055 9.38769C6.21888 9.15152 6.30805 8.94844 6.47805 8.77844C6.64805 8.60844 6.85113 8.52344 7.0873 8.52344C7.32346 8.52344 7.52655 8.60844 7.69655 8.77844L11.9998 13.1067L16.328 8.77844C16.498 8.60844 16.697 8.5276 16.9248 8.53594C17.1526 8.54427 17.3515 8.63344 17.5215 8.80344C17.6915 8.97344 17.7765 9.17652 17.7765 9.41269C17.7765 9.64885 17.6915 9.85194 17.5215 10.0219L12.6025 14.9409C12.5112 15.0323 12.4159 15.0986 12.3165 15.1399C12.2174 15.1813 12.1118 15.2019 11.9998 15.2019Z' fill='black' fill-opacity='0.6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px center; /* позиция стрелки */
+        background-size: 24px 24px;
     }
 }
