@@ -33,7 +33,6 @@ type CurrentUserResponse = {
   data: User;
 };
 
-// такой же тип, как мы использовали в LoginForm
 type LoginResponse = {
   status: number;
   message: string;
@@ -45,7 +44,6 @@ type LoginResponse = {
 export default function RegistrationForm() {
   const router = useRouter();
 
-  // из стора берём login(token) и setUser(user)
   const loginToStore = useAuthStore((state) => state.login);
   const setUser = useAuthStore((state) => state.setUser);
 
@@ -54,14 +52,12 @@ export default function RegistrationForm() {
     const payload = { name, email, password };
 
     try {
-      // 1) регистрируем пользователя
       const res = await api.post("/auth/register", payload);
 
       if (res.status === 201 || res.status === 200) {
         showSuccessToast("Успішна реєстрація");
 
         try {
-          // 2) сразу логинимся теми же email + password
           const loginRes = await api.post<LoginResponse>("/auth/login", {
             email,
             password,
@@ -72,7 +68,6 @@ export default function RegistrationForm() {
           if (loginRes.status === 200 || loginRes.status === 201) {
             const token = loginRes.data.data.accessToken;
 
-            // 3) кладём токен в zustand
             loginToStore(token);
 
             const meRes = await api.get<CurrentUserResponse>("/users/current", {
@@ -93,7 +88,6 @@ export default function RegistrationForm() {
             showSuccessToast("Ви успішно увійшли");
             router.push("/");
           } else {
-            // логин не прошёл, но регистрация ок
             showErrorToast(
               "Реєстрація пройшла успішно, але автоматичний вхід не вдався. Спробуйте увійти вручну."
             );

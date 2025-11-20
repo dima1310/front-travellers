@@ -52,17 +52,13 @@ export default function LoginForm() {
 
   const handleLogin = async (values: LoginFormValues) => {
     try {
-      // 1) логинимся, получаем accessToken
       const { data } = await api.post<LoginResponse>("/auth/login", values);
 
       console.log("LOGIN /auth/login response:", data);
 
       const token = data.data.accessToken;
 
-      // 2) кладём токен в zustand
       login(token);
-
-      // 3) забираем текущего юзера по токену
       const meRes = await api.get<CurrentUserResponse>("/users/current", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -71,7 +67,6 @@ export default function LoginForm() {
 
       console.log("CURRENT USER response:", meRes.data);
 
-      // 👈 вытаскиваем именно объект юзера
       setUser(meRes.data.data);
 
       console.log("AUTH STORE AFTER login():", useAuthStore.getState());
