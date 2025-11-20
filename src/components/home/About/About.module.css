@@ -1,7 +1,11 @@
 .section {
     width: 100%;
     background: var(--color-scheme-2-background);
-    padding: 72px 0;
+    padding-top: 72px;
+}
+
+.container {
+    padding: 0;
 }
 
 /* ====== GRID CONTAINER ВНУТРИ ГЛОБАЛЬНОГО .container ====== */
@@ -13,12 +17,16 @@
     padding: 0;
 }
 
+.aboutWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
 .title {
-    font-family: "Sora", sans-serif;
+    font-family: var(--second-family);
     font-weight: 700;
     font-size: 28px;
-
-    /* line-height: 34px; */
     line-height: 1.2;
     letter-spacing: -0.01em;
     color: #000;
@@ -27,17 +35,17 @@
 /* ====== DESCRIPTION ====== */
 
 .description {
-    grid-column: 8 / span 5;
-    font-size: 18px;
-    line-height: 1.6;
-    color: #333;
-    max-width: 520px;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #000;
 }
 
 /* ====== FEATURES (3 карточки) ====== */
 
 .features {
-    padding-top: 64px;
+    padding-top: 40px;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -67,28 +75,47 @@
     .content {
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(12, 1fr);
         gap: 24px;
     }
 
-    .title{
-        max-width: 340px;
+    .aboutWrapper{
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 24px;
+    }
+
+    .title {
+        font-size: 44px;
     }
 
     .titleBlock {
-        grid-column: 1 / span 7;
+        flex: 0 0 55%;
     }
 
     .features {
-        grid-column: 1 / span 12;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        flex-direction: row;
+        justify-content: space-between;
         gap: 32px;
     }
 
     .featureItem {
         display: flex;
         flex-direction: column;
+    }
+
+    .description{
+        flex: 1;
+    }
+}
+
+/* Desktop (1440px+) */
+@media (min-width: 1440px){
+    .title {
+        font-size: 52px;
+    }
+
+    .description {
+        font-size: 20px;
     }
 }
 
