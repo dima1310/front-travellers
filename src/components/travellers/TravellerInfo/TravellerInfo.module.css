@@ -23,8 +23,8 @@
 .profile {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  align-items: center;
+  text-align: center;
   gap: 24px;
 }
 
@@ -73,13 +73,12 @@
 /* Tablet */
 @media (min-width: 768px) {
   .inner {
-    padding: 0 24px;
+    padding: 0;
   }
 
   .profile {
     flex-direction: row;
     align-items: center;
-    gap: 32px;
   }
 
   .info {

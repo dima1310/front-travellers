@@ -1,38 +1,41 @@
 /* Обёртка — выравнивание по левому краю внутри секции */
 .wrapper {
   width: 100%;
-  display: flex;
   justify-content: flex-start;
 }
 
-
 .card {
-  width: 533px;
-  padding: 40px 32px;
   background: #e8eeff;
-  border-radius: 16px;
-
   display: flex;
   flex-direction: column;
   gap: 32px;
+  border-radius: 24px;
+  padding: 20px;
+  width: 335px;
+  height: 195px;
+  /* max-width: 768px; */
 }
 
-
 .text {
-  margin: 0;
-  font-family: var(--font-sora); 
+  font-family: var(--font-sora);
+  width: 280px;
+  height: 75px;
   font-weight: 700;
-  font-size: 28px;       
-  line-height: 1.4;       
-  letter-spacing: -0.01em; 
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
   color: #000;
-  max-width: 100%;
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.4;
+  /* max-width: 100%; */
 }
 
 .button {
   align-self: flex-start;
   padding: 6px 12px;
   height: 48px;
+  width: 295px;
 
   border-radius: 8px;
   border: 1px solid #4169e1;
@@ -49,9 +52,11 @@
   justify-content: center;
 
   cursor: pointer;
-  transition: background-color .2s, border-color .2s, color .2s;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
 }
-
 
 .button:hover,
 .button:focus-visible {
@@ -65,3 +70,27 @@
   color: #000000;
 }
 
+@media (min-width: 768px) {
+  .wrapper {
+    padding-left: 32px;
+    padding-bottom: 64px;
+  }
+
+  .button {
+    width: 101px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .card {
+    border-radius: 24px;
+    padding: 40px 32px;
+    width: 533px;
+    height: 210px;
+    max-width: 768px;
+  }
+  .text {
+    width: 469px;
+    height: 50px;
+  }
+}
