@@ -31,7 +31,6 @@ export default function StoryDetails({ story }: StoryDetailsProps) {
   const [isBookmarked, setIsBookmarked] = useState(initiallySaved);
   const [isLoading, setIsLoading] = useState(false);
 
-  // 🔹 безопасный форматтер даты
   const formatDate = (value?: string) => {
     if (!value) return "";
 
@@ -161,8 +160,8 @@ export default function StoryDetails({ story }: StoryDetailsProps) {
               {isLoading
                 ? "Збереження..."
                 : isBookmarked
-                  ? "Збережено"
-                  : "Зберегти"}
+                ? "Збережено"
+                : "Зберегти"}
             </button>
 
             {open && (

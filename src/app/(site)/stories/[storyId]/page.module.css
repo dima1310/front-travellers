@@ -1,20 +1,27 @@
-.page {
-  min-height: calc(100vh - 200px);
+.storyPopularWrapper {
+  background: #F7F9FF;
+  padding: 64px 0; /* mobile */
 }
 
-.popularSection {
-  background-color: #f9fafb;
-}
-
-/* Tablet (768px+) */
 @media (min-width: 768px) {
-  .popularSection {
+  .storyPopularWrapper {
+    padding: 80px 0; /* tablet */
   }
 }
 
-/* Desktop (1440px+) */
 @media (min-width: 1440px) {
-  .popularSection {
-    padding: 100px 0;
+  .storyPopularWrapper {
+    padding: 80px 0; /* desktop */
   }
+}
+
+/* Чтобы лоадер и ошибка не ломали верстку */
+.loaderWrapper,
+.error {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.page {
+  width: 100%;
 }
