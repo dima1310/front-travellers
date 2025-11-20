@@ -1,9 +1,10 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
+import HomeStyles from "@/app/Home.module.css";
 import styles from "./TravellerInfo.module.css";
 import { getTravellerById } from "@/services/api/travellersApi";
+import { Avatar } from "../Avatar/Avatar";
 
 interface TravellerInfoProps {
   id: string;
@@ -41,28 +42,19 @@ export default function TravellerInfo({ id }: TravellerInfoProps) {
     bio?: string;
   };
 
-  const avatarSrc =
-    avatar && avatar.trim() !== "" ? avatar : "/icons/user.svg";
-
   return (
     <section className={styles.section}>
-      <div className={styles.inner}>
-        <div className={styles.profile}>
-          <div className={styles.avatarWrapper}>
-            <Image
-              src={avatarSrc}
-              alt={name}
-              width={199}
-              height={199}
-              className={styles.avatar}
-            />
-          </div>
+      <div className={HomeStyles.container}>
+        <div className={`container ${styles.inner}`}>
+          <div className={styles.profile}>
+            <Avatar src={avatar} name={name} />
 
-          <div className={styles.info}>
-            <h1 className={styles.name}>{name}</h1>
-            <p className={styles.bio}>
-              {bio || "Мандрівник поки не додав опис."}
-            </p>
+            <div className={styles.info}>
+              <h1 className={styles.name}>{name}</h1>
+              <p className={styles.bio}>
+                {bio || "Мандрівник поки не додав опис."}
+              </p>
+            </div>
           </div>
         </div>
       </div>
