@@ -1,8 +1,11 @@
+'use client'
 import LoadMoreButton from "@/components/ui/Button/LoadMoreButton/LoadMoreButton";
 import HomeStyles from "@/app/Home.module.css";
 import styles from "./Join.module.css";
+import { useRouter } from "next/navigation";
 
 export default function CTA() {
+  const router = useRouter();
   return (
     <section className={styles.section} id="join">
       <div className={HomeStyles.container}>
@@ -19,7 +22,7 @@ export default function CTA() {
                 надихають на нові пригоди.
               </p>
 
-              <LoadMoreButton className={styles.button} width={169}>
+              <LoadMoreButton className={styles.button} width={169} onClick={() => router.push("/auth/register")}>
                 Зареєструватися
               </LoadMoreButton>
             </div>
