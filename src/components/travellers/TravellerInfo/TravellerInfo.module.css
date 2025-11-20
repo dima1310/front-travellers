@@ -1,19 +1,21 @@
 /* ======= MOBILE FIRST ======= */
 
-/* секция (увеличил padding-top чтобы хедер не наезжал на мобилке) */
+/* секция */
 .section {
   width: 100%;
-  padding: 32px 12px 0; /* 96 чтобы хедер НЕ наезжал на мобилке */
+  padding: 32px 12px 0;
+  background-color: var(--color-bg);
 }
 
-.container {
-  max-width: 1312px;
+/* внутренняя обёртка внутри .container */
+.inner {
   width: 100%;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 /* Профіль мандрівника */
-
 .profile {
   display: flex;
   flex-direction: column;
@@ -23,7 +25,7 @@
   gap: 24px;
 }
 
-/* АВАТАР 240×240 */
+/* АВАТАР */
 .avatarWrapper {
   width: 199px;
   height: 199px;
@@ -40,7 +42,7 @@
 
 /* Текстовый блок */
 .info {
-  max-width: 311px; /* как в фигме (311 Hug) */
+  max-width: 311px;
 }
 
 /* Имя */
@@ -53,7 +55,7 @@
   margin-bottom: 8px;
 }
 
-/* BIO — стиль: Normal 18/150 */
+/* BIO */
 .bio {
   font-family: var(--font-nunito);
   font-weight: 400;
@@ -61,7 +63,6 @@
   line-height: 1.5;
   color: #000;
   max-width: 311px;
-  white-space: normal;
 }
 
 /* Лоадер / ошибка */
@@ -74,39 +75,29 @@
 }
 
 /* ============ TABLET (768px+) ============ */
-
 @media (min-width: 768px) {
   .section {
     padding: 32px 0 0;
   }
 
   .profile {
-    flex-direction: row; /* Фото слева, текст справа */
+    flex-direction: row;
     align-items: center;
     text-align: left;
-    justify-content: flex-start;
     gap: 24px;
   }
 
   .info {
-    max-width: 380px; /* правая колонка шире, но ограничена */
+    max-width: 380px;
   }
 
-  .name {
-    font-size: 20px;
-    margin-bottom: 0;
-  }
-
-  /* именно на планшете делаем bio чуть уже, чтобы разбивалось на 2 строки */
   .bio {
     font-size: 16px;
-    max-width: 350px; /* подгон под макет: даст 2 строки */
-    white-space: normal;
+    max-width: 350px;
   }
 }
 
 /* ============ DESKTOP (1440px+) ============ */
-
 @media (min-width: 1440px) {
   .section {
     padding-top: 48px;
@@ -115,9 +106,6 @@
   .profile {
     flex-direction: row;
     gap: 24px;
-    align-items: center;
-    text-align: left;
-    justify-content: flex-start;
   }
 
   .name {
@@ -130,3 +118,4 @@
     max-width: 340px;
   }
 }
+

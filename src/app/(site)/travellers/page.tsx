@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import TravellersList from "@/components/travellers/TravellersList/TravellersList";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useTravellersQuery } from "@/services/queries/useTravellersQuery";
+import HomeStyles from "@/app/Home.module.css";
 import styles from "./page.module.css";
 
 export default function TravellersPage() {
@@ -20,7 +21,7 @@ export default function TravellersPage() {
     isFetchingNextPage,
   } = useTravellersQuery();
 
-  // собираем все страницы в один массив
+  // собираем все страницы в один масив
   const allTravellers =
     data?.pages?.flatMap((page) => (Array.isArray(page) ? page : [])) ?? [];
 
@@ -37,7 +38,7 @@ export default function TravellersPage() {
     setVisibleCount(initialCount);
   }, [initialCount, allTravellers.length]);
 
-  // если участников меньше initialCount, дотягиваем с сервера
+  // если учасників меньше initialCount, дотягиваем з сервера
   useEffect(() => {
     if (
       !isLoading &&
@@ -81,44 +82,42 @@ export default function TravellersPage() {
 
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
-        <div className={styles.cardsWrapper}>
-          {/* заголовок ВНУТРИ синего блока */}
-          <h1 className={styles.title}>Мандрівники</h1>
+      <div className={HomeStyles.container}>
+        <div className={`container ${styles.container}`}>
+          <div className={styles.cardsWrapper}>
+            {/* заголовок ВНУТРИ синего блока */}
+            <h1 className={styles.title}>Мандрівники</h1>
 
-          {isLoading && (
-            <p className={styles.status}>Завантаження...</p>
-          )}
+            {isLoading && <p className={styles.status}>Завантаження...</p>}
 
-          {isError && (
-            <p className={styles.status}>
-              Сталася помилка під час завантаження мандрівників:{" "}
-              {error instanceof Error
-                ? error.message
-                : "спробуйте пізніше"}
-            </p>
-          )}
+            {isError && (
+              <p className={styles.status}>
+                Сталася помилка під час завантаження мандрівників:{" "}
+                {error instanceof Error ? error.message : "спробуйте пізніше"}
+              </p>
+            )}
 
-          {!isLoading && !isError && (
-            <>
-              <TravellersList travellers={visibleTravellers} />
+            {!isLoading && !isError && (
+              <>
+                <TravellersList travellers={visibleTravellers} />
 
-              {canShowMore && (
-                <div className={styles.loadMoreWrapper}>
-                  <button
-                    type="button"
-                    className={styles.loadMoreButton}
-                    onClick={handleShowMore}
-                    disabled={isFetchingNextPage}
-                  >
-                    {isFetchingNextPage
-                      ? "Завантаження..."
-                      : "Переглянути всіх"}
-                  </button>
-                </div>
-              )}
-            </>
-          )}
+                {canShowMore && (
+                  <div className={styles.loadMoreWrapper}>
+                    <button
+                      type="button"
+                      className={styles.loadMoreButton}
+                      onClick={handleShowMore}
+                      disabled={isFetchingNextPage}
+                    >
+                      {isFetchingNextPage
+                        ? "Завантаження..."
+                        : "Переглянути всіх"}
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </section>

@@ -8,20 +8,24 @@
 .container {
   width: 100%;
   margin: 0 auto;
-  padding: 0 16px; /* Мобильные боковые отступы */
+  padding: 0 16px; /* Мобилка */
+}
 
-  /* Планшет: 768px+ */
-  @media (min-width: 768px) {
+/* Планшет */
+@media (min-width: 768px) {
+  .container {
     padding: 0 24px;
   }
+}
 
-  /* Десктоп: 1440px+ */
-  @media (min-width: 1440px) {
+/* Десктоп */
+@media (min-width: 1440px) {
+  .container {
     padding: 0;
   }
 }
 
-/* === СИНЯЯ ПЛАШКА: заголовок, сетка, кнопка === */
+/* === СИНЯЯ ПЛАШКА === */
 .cardsWrapper {
   width: 100%;
   background-color: #f6f8ff;
@@ -32,25 +36,27 @@
   flex-direction: column;
   gap: 32px;
 
-  /* Мобильные устройства */
   padding: 32px 24px 40px;
-
   box-sizing: border-box;
+}
 
-  /* Планшет */
-  @media (min-width: 768px) {
+/* Планшет */
+@media (min-width: 768px) {
+  .cardsWrapper {
     padding: 48px 48px 56px;
     gap: 40px;
   }
+}
 
-  /* Десктоп */
-  @media (min-width: 1280px) {
+/* Десктоп */
+@media (min-width: 1280px) {
+  .cardsWrapper {
     padding: 64px 64px 72px;
     gap: 32px;
   }
 }
 
-/* === Заголовок "Мандрівники" === */
+/* === Заголовок === */
 .title {
   margin: 0;
   font-family: var(--font-sora);
@@ -59,25 +65,27 @@
   line-height: 1.2;
   color: #000000;
   text-align: center;
+}
 
-  /* Планшет */
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
+  .title {
     font-size: 32px;
   }
+}
 
-  /* Десктоп */
-  @media (min-width: 1440px) {
+@media (min-width: 1440px) {
+  .title {
     font-size: 48px;
   }
 }
 
-/* === Статусы загрузки/ошибки === */
+/* === Статусные сообщения === */
 .status {
   font-size: 16px;
   text-align: left;
 }
 
-/* === Обёртка под кнопку "Переглянути всіх" === */
+/* === Обёртка под кнопку === */
 .loadMoreWrapper {
   display: flex;
   justify-content: center;

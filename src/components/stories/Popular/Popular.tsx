@@ -4,6 +4,7 @@ import styles from "./Popular.module.css";
 import { useStories } from "@/hooks/useStories";
 import { Loader } from "@/components/ui/Loader/Loader";
 import TravellersStoriesItem from "@/components/stories/TravellersStoriesItem/TravellersStoriesItem";
+import type { Story } from "@/types/story.types";
 
 interface PopularProps {
   limit?: number;
@@ -17,17 +18,20 @@ export const Popular = ({ limit = 3, excludeId }: PopularProps) => {
     return <Loader />;
   }
 
-  // масив історій з твого StoriesResponse (items: Story[])
-  const items = data?.items ?? [];
-
-  if (error || !data || items.length === 0) {
+  // якщо щось пішло не так або історій немає — нічого не рендеримо
+  if (
+    error ||
+    !data ||
+    !Array.isArray(data.items) ||
+    data.items.length === 0
+  ) {
     return null;
   }
 
-  // Виключаємо поточну статтю зі списку
-  const filteredStories = excludeId
-    ? items.filter((story) => story._id !== excludeId)
-    : items;
+  // Виключаємо поточну історію зі списку
+  const filteredStories: Story[] = excludeId
+    ? data.items.filter((story) => story._id !== excludeId)
+    : data.items;
 
   if (filteredStories.length === 0) {
     return null;
@@ -44,3 +48,6 @@ export const Popular = ({ limit = 3, excludeId }: PopularProps) => {
     </section>
   );
 };
+
+
+/* fix for PR */

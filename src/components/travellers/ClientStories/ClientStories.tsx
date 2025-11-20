@@ -3,7 +3,8 @@
 import { useState, useMemo } from "react";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import type { Story } from "@/types/story.types";
-import PopularStoriesItem from "@/components/stories/TravellersStoriesItem/TravellersStoriesItem";
+import TravellersStoriesItem from "@/components/stories/TravellersStoriesItem/TravellersStoriesItem";
+import HomeStyles from "@/app/Home.module.css";
 import styles from "./ClientStories.module.css";
 
 type Props = {
@@ -19,13 +20,11 @@ export default function ClientStories({ stories }: Props) {
 
   const [visibleCount, setVisibleCount] = useState(initialCount);
 
-  // які картки показувати
   const visibleStories = useMemo(
     () => stories.slice(0, visibleCount),
     [stories, visibleCount]
   );
 
-  // чи є ще картки
   const hasMore = visibleCount < stories.length;
 
   const handleLoadMore = () => {
@@ -33,23 +32,26 @@ export default function ClientStories({ stories }: Props) {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <h2 className={styles.title}>Історії Мандрівників</h2>
+    <section className={styles.section}>
+      <div className={HomeStyles.container}>
+        <div className={`container ${styles.inner}`}>
+          <h2 className={styles.title}>Історії Мандрівників</h2>
 
-      <div className={styles.grid}>
-        {visibleStories.map((s) => (
-          <PopularStoriesItem key={s._id} story={s} />
-        ))}
-      </div>
+          <div className={styles.grid}>
+            {visibleStories.map((s) => (
+              <TravellersStoriesItem key={s._id} story={s} />
+            ))}
+          </div>
 
-      {/* кнопка появляється тільки якщо є ще картки */}
-      {hasMore && (
-        <div className={styles.moreWrapper}>
-          <button onClick={handleLoadMore} className={styles.moreButton}>
-            Переглянути всі
-          </button>
+          {hasMore && (
+            <div className={styles.moreWrapper}>
+              <button onClick={handleLoadMore} className={styles.moreButton}>
+                Переглянути всі
+              </button>
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </div>
+    </section>
   );
 }

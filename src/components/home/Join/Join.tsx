@@ -1,26 +1,28 @@
 import LoadMoreButton from "@/components/ui/Button/LoadMoreButton/LoadMoreButton";
+import HomeStyles from "@/app/Home.module.css";
 import styles from "./Join.module.css";
 
 export default function CTA() {
   return (
     <section className={styles.section} id="join">
-      <div className="container">
-        <div className={styles.wrapper}>
-          <div className={styles.background}></div>
-          <div className={styles.overlay}></div>
+      <div className={HomeStyles.container}>
+        <div className={`container ${styles.inner}`}>
+          <div className={styles.wrapper}>
+            <div className={styles.background}></div>
+            <div className={styles.overlay}></div>
 
-          <div className={styles.content}>
-            <h2 className={styles.title}>Приєднуйтесь до нашої спільноти</h2>
+            <div className={styles.content}>
+              <h2 className={styles.title}>Приєднуйтесь до нашої спільноти</h2>
 
-            <p className={styles.text}>
-              Долучайтеся до мандрівників, які діляться своїми історіями та
-              надихають на нові пригоди.
-            </p>
+              <p className={styles.text}>
+                Долучайтеся до мандрівників, які діляться своїми історіями та
+                надихають на нові пригоди.
+              </p>
 
-            {/* Правильная кнопка */}
-            <LoadMoreButton className={styles.button} width={169}>
+              <LoadMoreButton className={styles.button} width={169}>
                 Зареєструватися
               </LoadMoreButton>
+            </div>
           </div>
         </div>
       </div>
