@@ -43,3 +43,10 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+/* убираем рамку у ближайшего родителя секции */
+.wrap:where(:first-child),
+.wrap:where(:first-child) > * {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
