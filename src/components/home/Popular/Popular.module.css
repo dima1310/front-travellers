@@ -37,12 +37,6 @@
   margin-top: 20px;
 }
 
-/* Додаткові стилі для LoadMoreButton */
-.button {
-  font-size: 16px;
-  font-weight: 600;
-}
-
 /* Лоадер */
 .loading {
   text-align: center;
@@ -77,10 +71,6 @@
     justify-content: center;
   }
 
-  .button {
-    font-size: 18px;
-  }
-
   .loading {
     font-size: 18px;
   }
@@ -108,7 +98,6 @@
 }
 
 /* === КНОПКА як у Travellers — 18px Medium === */
-
 .button {
   display: inline-flex;
   align-items: center;
@@ -123,9 +112,9 @@
   border-radius: 8px;
 
   font-family: var(--font-nunito);
-  font-size: 18px;        /* ← як у Figma Text/Regular/Medium 18px */
-  font-weight: 500;       /* Medium */
-  line-height: 1.5;       /* 150% */
+  font-size: 18px;        /* Figma Medium 18px */
+  font-weight: 500;
+  line-height: 1.5;
   color: #ffffff;
 
   cursor: pointer;

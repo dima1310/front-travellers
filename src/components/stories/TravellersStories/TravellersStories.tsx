@@ -6,6 +6,7 @@ import TravellersStoriesItem from "@/components/stories/TravellersStoriesItem/Tr
 import StoriesFilter, {
   type StoriesFilterValue,
 } from "@/components/stories/StoriesFilter/StoriesFilter";
+import HomeStyles from "@/app/Home.module.css";
 import styles from "./TravellersStories.module.css";
 import type { Story } from "@/types/story.types";
 
@@ -44,50 +45,52 @@ export default function TravellersStories({ stories }: Props) {
 
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
-        {/* Header only for browse mode */}
-        {!isManaged && (
-          <header className={styles.header}>
-            <h1 className={styles.title}>Історії Мандрівників</h1>
-          </header>
-        )}
+      <div className={HomeStyles.container}>
+        <div className={`container ${styles.inner}`}>
+          {/* Header only for browse mode */}
+          {!isManaged && (
+            <header className={styles.header}>
+              <h1 className={styles.title}>Історії мандрівників</h1>
+            </header>
+          )}
 
-        {/* Filter only in browse mode */}
-        {!isManaged && <StoriesFilter value={filter} onChange={setFilter} />}
+          {/* Filter only in browse mode */}
+          {!isManaged && <StoriesFilter value={filter} onChange={setFilter} />}
 
-        {/* Loading / Empty / Grid */}
-        {!isManaged && isLoading ? (
-          <p className={styles.loading}>Завантаження...</p>
-        ) : list.length === 0 ? (
-          <p className={styles.loading}>Немає історій</p>
-        ) : (
-          <div className={styles.grid}>
-            {list.map((story) => (
-              <TravellersStoriesItem key={story._id} story={story} />
-            ))}
-          </div>
-        )}
+          {/* Loading / Empty / Grid */}
+          {!isManaged && isLoading ? (
+            <p className={styles.loading}>Завантаження...</p>
+          ) : list.length === 0 ? (
+            <p className={styles.loading}>Немає історій</p>
+          ) : (
+            <div className={styles.grid}>
+              {list.map((story) => (
+                <TravellersStoriesItem key={story._id} story={story} />
+              ))}
+            </div>
+          )}
 
-        {/* Load more button for browse mode */}
-        {!isManaged && hasNextPage && (
-          <button
-            onClick={() => fetchNextPage()}
-            className={styles.button}
-            disabled={isFetchingNextPage}
-          >
-            {isFetchingNextPage ? "Завантаження..." : "Показати ще"}
-          </button>
-        )}
+          {/* Load more button for browse mode */}
+          {!isManaged && hasNextPage && (
+            <button
+              onClick={() => fetchNextPage()}
+              className={styles.button}
+              disabled={isFetchingNextPage}
+            >
+              {isFetchingNextPage ? "Завантаження..." : "Показати ще"}
+            </button>
+          )}
 
-        {/* Load more button for managed mode (Profile page) */}
-        {hasMoreManaged && (
-          <button
-            onClick={() => setVisibleCount((prev) => prev + 6)}
-            className={styles.button}
-          >
-            Показати ще
-          </button>
-        )}
+          {/* Load more button for managed mode (Profile page) */}
+          {hasMoreManaged && (
+            <button
+              onClick={() => setVisibleCount((prev) => prev + 6)}
+              className={styles.button}
+            >
+              Показати ще
+            </button>
+          )}
+        </div>
       </div>
     </section>
   );

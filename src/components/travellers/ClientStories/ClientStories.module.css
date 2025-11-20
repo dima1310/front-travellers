@@ -1,6 +1,15 @@
-.wrapper {
+.section {
   width: 100%;
-  margin-top: 60px;
+  padding: 0;
+  background-color: var(--color-bg);
+}
+
+/* внутренняя обёртка внутри глобального .container */
+.inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .title {
