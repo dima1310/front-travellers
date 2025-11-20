@@ -1,33 +1,15 @@
-/* Main page container */
+/* ===== PAGE WRAPPER ===== */
 .page {
   min-height: 100vh;
   background: #f7f9ff;
-  padding: 32px 20px 64px;
+  padding: 96px 0 72px; /* отступ сверху, чтобы не залезать под хедер */
 }
 
-/* Loader wrapper */
-.loaderWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 300px;
-}
-
-/* Error and empty states */
-.error,
-.empty {
-  text-align: center;
-  padding: 60px 20px;
-  font-size: 16px;
-  color: #6b4560;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 12px;
-  margin: 20px 0;
-}
-
-.error {
-  color: #c41e3a;
-  background: rgba(255, 220, 230, 0.6);
+/* ===== MAIN CONTAINER ===== */
+.container {
+  max-width: 1312px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 /* Loader wrapper */
@@ -55,26 +37,27 @@
   background: rgba(255, 220, 230, 0.6);
 }
 
-/* Stories section */
+/* ===== STORIES SECTION ===== */
 .storiesSection {
   margin-top: 32px;
 }
 
-/* Tabs */
+/* ===== TABS ===== */
 .tabs {
   display: flex;
-  margin-bottom: 40px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
   gap: 8px;
   background: #e8eeff;
   padding: 4px;
   border-radius: 10px;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0);
+  margin-bottom: 40px;
+
+  width: 100%;
+  max-width: 335px;
 }
 
+/* Кнопки табов */
 .tabButton {
   flex: 1;
   padding: 4px 12px;
@@ -88,67 +71,62 @@
   font-size: 16px;
   line-height: 1.5;
   color: #000;
+  background: transparent;
 }
 
 .tabButtonActive {
   border-radius: 8px;
   font-size: 16px;
-
   border: 1px solid rgba(0, 0, 0, 0.15);
   background: #f7f9ff;
   color: #000;
   font-weight: 500;
 }
 
-/* Stories inner container */
-/* .storiesInner {
-  /* min-height: 400px; 
-} */
+/* Внутренняя часть секции историй */
+.storiesInner {
+  margin-top: 24px;
+}
 
-/* ===== MOBILE 375px  ===== */
-
+/* ===== MOBILE 375+ ===== */
 @media (min-width: 375px) {
   .tabs {
     max-width: 335px;
   }
 }
 
-/* ===== TABLET 768 ===== */
+/* ===== TABLET 768+ ===== */
 @media (min-width: 768px) {
-  .page {
-    padding: 0;
+  .container {
+    padding: 0 32px;
   }
 
   .tabs {
     max-width: 422px;
-    margin-left: 32px;
-  }
-
-  .tabButton {
-    flex: start;
-    font-size: 16px;
   }
 
   .storiesSection {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    /* justify-content: flex-start; */
   }
 }
 
+/* ===== DESKTOP 1440+ ===== */
 @media (min-width: 1440px) {
-  .page {
-    min-height: 100vh;
-    background: #f7f9ff;
-    padding: 0px 0px 72px;
+  .container {
+    padding: 0; /* 1312 по центру, как на остальных страницах */
   }
+
+  .page {
+    padding: 96px 0 72px;
+  }
+
   .tabs {
-    margin-left: 70px;
+    margin-left: 0; /* табы по той же левой линии, что и аватар */
   }
 
   .tabButton {
-    padding: 4px 12px;
     font-size: 18px;
   }
 
@@ -159,4 +137,13 @@
   .error {
     margin: 100px 0 20px;
   }
+}
+.page :global(.container) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.page :global(.Home-module__jKgjFW__container) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
