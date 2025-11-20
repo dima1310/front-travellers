@@ -27,11 +27,6 @@ type ApiErrorShape = {
     message?: string;
   };
 };
-type CurrentUserResponse = {
-  status: number;
-  message: string;
-  data: User;
-};
 
 type LoginResponse = {
   status: number;
@@ -40,6 +35,30 @@ type LoginResponse = {
     accessToken: string;
   };
 };
+
+type ApiUser = {
+  _id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  bio?: string;
+  savedStories?: Array<string | { _id: string }>;
+};
+
+type CurrentUserResponse = {
+  status: number;
+  message: string;
+  data: ApiUser;
+};
+
+const mapApiUserToUser = (apiUser: ApiUser): User => ({
+  id: apiUser._id,
+  name: apiUser.name,
+  email: apiUser.email,
+  avatarUrl: apiUser.avatar,
+  savedStories:
+    apiUser.savedStories?.map((s) => (typeof s === "string" ? s : s._id)) ?? [],
+});
 
 export default function RegistrationForm() {
   const router = useRouter();
@@ -52,12 +71,14 @@ export default function RegistrationForm() {
     const payload = { name, email, password };
 
     try {
+      // 1. регистрация
       const res = await api.post("/auth/register", payload);
 
       if (res.status === 201 || res.status === 200) {
         showSuccessToast("Успішна реєстрація");
 
         try {
+          // 2. автологин
           const loginRes = await api.post<LoginResponse>("/auth/login", {
             email,
             password,
@@ -68,8 +89,10 @@ export default function RegistrationForm() {
           if (loginRes.status === 200 || loginRes.status === 201) {
             const token = loginRes.data.data.accessToken;
 
+            // 3. кладём токен
             loginToStore(token);
 
+            // 4. тянем текущего юзера
             const meRes = await api.get<CurrentUserResponse>("/users/current", {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -78,7 +101,8 @@ export default function RegistrationForm() {
 
             console.log("REGISTER -> CURRENT USER:", meRes.data);
 
-            setUser(meRes.data.data);
+            const mappedUser = mapApiUserToUser(meRes.data.data);
+            setUser(mappedUser);
 
             console.log(
               "AUTH STORE AFTER auto register+login:",

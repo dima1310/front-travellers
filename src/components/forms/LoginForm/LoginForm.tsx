@@ -21,6 +21,8 @@ import { LoginSchema } from "@/utils/validation/authSchemas";
 import { translateAuthError } from "@/utils/helpers/translateAuthError";
 import type { User } from "@/types/auth.types";
 
+type LoginFormValues = typeof loginInitialValues;
+
 type LoginResponse = {
   status: number;
   message: string;
@@ -29,8 +31,6 @@ type LoginResponse = {
   };
 };
 
-type LoginFormValues = typeof loginInitialValues;
-
 type ApiErrorShape = {
   message?: string;
   data?: {
@@ -38,11 +38,31 @@ type ApiErrorShape = {
   };
 };
 
+// как реально приходит юзер с бека
+type ApiUser = {
+  _id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  bio?: string;
+  savedStories?: Array<string | { _id: string }>;
+};
+
 type CurrentUserResponse = {
   status: number;
   message: string;
-  data: User;
+  data: ApiUser;
 };
+
+// хелпер: мапим ApiUser -> наш фронтовый User
+const mapApiUserToUser = (apiUser: ApiUser): User => ({
+  id: apiUser._id,
+  name: apiUser.name,
+  email: apiUser.email,
+  avatarUrl: apiUser.avatar,
+  savedStories:
+    apiUser.savedStories?.map((s) => (typeof s === "string" ? s : s._id)) ?? [],
+});
 
 export default function LoginForm() {
   const router = useRouter();
@@ -52,13 +72,16 @@ export default function LoginForm() {
 
   const handleLogin = async (values: LoginFormValues) => {
     try {
+      // 1. логинимся
       const { data } = await api.post<LoginResponse>("/auth/login", values);
-
       console.log("LOGIN /auth/login response:", data);
 
       const token = data.data.accessToken;
 
+      // 2. кладём токен в стор
       login(token);
+
+      // 3. тянем текущего юзера
       const meRes = await api.get<CurrentUserResponse>("/users/current", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,15 +90,13 @@ export default function LoginForm() {
 
       console.log("CURRENT USER response:", meRes.data);
 
-      setUser(meRes.data.data);
-
-      console.log("AUTH STORE AFTER login():", useAuthStore.getState());
+      // 4. мапим и кладём в стор
+      const mappedUser = mapApiUserToUser(meRes.data.data);
+      setUser(mappedUser);
 
       showSuccessToast("Логін успішний");
       router.push("/");
     } catch (error: unknown) {
-      console.log("LOGIN ERROR:", error);
-
       let msg = "Помилка логіна";
 
       if (error instanceof AxiosError) {

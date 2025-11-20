@@ -1,38 +1,89 @@
 "use client";
 
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import styles from "./TravellersStoriesItem.module.css";
-import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import type { Story } from "@/types/story.types";
-import ConfirmModal from "@/components/modals/ConfirmModal/ConfirmModal";
-import { useModal } from "@/hooks/useModal";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
+import styles from "./TravellersStoriesItem.module.css";
+
+import type { Story } from "@/types/story.types";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useModal } from "@/hooks/useModal";
+import ConfirmModal from "@/components/modals/ConfirmModal/ConfirmModal";
+import { addSavedStory, removeSavedStory } from "@/services/api/savedStories";
+import type { User } from "@/types/auth.types";
 
 interface StoryProps {
   story: Story;
 }
 
 export default function TravellersStoriesItem({ story }: StoryProps) {
-  const { isAuth } = useAuth();
-  const [bookmarked, setBookmarked] = useState(false);
-  const [count, setCount] = useState<number>(story.favoriteCount ?? 0);
-  const [loading, setLoading] = useState(false);
-  const { open, onOpen, onClose } = useModal();
   const router = useRouter();
 
+  // берём данные из zustand-стора
+  const { isAuthenticated, user, setUser } = useAuthStore();
+  const { open, onOpen, onClose } = useModal();
+
+  // изначально — сохранена ли история у юзера
+  const initiallySaved = useMemo(
+    () => !!user?.savedStories?.includes(story._id),
+    [user?.savedStories, story._id]
+  );
+
+  const [bookmarked, setBookmarked] = useState(initiallySaved);
+  const [count, setCount] = useState<number>(story.favoriteCount ?? 0);
+  const [loading, setLoading] = useState(false);
+
   const handleBookmark = async () => {
-    if (!isAuth) {
+    if (!isAuthenticated) {
+      // не авторизован — показываем модалку
       onOpen();
       return;
     }
 
+    if (!user) return;
+
+    const next = !bookmarked;
+    setLoading(true);
+
     try {
-      setLoading(true);
-      await new Promise((res) => setTimeout(res, 800));
-      setBookmarked((prev) => !prev);
-      setCount((prev) => (bookmarked ? Math.max(0, prev - 1) : prev + 1));
+      if (next) {
+        // добавляем в сохранённые на бэке
+        await addSavedStory(story._id);
+
+        // обновляем savedStories в zustand
+        const nextSaved = [...(user.savedStories ?? []), story._id];
+        setUser({
+          ...(user as User),
+          savedStories: nextSaved,
+        });
+
+        // увеличиваем счётчик (если он у тебя для избранного)
+        setCount((prev) => prev + 1);
+      } else {
+        // удаляем из сохранённых
+        await removeSavedStory(story._id);
+
+        const nextSaved = (user.savedStories ?? []).filter(
+          (id) => id !== story._id
+        );
+        setUser({
+          ...(user as User),
+          savedStories: nextSaved,
+        });
+
+        setCount((prev) => Math.max(0, prev - 1));
+      }
+
+      setBookmarked(next);
+
+      toast.success(
+        next ? "Історію додано до збережених" : "Історію видалено зі збережених"
+      );
+    } catch (e) {
+      toast.error("Помилка при збереженні історії");
     } finally {
       setLoading(false);
     }
@@ -123,6 +174,7 @@ export default function TravellersStoriesItem({ story }: StoryProps) {
               />
             )}
           </button>
+
           {open && (
             <ConfirmModal
               title="Помилка під час збереження"
