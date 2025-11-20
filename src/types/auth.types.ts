@@ -3,6 +3,7 @@ export interface User {
   name: string;
   email: string;
   avatarUrl?: string;
+  savedStories?: string[];
 }
 
 export interface AuthResponse {
