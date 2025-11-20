@@ -12,13 +12,16 @@ import { useModal } from "@/hooks/useModal";
 
 import pageStyles from "@/app/Home.module.css";
 import styles from "./Header.module.css";
+import type { User } from "@/types/auth.types";
 
 export default function Header() {
   const pathname = usePathname();
   const isHomePage = pathname === "/" || pathname === "";
+  const isStoriesPage = pathname.startsWith(ROUTES.STORIES);
 
   const { user, isAuthenticated, logout } = useAuthStore();
   const logoutModal = useModal();
+  console.log("HEADER user from store:", user);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -27,6 +30,12 @@ export default function Header() {
     { label: "Історії", href: ROUTES.STORIES },
     { label: "Мандрівники", href: "/travellers" },
   ];
+  const authUser = (user ?? null) as User | null;
+
+  const displayName =
+    authUser?.name?.trim() || authUser?.email?.trim() || "Мандрівник";
+
+  const displayInitial = displayName.charAt(0).toUpperCase();
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
@@ -68,12 +77,13 @@ export default function Header() {
     .filter(Boolean)
     .join(" ");
 
+  console.log("HEADER user from store:", user);
+
   return (
     <>
       {/* ===== DESKTOP / TABLET HEADER ===== */}
       <header className={headerClassName}>
         <div className={`${pageStyles.container} ${styles.headerContainer}`}>
-          {/* logo */}
           <Link
             href={ROUTES.HOME}
             className={styles.headerLinkLogo}
@@ -81,7 +91,6 @@ export default function Header() {
           >
             <div className={styles.logoIconWrapper}>
               <svg className={styles.logoIcon} width={23} height={23}>
-                {/* если у тебя спрайт, меняешь href на свой id */}
                 <use href="/icons/plantain.svg" />
               </svg>
             </div>
@@ -89,7 +98,6 @@ export default function Header() {
           </Link>
 
           <div className={styles.navAndControls}>
-            {/* основная навигация (видна только ≥1440px) */}
             <nav aria-label="Основна навігація" className={styles.navigation}>
               <ul className={styles.navList}>
                 {commonNav.map((item) => (
@@ -123,19 +131,26 @@ export default function Header() {
 
                     <li className={styles.userItem}>
                       <div className={styles.user}>
-                        <Image
-                          src={
-                            user?.avatar || "/public/images/Avatar Image.png"
-                          }
-                          alt={user?.name || "User avatar"}
-                          width={32}
-                          height={32}
-                          className={styles.userAvatar}
-                        />
-                        <span className={styles.userName}>
-                          {user?.name || "Мандрівник"}
-                        </span>
+                        {authUser?.avatarUrl ? (
+                          <Image
+                            src={authUser.avatarUrl}
+                            alt={displayName}
+                            width={32}
+                            height={32}
+                            className={styles.userAvatar}
+                          />
+                        ) : (
+                          <div className={styles.userAvatarFallback}>
+                            {displayInitial}
+                          </div>
+                        )}
+
+                        <span className={styles.userName}>{displayName}</span>
                       </div>
+                    </li>
+
+                    <li className={styles.dividerItem}>
+                      <div className={styles.userDivider}></div>
                     </li>
 
                     <li className={styles.logoutItem}>
@@ -174,7 +189,6 @@ export default function Header() {
               </ul>
             </nav>
 
-            {/* бургер – виден на мобиле и планшете */}
             <button
               type="button"
               className={`${styles.mobileMenuButtonBase} ${
@@ -197,6 +211,9 @@ export default function Header() {
             </button>
           </div>
         </div>
+
+        {/* серая полоска под хедером на сторис-странице */}
+        {isStoriesPage && <div className={styles.headerDivider} />}
       </header>
 
       {/* ===== MOBILE FULLSCREEN MENU ===== */}
@@ -229,18 +246,25 @@ export default function Header() {
             </button>
           </div>
 
-          {isAuthenticated && (
+          {isAuthenticated && authUser && (
             <div className={styles.mobileUser}>
-              <Image
-                src={user?.avatar || "/public/images/Avatar Image.png"}
-                alt={user?.name || "User avatar"}
-                width={40}
-                height={40}
-                className={styles.userAvatar}
-              />
-              <span className={styles.userName}>
-                {user?.name || "Мандрівник"}
-              </span>
+              {authUser.avatarUrl ? (
+                <Image
+                  src={authUser.avatarUrl}
+                  alt={displayName}
+                  width={40}
+                  height={40}
+                  className={styles.userAvatar}
+                />
+              ) : (
+                <div
+                  className={`${styles.userAvatarFallback} ${styles.userAvatarFallbackMobile}`}
+                >
+                  {displayInitial}
+                </div>
+              )}
+
+              <span className={styles.userName}>{displayName}</span>
             </div>
           )}
 

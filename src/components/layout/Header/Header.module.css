@@ -2,8 +2,6 @@
   position: relative;
   top: 0;
   left: 0;
-  padding-left: 20px;
-  padding-right: 20px;
   width: 100%;
   z-index: 1000;
 
@@ -24,7 +22,7 @@
   width: 100%;
   margin: 0 auto;
   min-width: 320px;
-  padding: 16px 0;
+  padding: 16px 20px;
 
   display: flex;
   justify-content: space-between;
@@ -33,6 +31,12 @@
   font-family: var(--font-nunito-sans);
   font-size: 17px;
   min-height: 72px;
+}
+
+.headerDivider {
+  width: 100%;
+  height: 1px;
+  background: #e5e7eb;
 }
 
 /* ===== LOGO ===== */
@@ -143,6 +147,25 @@
 .userAvatar {
   border-radius: 50%;
   object-fit: cover;
+  background: #e5e7eb;
+}
+
+.userAvatarFallback {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.userAvatarFallbackMobile {
+  width: 40px;
+  height: 40px;
 }
 
 .userName {
@@ -150,6 +173,17 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.userDivider {
+  width: 1px;
+  height: 32px;
+  background-color: #d1d1d6;
+}
+
+.dividerItem {
+  display: flex;
+  align-items: center;
 }
 
 /* logout */
@@ -163,7 +197,13 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  fill: var(--header-text);
+  color: var(--header-text);
+}
+
+.logoutButton svg {
+  display: block;
+  width: 24px;
+  height: 24px;
 }
 
 /* auth buttons */
@@ -205,6 +245,7 @@
 .mobileMenuButtonNoTransparent {
   background: var(--opacity-neutral-darkest-5);
 }
+
 .mobileMenu {
   position: fixed;
   inset: 0;
@@ -212,9 +253,6 @@
   background-color: var(--background);
   color: var(--text);
   padding: 16px;
-}
-
-.mobileMenu {
   opacity: 0;
   transform: translateY(-10px);
   transition:
@@ -227,6 +265,7 @@
   transform: translateY(0);
   background: #000;
 }
+
 .mobileMenuButtonTransparent {
   fill: var(--color-white, #fff);
   border: 1px solid rgba(255, 255, 255, 0);
@@ -353,19 +392,14 @@
 
 @media (min-width: 768px) {
   .headerContainer {
-    padding: 32px 0;
+    padding: 16px 32px;
     max-width: 1439px;
-  }
-
-  .header {
-    padding-left: 32px;
-    padding-right: 32px;
   }
 }
 
 @media (min-width: 1440px) {
   .headerContainer {
-    padding: 16px 0;
+    padding: 16px 64px;
     font-size: 18px;
     line-height: 1.5;
   }
@@ -373,11 +407,6 @@
   .logoText {
     font-size: 18px;
     line-height: 1.5;
-  }
-
-  .header {
-    padding-left: 64px;
-    padding-right: 64px;
   }
 
   .navigation {

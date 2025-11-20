@@ -1,20 +1,19 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-export interface AuthUser {
-  id: string;
-  name: string;
-  email: string;
-  avatar?: string;
-}
+import type { User } from "@/types/auth.types";
 
 interface AuthState {
-  user: AuthUser | null;
+  user: User | null;
   token: string | null;
   isAuthenticated: boolean;
-  hydrated: boolean;                 // ДОДАНО!
-  setHydrated: (v: boolean) => void; // ДОДАНО!
-  login: (user: AuthUser, token: string) => void;
+
+  hydrated: boolean;
+  setHydrated: (v: boolean) => void;
+
+  login: (token: string) => void;
+
+  setUser: (user: User) => void;
+
   logout: () => void;
 }
 
@@ -28,12 +27,13 @@ export const useAuthStore = create<AuthState>()(
 
       setHydrated: (v) => set({ hydrated: v }),
 
-      login: (user, token) =>
+      login: (token) =>
         set({
-          user,
           token,
           isAuthenticated: true,
         }),
+
+      setUser: (user) => set({ user }),
 
       logout: () =>
         set({
@@ -45,7 +45,6 @@ export const useAuthStore = create<AuthState>()(
     {
       name: "auth-storage",
       onRehydrateStorage: () => (state) => {
-        // hydration completed
         state?.setHydrated(true);
       },
     }
