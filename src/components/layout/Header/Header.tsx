@@ -124,9 +124,7 @@ export default function Header() {
                     <li className={styles.userItem}>
                       <div className={styles.user}>
                         <Image
-                          src={
-                            user?.avatar || "/public/images/Avatar Image.png"
-                          }
+                          src={user?.avatar || "/icons/avatar.svg"}
                           alt={user?.name || "User avatar"}
                           width={32}
                           height={32}
