@@ -1,34 +1,14 @@
-/* ======= MOBILE FIRST ======= */
+/* только внутренний профиль, без контейнеров */
 
-.section {
-  width: 100%;
-  padding: 32px 0 0;
-  background-color: var(--color-bg);
-}
-
-/* НЕ .container !!!
-   Это твоя собственная обертка */
-.inner {
-  max-width: 1312px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 16px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-/* Профиль */
 .profile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
   gap: 24px;
+  text-align: center;
 }
 
-/* Аватар */
+/* Аватар из Avatar.tsx */
 .avatarWrapper {
   width: 199px;
   height: 199px;
@@ -42,9 +22,8 @@
   object-fit: cover;
 }
 
-/* Информация */
 .info {
-  max-width: 360px;
+  max-width: 560px;
 }
 
 .name {
@@ -60,9 +39,10 @@
   font-size: 16px;
   line-height: 1.5;
   color: #000;
+  text-align: left; /* текст біо всегда влево */
 }
 
-/* Loader */
+/* Loader / Error */
 .loading,
 .error {
   font-size: 18px;
@@ -70,30 +50,24 @@
   padding: 60px 0;
 }
 
-/* Tablet */
+/* TABLET */
 @media (min-width: 768px) {
-  .inner {
-    padding: 0;
-  }
-
   .profile {
     flex-direction: row;
     align-items: center;
+    text-align: left;
+    gap: 32px;
   }
 
-  .info {
-    max-width: 420px;
+  .name {
+    font-size: 28px;
   }
 }
 
-/* Desktop */
+/* DESKTOP */
 @media (min-width: 1440px) {
-  .inner {
-    padding: 0;
-  }
-
-  .section {
-    padding-top: 48px;
+  .profile {
+    gap: 48px;
   }
 
   .name {
@@ -102,6 +76,5 @@
 
   .bio {
     font-size: 18px;
-    max-width: 360px;
   }
 }
