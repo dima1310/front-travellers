@@ -17,6 +17,7 @@ import {
 import { RegistrationSchema } from "@/utils/validation/authSchemas";
 import { translateAuthError } from "@/utils/helpers/translateAuthError";
 import { useAuthStore } from "@/store/useAuthStore";
+import type { User } from "@/types/auth.types";
 
 type RegistrationFormValues = typeof registerInitialValues;
 
@@ -26,29 +27,73 @@ type ApiErrorShape = {
     message?: string;
   };
 };
+type CurrentUserResponse = {
+  status: number;
+  message: string;
+  data: User;
+};
+
+// такой же тип, как мы использовали в LoginForm
+type LoginResponse = {
+  status: number;
+  message: string;
+  data: {
+    accessToken: string;
+  };
+};
 
 export default function RegistrationForm() {
   const router = useRouter();
-  const loginToStore = useAuthStore((state) => state.login); // 🔹 функция логина в стор
+
+  // из стора берём login(token) и setUser(user)
+  const loginToStore = useAuthStore((state) => state.login);
+  const setUser = useAuthStore((state) => state.setUser);
 
   const handleRegister = async (values: RegistrationFormValues) => {
     const { name, email, password } = values;
     const payload = { name, email, password };
 
     try {
+      // 1) регистрируем пользователя
       const res = await api.post("/auth/register", payload);
 
       if (res.status === 201 || res.status === 200) {
         showSuccessToast("Успішна реєстрація");
+
         try {
-          const loginRes = await api.post("/auth/login", { email, password });
+          // 2) сразу логинимся теми же email + password
+          const loginRes = await api.post<LoginResponse>("/auth/login", {
+            email,
+            password,
+          });
+
+          console.log("REGISTER -> LOGIN response:", loginRes.data);
 
           if (loginRes.status === 200 || loginRes.status === 201) {
-            loginToStore(loginRes.data.user, loginRes.data.token);
+            const token = loginRes.data.data.accessToken;
+
+            // 3) кладём токен в zustand
+            loginToStore(token);
+
+            const meRes = await api.get<CurrentUserResponse>("/users/current", {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+
+            console.log("REGISTER -> CURRENT USER:", meRes.data);
+
+            setUser(meRes.data.data);
+
+            console.log(
+              "AUTH STORE AFTER auto register+login:",
+              useAuthStore.getState()
+            );
 
             showSuccessToast("Ви успішно увійшли");
             router.push("/");
           } else {
+            // логин не прошёл, но регистрация ок
             showErrorToast(
               "Реєстрація пройшла успішно, але автоматичний вхід не вдався. Спробуйте увійти вручну."
             );

@@ -60,6 +60,9 @@
   width: 100%;
   padding-top: 18px;
   padding-left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .logoRow {

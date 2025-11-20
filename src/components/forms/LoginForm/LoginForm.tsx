@@ -19,6 +19,15 @@ import {
 } from "@/components/ui/Toast/toastHelpers";
 import { LoginSchema } from "@/utils/validation/authSchemas";
 import { translateAuthError } from "@/utils/helpers/translateAuthError";
+import type { User } from "@/types/auth.types";
+
+type LoginResponse = {
+  status: number;
+  message: string;
+  data: {
+    accessToken: string;
+  };
+};
 
 type LoginFormValues = typeof loginInitialValues;
 
@@ -29,24 +38,49 @@ type ApiErrorShape = {
   };
 };
 
+type CurrentUserResponse = {
+  status: number;
+  message: string;
+  data: User;
+};
+
 export default function LoginForm() {
   const router = useRouter();
 
   const login = useAuthStore((state) => state.login);
+  const setUser = useAuthStore((state) => state.setUser);
 
   const handleLogin = async (values: LoginFormValues) => {
     try {
-      const res = await api.post("/auth/login", values);
+      // 1) логинимся, получаем accessToken
+      const { data } = await api.post<LoginResponse>("/auth/login", values);
 
-      if (res.status === 200 || res.status === 201) {
-        login(res.data.user, res.data.token);
+      console.log("LOGIN /auth/login response:", data);
 
-        showSuccessToast("Логін успішний");
-        router.push("/");
-      } else {
-        showErrorToast("Помилка логіна");
-      }
+      const token = data.data.accessToken;
+
+      // 2) кладём токен в zustand
+      login(token);
+
+      // 3) забираем текущего юзера по токену
+      const meRes = await api.get<CurrentUserResponse>("/users/current", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log("CURRENT USER response:", meRes.data);
+
+      // 👈 вытаскиваем именно объект юзера
+      setUser(meRes.data.data);
+
+      console.log("AUTH STORE AFTER login():", useAuthStore.getState());
+
+      showSuccessToast("Логін успішний");
+      router.push("/");
     } catch (error: unknown) {
+      console.log("LOGIN ERROR:", error);
+
       let msg = "Помилка логіна";
 
       if (error instanceof AxiosError) {
