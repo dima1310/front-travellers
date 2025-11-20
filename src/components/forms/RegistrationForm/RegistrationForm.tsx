@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/Toast/toastHelpers";
 import { RegistrationSchema } from "@/utils/validation/authSchemas";
 import { translateAuthError } from "@/utils/helpers/translateAuthError";
+import { useAuthStore } from "@/store/useAuthStore";
 
 type RegistrationFormValues = typeof registerInitialValues;
 
@@ -28,6 +29,7 @@ type ApiErrorShape = {
 
 export default function RegistrationForm() {
   const router = useRouter();
+  const loginToStore = useAuthStore((state) => state.login); // 🔹 функция логина в стор
 
   const handleRegister = async (values: RegistrationFormValues) => {
     const { name, email, password } = values;
@@ -38,7 +40,33 @@ export default function RegistrationForm() {
 
       if (res.status === 201 || res.status === 200) {
         showSuccessToast("Успішна реєстрація");
-        router.push("/");
+        try {
+          const loginRes = await api.post("/auth/login", { email, password });
+
+          if (loginRes.status === 200 || loginRes.status === 201) {
+            loginToStore(loginRes.data.user, loginRes.data.token);
+
+            showSuccessToast("Ви успішно увійшли");
+            router.push("/");
+          } else {
+            showErrorToast(
+              "Реєстрація пройшла успішно, але автоматичний вхід не вдався. Спробуйте увійти вручну."
+            );
+            router.push("/auth/login");
+          }
+        } catch (loginError: unknown) {
+          let loginMsg =
+            "Реєстрація пройшла успішно, але автоматичний вхід не вдався.";
+
+          if (loginError instanceof AxiosError) {
+            const data = loginError.response?.data as ApiErrorShape | undefined;
+            const rawMessage = data?.message || data?.data?.message;
+            loginMsg = translateAuthError(rawMessage) || loginMsg;
+          }
+
+          showErrorToast(loginMsg);
+          router.push("/auth/login");
+        }
       } else {
         showErrorToast("Помилка реєстрації");
       }
@@ -48,7 +76,7 @@ export default function RegistrationForm() {
       if (error instanceof AxiosError) {
         const data = error.response?.data as ApiErrorShape | undefined;
         const rawMessage = data?.message || data?.data?.message;
-        msg = translateAuthError(rawMessage);
+        msg = translateAuthError(rawMessage) || msg;
       }
 
       showErrorToast(msg);
