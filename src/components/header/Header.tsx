@@ -12,17 +12,17 @@ import styles from "./Header.module.css";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { user, isAuthenticated, logout } = useAuthStore();
+  const { user, isAuthenticated, logout, hydrated } = useAuthStore();
   const logoutModal = useModal();
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 
-  // ТІЛЬКИ ГОЛОВНА + ІСТОРІЇ + Мандрівники
   const navItems = [
     { label: "Головна", href: ROUTES.HOME },
     { label: "Історії", href: ROUTES.STORIES },
     { label: "Мандрівники", href: ROUTES.TRAVELLERS },
+    { label: "Мій профіль", href: "/profile" },
   ];
 
   const handleLogout = () => {
@@ -52,16 +52,7 @@ export default function Header() {
 
           {/* ПРАВАЯ ЧАСТЬ */}
           <div className={styles.rightBlock}>
-            {/* КНОПКА "Опублікувати історію" — выключена */}
-            {/*
-            <Link
-              href={ROUTES.STORIES}
-              className={styles.publishBtn}
-              onClick={closeMenu}
-            >
-              Опублікувати історію
-            </Link>
-            */}
+            
 
             {/* НАВИГАЦИЯ */}
             <nav className={`⁠${styles.nav} ${menuOpen ? styles.navOpen : ""}`}>
@@ -78,9 +69,17 @@ export default function Header() {
                   </li>
                 ))}
               </ul>
-
-              {isAuthenticated ? (
+                  
+              
+              {hydrated && (
+                isAuthenticated ? (
                 <div className={styles.user}>
+                  <Link
+                    href={ROUTES.STORIES_CREATE}
+                    className={styles.publishBtn}
+                  >
+                    Опублікувати історію
+                  </Link>
                   <Image
                     src={user?.avatar || "/avatar.svg"}
                     alt={user?.name || "User avatar"}
@@ -113,6 +112,7 @@ export default function Header() {
                     Реєстрація
                   </Link>
                 </div>
+                )
               )}
             </nav>
 

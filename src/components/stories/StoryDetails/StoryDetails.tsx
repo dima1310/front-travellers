@@ -182,3 +182,4 @@ export default function StoryDetails({ story }: StoryDetailsProps) {
     </section>
   );
 }
+
