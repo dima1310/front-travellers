@@ -21,7 +21,6 @@ export default function Header() {
 
   const { user, isAuthenticated, logout } = useAuthStore();
   const logoutModal = useModal();
-  console.log("HEADER user from store:", user);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -30,6 +29,7 @@ export default function Header() {
     { label: "Історії", href: ROUTES.STORIES },
     { label: "Мандрівники", href: "/travellers" },
   ];
+
   const authUser = (user ?? null) as User | null;
 
   const displayName =
@@ -76,8 +76,6 @@ export default function Header() {
   ]
     .filter(Boolean)
     .join(" ");
-
-  console.log("HEADER user from store:", user);
 
   return (
     <>
@@ -129,6 +127,7 @@ export default function Header() {
                       </Link>
                     </li>
 
+                    {/* Юзер */}
                     <li className={styles.userItem}>
                       <div className={styles.user}>
                         {authUser?.avatarUrl ? (
@@ -150,7 +149,7 @@ export default function Header() {
                     </li>
 
                     <li className={styles.dividerItem}>
-                      <div className={styles.userDivider}></div>
+                      <div className={styles.userDivider} />
                     </li>
 
                     <li className={styles.logoutItem}>
@@ -189,30 +188,27 @@ export default function Header() {
               </ul>
             </nav>
 
-            <button
-              type="button"
-              className={`${styles.mobileMenuButtonBase} ${
-                isHomePage
-                  ? `${styles.mobileMenuButtonTransparent} ${styles.mobileMenuButtonNoTransparent}`
-                  : styles.mobileMenuButtonNoTransparent
-              } ${styles.mobileMenuButton}`}
-              onClick={toggleMenu}
-              aria-label={menuOpen ? "Закрити меню" : "Відкрити меню"}
-            >
-              <span
-                className={`${styles.burgerLines} ${
-                  menuOpen ? styles.burgerActive : ""
-                }`}
+            {!menuOpen && (
+              <button
+                type="button"
+                className={`${styles.mobileMenuButtonBase} ${
+                  isHomePage
+                    ? `${styles.mobileMenuButtonTransparent} ${styles.mobileMenuButtonNoTransparent}`
+                    : styles.mobileMenuButtonNoTransparent
+                } ${styles.mobileMenuButton}`}
+                onClick={toggleMenu}
+                aria-label="Відкрити меню"
               >
-                <span />
-                <span />
-                <span />
-              </span>
-            </button>
+                <span className={styles.burgerLines}>
+                  <span />
+                  <span />
+                  <span />
+                </span>
+              </button>
+            )}
           </div>
         </div>
 
-        {/* серая полоска под хедером на сторис-странице */}
         {isStoriesPage && <div className={styles.headerDivider} />}
       </header>
 

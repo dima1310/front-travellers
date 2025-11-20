@@ -4,8 +4,10 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  --header-bg: var(--background);
+  --header-bg: var(--color-scheme-2-background);
   --header-text: var(--text);
+
+  background-color: var(--header-bg);
   color: var(--header-text);
 }
 
