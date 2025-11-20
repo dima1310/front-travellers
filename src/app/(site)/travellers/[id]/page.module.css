@@ -3,8 +3,7 @@
    =========================================================== */
 
 .publicProfile {
-  background: var(--color-bg-light);
-  /* только вертикальные отступы, без left/right */
+ background: var(--color-scheme-2-background);
   padding: 24px 0 48px;
 }
 
