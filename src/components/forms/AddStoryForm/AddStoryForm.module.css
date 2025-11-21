@@ -1,325 +1,323 @@
 .formWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  background-color: #f5f7fa;
-  padding: 0 20px;
-  border-radius: 16px;
-  justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background-color: #f5f7fa;
+    padding: 0 20px;
+    border-radius: 16px;
+    justify-content: center;
 }
 
 .coverSection {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
 }
 
 .coverContainer {
-  width: 100%;
-  max-width: 865px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+    width: 100%;
+    max-width: 865px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .coverLabel {
-  font-size: 14px;
-  font-weight: 500;
-  color: #111827;
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
 }
 
 .coverPreview {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 16px;
-  background-color: #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    background-color: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .coverImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .placeholder {
-  width: 96px;
-  height: 96px;
-  opacity: 0.35;
-  background: url("https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg")
-    center/contain no-repeat;
+    width: 96px;
+    height: 96px;
+    opacity: 0.35;
+    background: url("https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg") center/contain no-repeat;
 }
 
 .fileInput {
-  display: none;
+    display: none;
 }
 
 .uploadBtn {
-  align-self: flex-start;
-  margin-top: 4px;
-  padding: 4px 10px;
-  height: 32px;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-  background-color: #f3f4f6;
-  font-size: 16px;
-  font-weight: 500;
-  color: #111827;
-  text-align: center;
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
+    align-self: flex-start;
+    margin-top: 4px;
+    padding: 4px 10px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background-color: #f3f4f6;
+    font-size: 16px;
+    font-weight: 500;
+    color: #111827;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease,
     border-color 0.2s ease;
 }
 
 .uploadBtn:hover {
-  background-color: #e5e7eb;
-  border-color: #c7cdd7;
+    background-color: #e5e7eb;
+    border-color: #c7cdd7;
 }
 
 .actionsDesktop {
-  display: none;
+    display: none;
 }
 
 .actionsMobile {
-  width: 100%;
-  display: block;
+    width: 100%;
+    display: block;
 }
 
 .actionButtons {
-  width: 100%;
-  max-width: 335px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
+    width: 100%;
+    max-width: 335px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
 }
 
 .saveBtn,
 .cancelBtn {
-  width: 100%;
-  height: 48px;
-  border-radius: 8px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-family: var(
-    --font-family,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif
-  );
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 150%;
-  cursor: pointer;
-  border: 1px solid transparent;
-  transition:
-    background-color 0.2s ease,
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: var(
+            --font-family,
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            sans-serif
+    );
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease,
     color 0.2s ease,
     border-color 0.2s ease;
 }
 
 .saveBtn {
-  background-color: #4b63ff;
-  opacity: 0.3;
-  border-color: #4b63ff;
-  color: #111827;
+    background-color: #4b63ff;
+    opacity: 0.3;
+    border-color: #4b63ff;
+    color: #111827;
 }
 
 .saveBtn:disabled {
-  background-color: #cdd9fc;
-  border-color: #e4e7ed;
-  color: #9ca3af;
-  cursor: not-allowed;
-  opacity: 1;
+    background-color: #cdd9fc;
+    border-color: #e4e7ed;
+    color: #9ca3af;
+    cursor: not-allowed;
+    opacity: 1;
 }
 
 .saveBtn:not(:disabled):hover {
-  opacity: 1;
-  background-color: #4b63ff;
-  border-color: #4b63ff;
-  color: #ffffff;
+    opacity: 1;
+    background-color: #4b63ff;
+    border-color: #4b63ff;
+    color: #ffffff;
 }
 
-.saveBtn:active{
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  background-color: #1a2a5a;
+.saveBtn:active {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: #1a2a5a;
 }
 
 .cancelBtn {
-  background-color: #f3f4f6;
-  border-color: #d1d5db;
-  color: #111827;
+    background-color: #f3f4f6;
+    border-color: #d1d5db;
+    color: #111827;
 }
 
 .cancelBtn:hover {
-  background-color: #e5e7eb;
+    background-color: #e5e7eb;
 }
 
-.cancelBtn:active{
-  border: 1px solid #4169e1;
+.cancelBtn:active {
+    border: 1px solid #4169e1;
 }
 
 .fieldsContainer {
-  width: 100%;
-  max-width: 865px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+    width: 100%;
+    max-width: 865px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .fieldGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .label {
-  font-size: 16px;
-  font-weight: 400;
-  color: #111827;
+    font-size: 16px;
+    font-weight: 400;
+    color: #111827;
 }
 
 .input,
 .select,
 .textarea {
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid #d0d5dd;
-  padding: 10px 12px;
-  font-size: 14px;
-  outline: none;
-  background-color: transparent;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #d0d5dd;
+    padding: 10px 12px;
+    font-size: 14px;
+    outline: none;
+    background-color: transparent;
 }
 
 .input:focus,
 .select:focus,
 .textarea:focus {
-  border-color: #4b6bff;
-  box-shadow: 0 0 0 1px #4b6bff;
+    border-color: #4b6bff;
+    box-shadow: 0 0 0 1px #4b6bff;
 }
 
 .textarea {
-  resize: none;
-  min-height: 180px;
+    resize: none;
+    min-height: 180px;
 }
 
 .inputError {
-  border-color: #ef4444;
+    border-color: #ef4444;
 }
 
 .error {
-  font-size: 12px;
-  color: #b91c1c;
+    font-size: 12px;
+    color: #b91c1c;
 }
 
 @media (min-width: 385px) {
-  .form {
-    padding: 20px 16px 28px;
-  }
+    .form {
+        padding: 20px 16px 28px;
+    }
 
-  .actionButtons {
-    margin-top: 20px;
-  }
+    .actionButtons {
+        margin-top: 20px;
+    }
 }
 
 @media (min-width: 768px) {
-  .form {
-    padding: 0 32px;
-    gap: 24px;
-  }
+    .form {
+        padding: 0 32px;
+        gap: 24px;
+    }
 
-  .coverSection {
-    flex-direction: column;
-    gap: 24px;
-  }
+    .coverSection {
+        flex-direction: column;
+        gap: 24px;
+    }
 
-  .coverContainer,
-  .fieldsContainer {
-    max-width: 704px;
-  }
+    .coverContainer,
+    .fieldsContainer {
+        max-width: 704px;
+    }
 
-  .actionButtons {
-    max-width: 704px;
-    align-self: flex-start;
-    margin-top: 24px;
-    gap: 8px;
-  }
+    .actionButtons {
+        max-width: 704px;
+        align-self: flex-start;
+        margin-top: 24px;
+        gap: 8px;
+    }
 
-  .saveBtn,
-  .cancelBtn {
-    width: 100%;
-  }
+    .saveBtn,
+    .cancelBtn {
+        width: 100%;
+    }
 }
 
 @media (min-width: 1440px) {
-  .formWrapper {
-    max-width: 1320px;
-    min-width: 1149px;
-  }
+    .formWrapper {
+        max-width: 1320px;
+        min-width: 1149px;
+    }
 
-  .form {
-    padding: 0 64px;
-  }
+    .form {
+        padding: 0 64px;
+    }
 
-  .coverSection {
-    flex-direction: row;
-    align-items: flex-start;
-    column-gap: 24px;
-  }
+    .coverSection {
+        flex-direction: row;
+        align-items: flex-start;
+        column-gap: 24px;
+    }
 
-  .coverContainer {
-    flex: 0 0 865px;
-    max-width: 865px;
-  }
+    .coverContainer {
+        flex: 0 0 865px;
+        max-width: 865px;
+    }
 
-  .uploadBtn {
-    width: 181px;
-    height: 35px;
-  }
+    .uploadBtn {
+        width: 181px;
+        height: 35px;
+    }
 
-  .fieldsContainer {
-    max-width: 865px;
-  }
+    .fieldsContainer {
+        max-width: 865px;
+    }
 
-  .actionsDesktop {
-    display: flex;
-    flex: 0 0 423px;
-    justify-content: flex-start;
-  }
+    .actionsDesktop {
+        display: flex;
+        flex: 0 0 423px;
+        justify-content: flex-start;
+    }
 
-  .actionsMobile {
-    display: none;
-  }
+    .actionsMobile {
+        display: none;
+    }
 
-  .actionButtons {
-    width: 100%;
-    max-width: 423px;
-    margin-top: 36px;
-    flex-direction: column;
-    gap: 12px;
-  }
+    .actionButtons {
+        width: 100%;
+        max-width: 423px;
+        margin-top: 36px;
+        flex-direction: column;
+        gap: 12px;
+    }
 
-  .saveBtn,
-  .cancelBtn {
-    width: 100%;
-    font-size: 18px;
-  }
-  .label {
-    font-size: 18px;
-  }
+    .saveBtn,
+    .cancelBtn {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .label {
+        font-size: 18px;
+    }
 }

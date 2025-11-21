@@ -2,9 +2,9 @@ import TravellersStories from "@/components/stories/TravellersStories/Travellers
 import styles from "./page.module.css";
 
 export default function StoriesPage() {
-  return (
-    <div className={styles.page}>
-        <TravellersStories />
-    </div>
-  );
+    return (
+        <div className={styles.page}>
+            <TravellersStories/>
+        </div>
+    );
 }

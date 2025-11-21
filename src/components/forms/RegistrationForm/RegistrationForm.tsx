@@ -1,169 +1,169 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { AxiosError } from "axios";
+import {useRouter} from "next/navigation";
+import {AxiosError} from "axios";
 
-import { api } from "@/services/api/axiosConfig";
+import {api} from "@/services/api/axiosConfig";
 import AuthForm from "../AuthForm/AuthForm";
 import styles from "./RegistrationForm.module.css";
 import {
-  registerFields,
-  registerInitialValues,
+    registerFields,
+    registerInitialValues,
 } from "@/utils/constants/authFormConfig";
 import {
-  showErrorToast,
-  showSuccessToast,
+    showErrorToast,
+    showSuccessToast,
 } from "@/components/ui/Toast/toastHelpers";
-import { RegistrationSchema } from "@/utils/validation/authSchemas";
-import { translateAuthError } from "@/utils/helpers/translateAuthError";
-import { useAuthStore } from "@/store/useAuthStore";
-import type { User } from "@/types/auth.types";
+import {RegistrationSchema} from "@/utils/validation/authSchemas";
+import {translateAuthError} from "@/utils/helpers/translateAuthError";
+import {useAuthStore} from "@/store/useAuthStore";
+import type {User} from "@/types/auth.types";
 
 type RegistrationFormValues = typeof registerInitialValues;
 
 type ApiErrorShape = {
-  message?: string;
-  data?: {
     message?: string;
-  };
+    data?: {
+        message?: string;
+    };
 };
 
 type LoginResponse = {
-  status: number;
-  message: string;
-  data: {
-    accessToken: string;
-  };
+    status: number;
+    message: string;
+    data: {
+        accessToken: string;
+    };
 };
 
 type ApiUser = {
-  _id: string;
-  name: string;
-  email: string;
-  avatar?: string;
-  bio?: string;
-  savedStories?: Array<string | { _id: string }>;
+    _id: string;
+    name: string;
+    email: string;
+    avatar?: string;
+    bio?: string;
+    savedStories?: Array<string | { _id: string }>;
 };
 
 type CurrentUserResponse = {
-  status: number;
-  message: string;
-  data: ApiUser;
+    status: number;
+    message: string;
+    data: ApiUser;
 };
 
 const mapApiUserToUser = (apiUser: ApiUser): User => ({
-  id: apiUser._id,
-  name: apiUser.name,
-  email: apiUser.email,
-  avatarUrl: apiUser.avatar,
-  savedStories:
-    apiUser.savedStories?.map((s) => (typeof s === "string" ? s : s._id)) ?? [],
+    id: apiUser._id,
+    name: apiUser.name,
+    email: apiUser.email,
+    avatarUrl: apiUser.avatar,
+    savedStories:
+        apiUser.savedStories?.map((s) => (typeof s === "string" ? s : s._id)) ?? [],
 });
 
 export default function RegistrationForm() {
-  const router = useRouter();
+    const router = useRouter();
 
-  const loginToStore = useAuthStore((state) => state.login);
-  const setUser = useAuthStore((state) => state.setUser);
+    const loginToStore = useAuthStore((state) => state.login);
+    const setUser = useAuthStore((state) => state.setUser);
 
-  const handleRegister = async (values: RegistrationFormValues) => {
-    const { name, email, password } = values;
-    const payload = { name, email, password };
-
-    try {
-      // 1. регистрация
-      const res = await api.post("/auth/register", payload);
-
-      if (res.status === 201 || res.status === 200) {
-        showSuccessToast("Успішна реєстрація");
+    const handleRegister = async (values: RegistrationFormValues) => {
+        const {name, email, password} = values;
+        const payload = {name, email, password};
 
         try {
-          // 2. автологин
-          const loginRes = await api.post<LoginResponse>("/auth/login", {
-            email,
-            password,
-          });
+            // 1. регистрация
+            const res = await api.post("/auth/register", payload);
 
-          console.log("REGISTER -> LOGIN response:", loginRes.data);
+            if (res.status === 201 || res.status === 200) {
+                showSuccessToast("Успішна реєстрація");
 
-          if (loginRes.status === 200 || loginRes.status === 201) {
-            const token = loginRes.data.data.accessToken;
+                try {
+                    // 2. автологин
+                    const loginRes = await api.post<LoginResponse>("/auth/login", {
+                        email,
+                        password,
+                    });
 
-            // 3. кладём токен
-            loginToStore(token);
+                    console.log("REGISTER -> LOGIN response:", loginRes.data);
 
-            // 4. тянем текущего юзера
-            const meRes = await api.get<CurrentUserResponse>("/users/current", {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            });
+                    if (loginRes.status === 200 || loginRes.status === 201) {
+                        const token = loginRes.data.data.accessToken;
 
-            console.log("REGISTER -> CURRENT USER:", meRes.data);
+                        // 3. кладём токен
+                        loginToStore(token);
 
-            const mappedUser = mapApiUserToUser(meRes.data.data);
-            setUser(mappedUser);
+                        // 4. тянем текущего юзера
+                        const meRes = await api.get<CurrentUserResponse>("/users/current", {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        });
 
-            console.log(
-              "AUTH STORE AFTER auto register+login:",
-              useAuthStore.getState()
-            );
+                        console.log("REGISTER -> CURRENT USER:", meRes.data);
 
-            showSuccessToast("Ви успішно увійшли");
-            router.push("/");
-          } else {
-            showErrorToast(
-              "Реєстрація пройшла успішно, але автоматичний вхід не вдався. Спробуйте увійти вручну."
-            );
-            router.push("/auth/login");
-          }
-        } catch (loginError: unknown) {
-          let loginMsg =
-            "Реєстрація пройшла успішно, але автоматичний вхід не вдався.";
+                        const mappedUser = mapApiUserToUser(meRes.data.data);
+                        setUser(mappedUser);
 
-          if (loginError instanceof AxiosError) {
-            const data = loginError.response?.data as ApiErrorShape | undefined;
-            const rawMessage = data?.message || data?.data?.message;
-            loginMsg = translateAuthError(rawMessage) || loginMsg;
-          }
+                        console.log(
+                            "AUTH STORE AFTER auto register+login:",
+                            useAuthStore.getState()
+                        );
 
-          showErrorToast(loginMsg);
-          router.push("/auth/login");
+                        showSuccessToast("Ви успішно увійшли");
+                        router.push("/");
+                    } else {
+                        showErrorToast(
+                            "Реєстрація пройшла успішно, але автоматичний вхід не вдався. Спробуйте увійти вручну."
+                        );
+                        router.push("/auth/login");
+                    }
+                } catch (loginError: unknown) {
+                    let loginMsg =
+                        "Реєстрація пройшла успішно, але автоматичний вхід не вдався.";
+
+                    if (loginError instanceof AxiosError) {
+                        const data = loginError.response?.data as ApiErrorShape | undefined;
+                        const rawMessage = data?.message || data?.data?.message;
+                        loginMsg = translateAuthError(rawMessage) || loginMsg;
+                    }
+
+                    showErrorToast(loginMsg);
+                    router.push("/auth/login");
+                }
+            } else {
+                showErrorToast("Помилка реєстрації");
+            }
+        } catch (error: unknown) {
+            let msg = "Помилка реєстрації";
+
+            if (error instanceof AxiosError) {
+                const data = error.response?.data as ApiErrorShape | undefined;
+                const rawMessage = data?.message || data?.data?.message;
+                msg = translateAuthError(rawMessage) || msg;
+            }
+
+            showErrorToast(msg);
         }
-      } else {
-        showErrorToast("Помилка реєстрації");
-      }
-    } catch (error: unknown) {
-      let msg = "Помилка реєстрації";
+    };
 
-      if (error instanceof AxiosError) {
-        const data = error.response?.data as ApiErrorShape | undefined;
-        const rawMessage = data?.message || data?.data?.message;
-        msg = translateAuthError(rawMessage) || msg;
-      }
+    return (
+        <div className={styles.container}>
+            <h1 className={styles.title}>Реєстрація</h1>
+            <p className={styles.subtitle}>
+                Радий вас бачити у спільноті мандрівників!
+            </p>
 
-      showErrorToast(msg);
-    }
-  };
-
-  return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Реєстрація</h1>
-      <p className={styles.subtitle}>
-        Радий вас бачити у спільноті мандрівників!
-      </p>
-
-      <AuthForm<RegistrationFormValues>
-        isLogin={false}
-        fields={registerFields}
-        initialValues={registerInitialValues}
-        validationSchema={RegistrationSchema}
-        submitText="Зареєструватися"
-        onSubmitAction={async (vals, actions) => {
-          await handleRegister(vals);
-          actions.setSubmitting(false);
-        }}
-      />
-    </div>
-  );
+            <AuthForm<RegistrationFormValues>
+                isLogin={false}
+                fields={registerFields}
+                initialValues={registerInitialValues}
+                validationSchema={RegistrationSchema}
+                submitText="Зареєструватися"
+                onSubmitAction={async (vals, actions) => {
+                    await handleRegister(vals);
+                    actions.setSubmitting(false);
+                }}
+            />
+        </div>
+    );
 }

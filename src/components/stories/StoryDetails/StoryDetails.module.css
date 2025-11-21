@@ -1,298 +1,298 @@
 .storyDetails {
-  padding: 48px 0 80px;
-  background-color: #fff;
+    padding: 48px 0 32px;
+    background-color: #fff;
 }
 
 .container {
-  width: 100%;
-  max-width: 1312px;
-  margin: 0 auto;
-  padding: 0 16px;
+    width: 100%;
+    max-width: 1312px;
+    margin: 0 auto;
+    padding: 0 16px;
 }
 
 .meta {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding-top: 32px;
-  padding-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 32px;
+    padding-bottom: 16px;
 }
 
 .author {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
 }
 
 .authorAvatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  object-fit: cover;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .authorInfo,
 .published {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
 }
 
 .authorLabel,
 .publishedLabel {
-  font-size: 16px;
-  line-height: 1.5;
-  color: #000;
-  font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #000;
+    font-weight: 700;
 }
 
 .authorName,
 .publishedDate {
-  font-size: 16px;
-  line-height: 1.5;
-  color: #000;
-  font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #000;
+    font-weight: 400;
 }
 
 .categoryDate {
-  border: 1px solid rgba(255, 255, 255, 0);
-  border-radius: 6px;
-  padding: 4px 10px;
-  width: 76px;
-  height: 26px;
-  background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 6px;
+    padding: 4px 10px;
+    width: 76px;
+    height: 26px;
+    background: rgba(0, 0, 0, 0.05);
 }
 
 .categoryDateName {
-  display: flex;
-  justify-content: center;
-  font-weight: 600;
-  align-items: center;
-  font-size: 12px;
-  line-height: 1.5;
-  color: #000;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    align-items: center;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #000;
 }
 
 .title {
-  padding-top: 32px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  color: #000;
+    padding-top: 32px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: #000;
 }
 
 .country {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #2563eb;
-  font-size: 16px;
-  font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #2563eb;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .imageWrapper {
-  width: 100%;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .image {
-  width: 100%;
-  height: auto;
-  display: block;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .content {
-  font-size: 16px;
-  line-height: 1.8;
-  color: #374151;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #374151;
 }
 
 .contentBox {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 32px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 32px 0 0;
 }
 
 .content p {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .content h2 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 40px 0 20px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 40px 0 20px;
 }
 
 .content h3 {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin: 32px 0 16px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 32px 0 16px;
 }
 
 .infoSection {
 }
 
 .saveSection {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background: #f2f2f2;
-  border-radius: 24px;
-  padding: 32px 20px;
-  text-align: left;
-  color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: #f2f2f2;
+    border-radius: 24px;
+    padding: 32px 20px;
+    text-align: left;
+    color: #fff;
 }
 
 .saveTitle {
-  font-family: var(--second-family);
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-  color: #000;
-}
-
-.saveText {
-  font-family: var(--font-family);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #000;
-}
-
-.saveBtn {
-  border: 1px solid #4169e1;
-  border-radius: 8px;
-  padding: 6px 12px;
-  height: 48px;
-  background: #4169e1;
-}
-
-.saveBtn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.saveBtn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.saveBtn.saved {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: #000;
-  border: 2px solid #fff;
-}
-
-.spinner {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Tablet (768px+) */
-@media (min-width: 768px) {
-  .storyDetails {
-    padding: 48px 0 80px;
-  }
-
-  .container {
-    padding: 0 40px;
-  }
-
-  .meta {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .title {
-    font-size: 48px;
-  }
-
-  .content {
-    font-size: 18px;
-  }
-
-  .contentBox {
-    padding: 32px 0 0;
-  }
-
-  .content h2 {
-    font-size: 28px;
-  }
-
-  .saveSection {
-    border: 0px solid rgba(0, 0, 0, 0.15);
-    border-radius: 24px;
-    padding: 32px;
-    width: 418px;
-  }
-
-  .saveTitle {
     font-family: var(--second-family);
     font-weight: 700;
     font-size: 18px;
     line-height: 1.4;
     letter-spacing: -0.01em;
     color: #000;
-  }
+}
 
-  .saveText {
+.saveText {
     font-family: var(--font-family);
     font-weight: 400;
     font-size: 16px;
     line-height: 1.5;
     color: #000;
-  }
+}
+
+.saveBtn {
+    border: 1px solid #4169e1;
+    border-radius: 8px;
+    padding: 6px 12px;
+    height: 48px;
+    background: #4169e1;
+}
+
+.saveBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.saveBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.saveBtn.saved {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #000;
+    border: 2px solid #fff;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tablet (768px+) */
+@media (min-width: 768px) {
+    .storyDetails {
+        padding: 48px 0 32px;
+    }
+
+    .container {
+        padding: 0 40px;
+    }
+
+    .meta {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .title {
+        font-size: 48px;
+    }
+
+    .content {
+        font-size: 18px;
+    }
+
+    .contentBox {
+        padding: 32px 0 0;
+    }
+
+    .content h2 {
+        font-size: 28px;
+    }
+
+    .saveSection {
+        border: 0px solid rgba(0, 0, 0, 0.15);
+        border-radius: 24px;
+        padding: 32px;
+        width: 418px;
+    }
+
+    .saveTitle {
+        font-family: var(--second-family);
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 1.4;
+        letter-spacing: -0.01em;
+        color: #000;
+    }
+
+    .saveText {
+        font-family: var(--font-family);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #000;
+    }
 }
 
 /* Desktop (1440px+) */
 @media (min-width: 1440px) {
-  .storyDetails {
-    padding: 64px 0 96px;
-  }
+    .storyDetails {
+        padding: 64px 0 96px;
+    }
 
-  .container {
-    max-width: 1312px;
-    padding: 0;
-  }
+    .container {
+        max-width: 1312px;
+        padding: 0;
+    }
 
-  .contentBox {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 64px;
-    padding: 48px 0 0;
-  }
+    .contentBox {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 64px;
+        padding: 48px 0 0;
+    }
 
-  .content {
-    font-size: 18px;
-    max-width: 865px;
-  }
+    .content {
+        font-size: 18px;
+        max-width: 865px;
+    }
 
-  .content h2 {
-    font-size: 32px;
-  }
+    .content h2 {
+        font-size: 32px;
+    }
 
-  .saveSection {
-    flex: 0 0 320px;
-  }
+    .saveSection {
+        flex: 0 0 320px;
+    }
 }
 
 .inner {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 }

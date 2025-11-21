@@ -1,4 +1,4 @@
-import type { RootState } from "../index";
+import type {RootState} from "../index";
 
 export const selectStories = (s: RootState) => s.stories.items;
 export const selectStoriesPage = (s: RootState) => s.stories.page;

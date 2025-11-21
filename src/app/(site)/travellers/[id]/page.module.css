@@ -3,40 +3,40 @@
    =========================================================== */
 
 .publicProfile {
- background: var(--color-scheme-2-background);
-  padding: 24px 0 48px;
+    background: var(--color-scheme-2-background);
+    padding: 24px 0 48px;
 }
 
 /* Блок с TravellerInfo */
 .travellerInfo {
-  max-width: 1312px;
-  width: 100%;
-  margin: 0 auto 64px; /* отступ снизу по макету */
-  /* БЕЗ padding-left / padding-right!
-     горизонтальные отступы даёт глобальный container */
+    max-width: 1312px;
+    width: 100%;
+    margin: 0 auto 64px; /* отступ снизу по макету */
+    /* БЕЗ padding-left / padding-right!
+       горизонтальные отступы даёт глобальный container */
 }
 
 /* Секция історій */
 .travellerStories {
-  max-width: 1312px;
-  width: 100%;
-  margin: 0 auto 72px;
+    max-width: 1312px;
+    width: 100%;
+    margin: 0 auto 72px;
 
-  /* без своих горизонтальных паддингов */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 48px; /* Figma desktop */
+    /* без своих горизонтальных паддингов */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 48px; /* Figma desktop */
 }
 
 /* Заголовок */
 .travellerStoriesTitle {
-  margin: 0;
-  font-family: var(--font-sora);
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 1.2;
-  color: #111827;
+    margin: 0;
+    font-family: var(--font-sora);
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.2;
+    color: #111827;
 }
 
 
@@ -45,11 +45,11 @@
    =========================================================== */
 
 @media (min-width: 375px) {
-  .publicProfile {
-    padding: 28px 0 56px; /* только top/bottom */
-  }
+    .publicProfile {
+        padding: 28px 0 56px; /* только top/bottom */
+    }
 
-  /* travellerInfo / travellerStories — без padding-left/right */
+    /* travellerInfo / travellerStories — без padding-left/right */
 }
 
 
@@ -58,21 +58,21 @@
    =========================================================== */
 
 @media (min-width: 768px) {
-  .publicProfile {
-    padding: 32px 0 64px;
-  }
+    .publicProfile {
+        padding: 32px 0 64px;
+    }
 
-  .travellerInfo {
-    margin-bottom: 56px;
-  }
+    .travellerInfo {
+        margin-bottom: 56px;
+    }
 
-  .travellerStories {
-    gap: 40px;
-  }
+    .travellerStories {
+        gap: 40px;
+    }
 
-  .travellerStoriesTitle {
-    font-size: 40px;
-  }
+    .travellerStoriesTitle {
+        font-size: 40px;
+    }
 }
 
 
@@ -81,20 +81,20 @@
    =========================================================== */
 
 @media (min-width: 1440px) {
-  .publicProfile {
-    padding: 64px 0 80px;
-  }
+    .publicProfile {
+        padding: 64px 0 80px;
+    }
 
-  .travellerInfo {
-    margin-bottom: 64px;
-  }
+    .travellerInfo {
+        margin-bottom: 64px;
+    }
 
-  .travellerStories {
-    gap: 48px;
-  }
+    .travellerStories {
+        gap: 48px;
+    }
 
-  .travellerStoriesTitle {
-    font-size: 52px;
-    line-height: 1.2;
-  }
+    .travellerStoriesTitle {
+        font-size: 52px;
+        line-height: 1.2;
+    }
 }

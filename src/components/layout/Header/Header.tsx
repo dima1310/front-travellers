@@ -1,353 +1,353 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import {usePathname} from "next/navigation";
 
-import { ROUTES } from "@/utils/constants/routes";
-import { useAuthStore } from "@/store/useAuthStore";
+import {ROUTES} from "@/utils/constants/routes";
+import {useAuthStore} from "@/store/useAuthStore";
 import ConfirmModal from "@/components/modals/ConfirmModal/ConfirmModal";
-import { useModal } from "@/hooks/useModal";
+import {useModal} from "@/hooks/useModal";
 
 import pageStyles from "@/app/Home.module.css";
 import styles from "./Header.module.css";
-import type { User } from "@/types/auth.types";
+import type {User} from "@/types/auth.types";
 
 export default function Header() {
-  const pathname = usePathname();
-  const isHomePage = pathname === "/" || pathname === "";
-  const isStoriesPage = pathname.startsWith(ROUTES.STORIES);
+    const pathname = usePathname();
+    const isHomePage = pathname === "/" || pathname === "";
+    const isStoriesPage = pathname.startsWith(ROUTES.STORIES);
 
-  const { user, isAuthenticated, logout } = useAuthStore();
-  const logoutModal = useModal();
+    const {user, isAuthenticated, logout} = useAuthStore();
+    const logoutModal = useModal();
 
-  const [menuOpen, setMenuOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
 
-  const commonNav = [
-    { label: "Головна", href: ROUTES.HOME },
-    { label: "Історії", href: ROUTES.STORIES },
-    { label: "Мандрівники", href: "/travellers" },
-  ];
+    const commonNav = [
+        {label: "Головна", href: ROUTES.HOME},
+        {label: "Історії", href: ROUTES.STORIES},
+        {label: "Мандрівники", href: "/travellers"},
+    ];
 
-  const authUser = (user ?? null) as User | null;
+    const authUser = (user ?? null) as User | null;
 
-  const displayName =
-    authUser?.name?.trim() || authUser?.email?.trim() || "Мандрівник";
+    const displayName =
+        authUser?.name?.trim() || authUser?.email?.trim() || "Мандрівник";
 
-  const displayInitial = displayName.charAt(0).toUpperCase();
+    const displayInitial = displayName.charAt(0).toUpperCase();
 
-  const toggleMenu = () => setMenuOpen((prev) => !prev);
-  const closeMenu = () => setMenuOpen(false);
+    const toggleMenu = () => setMenuOpen((prev) => !prev);
+    const closeMenu = () => setMenuOpen(false);
 
-  const handleLogoutClick = () => {
-    logoutModal.onOpen();
-    closeMenu();
-  };
-
-  const confirmLogout = () => {
-    logout();
-    logoutModal.onClose();
-  };
-
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
+    const handleLogoutClick = () => {
+        logoutModal.onOpen();
+        closeMenu();
     };
-  }, [menuOpen]);
 
-  const headerClassName = [
-    styles.header,
-    isHomePage ? styles.headerTransparent : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
+    const confirmLogout = () => {
+        logout();
+        logoutModal.onClose();
+    };
 
-  const mobileMenuClassName = [
-    styles.mobileMenu,
-    menuOpen ? styles.mobileMenuOpen : "",
-    isHomePage ? styles.mobileMenuTransparent : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
+    useEffect(() => {
+        if (menuOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
 
-  return (
-    <>
-      {/* ===== DESKTOP / TABLET HEADER ===== */}
-      <header className={headerClassName}>
-        <div className={`${pageStyles.container} ${styles.headerContainer}`}>
-          <Link
-            href={ROUTES.HOME}
-            className={styles.headerLinkLogo}
-            onClick={closeMenu}
-          >
-            <div className={styles.logoIconWrapper}>
-              <svg className={styles.logoIcon} width={23} height={23}>
-                <use href="/icons/plantain.svg" />
-              </svg>
-            </div>
-            <span className={styles.logoText}>Подорожники</span>
-          </Link>
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [menuOpen]);
 
-          <div className={styles.navAndControls}>
-            <nav aria-label="Основна навігація" className={styles.navigation}>
-              <ul className={styles.navList}>
-                {commonNav.map((item) => (
-                  <li key={item.href} className={styles.navItem}>
-                    <Link href={item.href} className={styles.navLink}>
-                      {item.label}
+    const headerClassName = [
+        styles.header,
+        isHomePage ? styles.headerTransparent : "",
+    ]
+        .filter(Boolean)
+        .join(" ");
+
+    const mobileMenuClassName = [
+        styles.mobileMenu,
+        menuOpen ? styles.mobileMenuOpen : "",
+        isHomePage ? styles.mobileMenuTransparent : "",
+    ]
+        .filter(Boolean)
+        .join(" ");
+
+    return (
+        <>
+            {/* ===== DESKTOP / TABLET HEADER ===== */}
+            <header className={headerClassName}>
+                <div className={`${pageStyles.container} ${styles.headerContainer}`}>
+                    <Link
+                        href={ROUTES.HOME}
+                        className={styles.headerLinkLogo}
+                        onClick={closeMenu}
+                    >
+                        <div className={styles.logoIconWrapper}>
+                            <svg className={styles.logoIcon} width={23} height={23}>
+                                <use href="/icons/plantain.svg"/>
+                            </svg>
+                        </div>
+                        <span className={styles.logoText}>Подорожники</span>
                     </Link>
-                  </li>
-                ))}
 
-                {isAuthenticated && (
-                  <li className={styles.navItem}>
-                    <Link href="/profile" className={styles.navLink}>
-                      Мій профіль
-                    </Link>
-                  </li>
-                )}
-              </ul>
+                    <div className={styles.navAndControls}>
+                        <nav aria-label="Основна навігація" className={styles.navigation}>
+                            <ul className={styles.navList}>
+                                {commonNav.map((item) => (
+                                    <li key={item.href} className={styles.navItem}>
+                                        <Link href={item.href} className={styles.navLink}>
+                                            {item.label}
+                                        </Link>
+                                    </li>
+                                ))}
 
-              <ul className={styles.profileActions}>
-                {isAuthenticated ? (
-                  <>
-                    <li className={styles.publishItem}>
-                      <Link
-                        href="/stories/create"
-                        className={styles.storyTabletLink}
-                      >
-                        Опублікувати історію
-                      </Link>
-                    </li>
+                                {isAuthenticated && (
+                                    <li className={styles.navItem}>
+                                        <Link href="/profile" className={styles.navLink}>
+                                            Мій профіль
+                                        </Link>
+                                    </li>
+                                )}
+                            </ul>
 
-                    {/* Юзер */}
-                    <li className={styles.userItem}>
-                      <div className={styles.user}>
-                        {authUser?.avatarUrl ? (
-                          <Image
-                            src={authUser.avatarUrl}
-                            alt={displayName}
-                            width={32}
-                            height={32}
-                            className={styles.userAvatar}
-                          />
-                        ) : (
-                          <div className={styles.userAvatarFallback}>
-                            {displayInitial}
-                          </div>
-                        )}
+                            <ul className={styles.profileActions}>
+                                {isAuthenticated ? (
+                                    <>
+                                        <li className={styles.publishItem}>
+                                            <Link
+                                                href="/stories/create"
+                                                className={styles.storyTabletLink}
+                                            >
+                                                Опублікувати історію
+                                            </Link>
+                                        </li>
 
-                        <span className={styles.userName}>{displayName}</span>
-                      </div>
-                    </li>
+                                        {/* Юзер */}
+                                        <li className={styles.userItem}>
+                                            <div className={styles.user}>
+                                                {authUser?.avatarUrl ? (
+                                                    <Image
+                                                        src={authUser.avatarUrl}
+                                                        alt={displayName}
+                                                        width={32}
+                                                        height={32}
+                                                        className={styles.userAvatar}
+                                                    />
+                                                ) : (
+                                                    <div className={styles.userAvatarFallback}>
+                                                        {displayInitial}
+                                                    </div>
+                                                )}
 
-                    <li className={styles.dividerItem}>
-                      <div className={styles.userDivider} />
-                    </li>
+                                                <span className={styles.userName}>{displayName}</span>
+                                            </div>
+                                        </li>
 
-                    <li className={styles.logoutItem}>
-                      <button
-                        type="button"
-                        className={styles.logoutButton}
-                        onClick={handleLogoutClick}
-                        aria-label="Вийти з акаунту"
-                      >
-                        <svg width={24} height={24}>
-                          <use href="/icons/exit.svg" />
-                        </svg>
-                      </button>
-                    </li>
-                  </>
-                ) : (
-                  <>
-                    <li className={styles.authItem}>
-                      <Link
-                        href={ROUTES.AUTH.LOGIN}
-                        className={`${styles.authBtn} ${styles.authBtnOutline}`}
-                      >
-                        Вхід
-                      </Link>
-                    </li>
-                    <li className={styles.authItem}>
-                      <Link
-                        href={ROUTES.AUTH.REGISTER}
-                        className={`${styles.authBtn} ${styles.authBtnFilled}`}
-                      >
-                        Реєстрація
-                      </Link>
-                    </li>
-                  </>
-                )}
-              </ul>
-            </nav>
+                                        <li className={styles.dividerItem}>
+                                            <div className={styles.userDivider}/>
+                                        </li>
 
-            {!menuOpen && (
-              <button
-                type="button"
-                className={`${styles.mobileMenuButtonBase} ${
-                  isHomePage
-                    ? `${styles.mobileMenuButtonTransparent} ${styles.mobileMenuButtonNoTransparent}`
-                    : styles.mobileMenuButtonNoTransparent
-                } ${styles.mobileMenuButton}`}
-                onClick={toggleMenu}
-                aria-label="Відкрити меню"
-              >
+                                        <li className={styles.logoutItem}>
+                                            <button
+                                                type="button"
+                                                className={styles.logoutButton}
+                                                onClick={handleLogoutClick}
+                                                aria-label="Вийти з акаунту"
+                                            >
+                                                <svg width={24} height={24}>
+                                                    <use href="/icons/exit.svg"/>
+                                                </svg>
+                                            </button>
+                                        </li>
+                                    </>
+                                ) : (
+                                    <>
+                                        <li className={styles.authItem}>
+                                            <Link
+                                                href={ROUTES.AUTH.LOGIN}
+                                                className={`${styles.authBtn} ${styles.authBtnOutline}`}
+                                            >
+                                                Вхід
+                                            </Link>
+                                        </li>
+                                        <li className={styles.authItem}>
+                                            <Link
+                                                href={ROUTES.AUTH.REGISTER}
+                                                className={`${styles.authBtn} ${styles.authBtnFilled}`}
+                                            >
+                                                Реєстрація
+                                            </Link>
+                                        </li>
+                                    </>
+                                )}
+                            </ul>
+                        </nav>
+
+                        {!menuOpen && (
+                            <button
+                                type="button"
+                                className={`${styles.mobileMenuButtonBase} ${
+                                    isHomePage
+                                        ? `${styles.mobileMenuButtonTransparent} ${styles.mobileMenuButtonNoTransparent}`
+                                        : styles.mobileMenuButtonNoTransparent
+                                } ${styles.mobileMenuButton}`}
+                                onClick={toggleMenu}
+                                aria-label="Відкрити меню"
+                            >
                 <span className={styles.burgerLines}>
-                  <span />
-                  <span />
-                  <span />
+                  <span/>
+                  <span/>
+                  <span/>
                 </span>
-              </button>
-            )}
-          </div>
-        </div>
-
-        {isStoriesPage && <div className={styles.headerDivider} />}
-      </header>
-
-      {/* ===== MOBILE FULLSCREEN MENU ===== */}
-      {menuOpen && (
-        <div className={mobileMenuClassName}>
-          <div className={styles.mobileHeaderRow}>
-            <Link
-              href={ROUTES.HOME}
-              className={styles.headerLinkLogo}
-              onClick={closeMenu}
-            >
-              <div className={styles.logoIconWrapper}>
-                <svg className={styles.logoIcon} width={23} height={23}>
-                  <use href="/sprite.svg#icon-plant_logo" />
-                </svg>
-              </div>
-            </Link>
-
-            <button
-              type="button"
-              className={styles.mobileCloseButton}
-              onClick={toggleMenu}
-              aria-label="Закрити меню"
-            >
-              <span className={`${styles.burgerLines} ${styles.burgerActive}`}>
-                <span />
-                <span />
-                <span />
-              </span>
-            </button>
-          </div>
-
-          {isAuthenticated && authUser && (
-            <div className={styles.mobileUser}>
-              {authUser.avatarUrl ? (
-                <Image
-                  src={authUser.avatarUrl}
-                  alt={displayName}
-                  width={40}
-                  height={40}
-                  className={styles.userAvatar}
-                />
-              ) : (
-                <div
-                  className={`${styles.userAvatarFallback} ${styles.userAvatarFallbackMobile}`}
-                >
-                  {displayInitial}
+                            </button>
+                        )}
+                    </div>
                 </div>
-              )}
 
-              <span className={styles.userName}>{displayName}</span>
-            </div>
-          )}
+                {isStoriesPage && <div className={styles.headerDivider}/>}
+            </header>
 
-          <nav aria-label="Мобільна навігація" className={styles.mobileNav}>
-            <ul className={styles.mobileNavList}>
-              {commonNav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={styles.mobileNavLink}
-                    onClick={closeMenu}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+            {/* ===== MOBILE FULLSCREEN MENU ===== */}
+            {menuOpen && (
+                <div className={mobileMenuClassName}>
+                    <div className={styles.mobileHeaderRow}>
+                        <Link
+                            href={ROUTES.HOME}
+                            className={styles.headerLinkLogo}
+                            onClick={closeMenu}
+                        >
+                            <div className={styles.logoIconWrapper}>
+                                <svg className={styles.logoIcon} width={23} height={23}>
+                                    <use href="/sprite.svg#icon-plant_logo"/>
+                                </svg>
+                            </div>
+                        </Link>
 
-              {isAuthenticated && (
-                <>
-                  <li>
-                    <Link
-                      href="/profile"
-                      className={styles.mobileNavLink}
-                      onClick={closeMenu}
-                    >
-                      Мій профіль
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/stories/create"
-                      className={`${styles.mobileNavLink} ${styles.mobilePublish}`}
-                      onClick={closeMenu}
-                    >
-                      Опублікувати історію
-                    </Link>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className={`${styles.mobileNavLink} ${styles.mobileLogout}`}
-                      onClick={handleLogoutClick}
-                    >
-                      Вийти
-                    </button>
-                  </li>
-                </>
-              )}
+                        <button
+                            type="button"
+                            className={styles.mobileCloseButton}
+                            onClick={toggleMenu}
+                            aria-label="Закрити меню"
+                        >
+              <span className={`${styles.burgerLines} ${styles.burgerActive}`}>
+                <span/>
+                <span/>
+                <span/>
+              </span>
+                        </button>
+                    </div>
 
-              {!isAuthenticated && (
-                <>
-                  <li>
-                    <Link
-                      href={ROUTES.AUTH.LOGIN}
-                      className={styles.mobileNavLink}
-                      onClick={closeMenu}
-                    >
-                      Вхід
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href={ROUTES.AUTH.REGISTER}
-                      className={styles.mobileNavLink}
-                      onClick={closeMenu}
-                    >
-                      Реєстрація
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
-          </nav>
-        </div>
-      )}
+                    {isAuthenticated && authUser && (
+                        <div className={styles.mobileUser}>
+                            {authUser.avatarUrl ? (
+                                <Image
+                                    src={authUser.avatarUrl}
+                                    alt={displayName}
+                                    width={40}
+                                    height={40}
+                                    className={styles.userAvatar}
+                                />
+                            ) : (
+                                <div
+                                    className={`${styles.userAvatarFallback} ${styles.userAvatarFallbackMobile}`}
+                                >
+                                    {displayInitial}
+                                </div>
+                            )}
 
-      {/* ===== LOGOUT MODAL ===== */}
-      {logoutModal.open && (
-        <ConfirmModal
-          title="Ви точно хочете вийти?"
-          text="Ми будемо сумувати за вами!"
-          cancelButtonText="Відмінити"
-          confirmButtonText="Вийти"
-          onCancel={logoutModal.onClose}
-          onConfirm={confirmLogout}
-        />
-      )}
-    </>
-  );
+                            <span className={styles.userName}>{displayName}</span>
+                        </div>
+                    )}
+
+                    <nav aria-label="Мобільна навігація" className={styles.mobileNav}>
+                        <ul className={styles.mobileNavList}>
+                            {commonNav.map((item) => (
+                                <li key={item.href}>
+                                    <Link
+                                        href={item.href}
+                                        className={styles.mobileNavLink}
+                                        onClick={closeMenu}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                </li>
+                            ))}
+
+                            {isAuthenticated && (
+                                <>
+                                    <li>
+                                        <Link
+                                            href="/profile"
+                                            className={styles.mobileNavLink}
+                                            onClick={closeMenu}
+                                        >
+                                            Мій профіль
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href="/stories/create"
+                                            className={`${styles.mobileNavLink} ${styles.mobilePublish}`}
+                                            onClick={closeMenu}
+                                        >
+                                            Опублікувати історію
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <button
+                                            type="button"
+                                            className={`${styles.mobileNavLink} ${styles.mobileLogout}`}
+                                            onClick={handleLogoutClick}
+                                        >
+                                            Вийти
+                                        </button>
+                                    </li>
+                                </>
+                            )}
+
+                            {!isAuthenticated && (
+                                <>
+                                    <li>
+                                        <Link
+                                            href={ROUTES.AUTH.LOGIN}
+                                            className={styles.mobileNavLink}
+                                            onClick={closeMenu}
+                                        >
+                                            Вхід
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            href={ROUTES.AUTH.REGISTER}
+                                            className={styles.mobileNavLink}
+                                            onClick={closeMenu}
+                                        >
+                                            Реєстрація
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
+                        </ul>
+                    </nav>
+                </div>
+            )}
+
+            {/* ===== LOGOUT MODAL ===== */}
+            {logoutModal.open && (
+                <ConfirmModal
+                    title="Ви точно хочете вийти?"
+                    text="Ми будемо сумувати за вами!"
+                    cancelButtonText="Відмінити"
+                    confirmButtonText="Вийти"
+                    onCancel={logoutModal.onClose}
+                    onConfirm={confirmLogout}
+                />
+            )}
+        </>
+    );
 }

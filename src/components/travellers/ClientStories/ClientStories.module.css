@@ -1,48 +1,48 @@
 .section {
-  width: 100%;
-  padding: 0;
-  background-color: var(--color-bg);
+    width: 100%;
+    padding: 0;
+    background-color: var(--color-bg);
 }
 
 /* внутренняя обёртка внутри глобального .container */
 .inner {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 }
 
 .title {
-  font-size: 32px;
-  font-weight: 700;
-  text-align: left;
-  margin-bottom: 32px;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 32px;
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(344px, 1fr));
-  gap: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(344px, 1fr));
+    gap: 24px;
 }
 
 .moreWrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
 }
 
 .moreButton {
-  background: #4a6cf7;
-  color: white;
-  padding: 14px 28px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  transition: 0.2s;
+    background: #4a6cf7;
+    color: white;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 .moreButton:hover {
-  background: #3c59d3;
+    background: #3c59d3;
 }

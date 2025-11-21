@@ -1,27 +1,27 @@
 .loadMore {
-  padding: 6px 12px;
-  border-radius: 8px; 
-  background-color: #4169e1;
-  border: 1px solid #4169e1;
-  color: #fff;
-  font-weight: 500;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: background-color .2s, border-color .2s, color .2s;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background-color: #4169e1;
+    border: 1px solid #4169e1;
+    color: #fff;
+    font-weight: 500;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color .2s, border-color .2s, color .2s;
 }
 
 .loadMore:hover,
 .loadMore:focus-visible {
-  background-color: #e8eeff;
-  border-color: #4169e1;
-  color: #000000;
+    background-color: #e8eeff;
+    border-color: #4169e1;
+    color: #000000;
 }
 
 .loadMore:active {
-  background-color: #7a96ea;
-  border-color: #4169e1;
-  color: #000000;
+    background-color: #7a96ea;
+    border-color: #4169e1;
+    color: #000000;
 }

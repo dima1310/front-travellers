@@ -1,28 +1,28 @@
 /* === SECTION: фон страницы === */
 .section {
-  padding: 72px 0;
-  background: var(--color-scheme-2-background);
+    padding: 72px 0;
+    background: var(--color-scheme-2-background);
 }
 
 /* === ВНУТРЕННИЙ КОНТЕЙНЕР === */
 .container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 16px; /* Мобилка */
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 16px; /* Мобилка */
 }
 
 /* Планшет */
 @media (min-width: 768px) {
-  .container {
-    padding: 0 24px;
-  }
+    .container {
+        padding: 0 24px;
+    }
 }
 
 /* Десктоп */
 @media (min-width: 1440px) {
-  .container {
-    padding: 0;
-  }
+    .container {
+        padding: 0;
+    }
 }
 
 
@@ -35,91 +35,91 @@
   border: none;
   box-shadow: none;
 
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 
-  padding: 32px 24px 40px;
-  box-sizing: border-box;
+    padding: 32px 24px 40px;
+    box-sizing: border-box;
 }
 
 
 /* Планшет */
 @media (min-width: 768px) {
-  .cardsWrapper {
-    padding: 48px 48px 56px;
-    gap: 40px;
-  }
+    .cardsWrapper {
+        padding: 48px 48px 56px;
+        gap: 40px;
+    }
 }
 
 /* Десктоп */
 @media (min-width: 1280px) {
-  .cardsWrapper {
-    padding: 64px 64px 72px;
-    gap: 32px;
-  }
+    .cardsWrapper {
+        padding: 64px 64px 72px;
+        gap: 32px;
+    }
 }
 
 /* === Заголовок === */
 .title {
-  margin: 0;
-  font-family: var(--font-sora);
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 1.2;
-  color: #000000;
-  text-align: center;
+    margin: 0;
+    font-family: var(--font-sora);
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.2;
+    color: #000000;
+    text-align: center;
 }
 
 @media (min-width: 768px) {
-  .title {
-    font-size: 32px;
-  }
+    .title {
+        font-size: 32px;
+    }
 }
 
 @media (min-width: 1440px) {
-  .title {
-    font-size: 48px;
-  }
+    .title {
+        font-size: 48px;
+    }
 }
 
 /* === Статусные сообщения === */
 .status {
-  font-size: 16px;
-  text-align: left;
+    font-size: 16px;
+    text-align: left;
 }
 
 /* === Обёртка под кнопку === */
 .loadMoreWrapper {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 /* === Кнопка === */
 .loadMoreButton {
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
 
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.5;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
 
-  background-color: #4169e1;
-  color: #ffffff;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+    background-color: #4169e1;
+    color: #ffffff;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .loadMoreButton:hover,
 .loadMoreButton:focus-visible {
-  background-color: #3156c4;
-  outline: none;
-  transform: translateY(-1px);
+    background-color: #3156c4;
+    outline: none;
+    transform: translateY(-1px);
 }
 
 .loadMoreButton:disabled {
-  opacity: 0.6;
-  cursor: default;
-  transform: none;
+    opacity: 0.6;
+    cursor: default;
+    transform: none;
 }
