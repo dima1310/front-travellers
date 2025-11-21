@@ -88,10 +88,6 @@
 
 /* === TABLET === */
 @media (min-width: 768px) {
-  .storiesSection {
-    /* padding: 40px 24px 48px; */
-  }
-
   .storiesCategory {
     display: none;
   }

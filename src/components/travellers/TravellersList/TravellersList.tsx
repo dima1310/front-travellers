@@ -5,23 +5,23 @@ import { TravellersListItem } from "@/components/travellers/TravellersListItem/T
 import type { Traveller } from "@/types/traveller.types";
 
 interface Props {
-    travellers: Traveller[];
+  travellers: Traveller[];
 }
 
 export default function TravellersList({ travellers }: Props) {
-    return (
-        <div className={css.wrap}>
-            <div className={css.grid}>
-                {travellers.map((t) => (
-                    <TravellersListItem
-                        key={t._id}
-                        _id={t._id}
-                        name={t.name}
-                        bio={t.bio}
-                        avatar={t.avatar}
-                    />
-                ))}
-            </div>
-        </div>
-    );
+  return (
+    <div className={css.wrap}>
+      <div className={css.grid}>
+        {travellers.map((t) => (
+          <TravellersListItem
+            key={t._id}
+            _id={t._id}
+            name={t.name}
+            bio={t.bio}
+            avatar={t.avatar}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
