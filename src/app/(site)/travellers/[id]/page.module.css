@@ -4,37 +4,39 @@
 
 .publicProfile {
     background: var(--color-scheme-2-background);
-    padding: 24px 0 48px;
+    padding: 0 16px 48px; /* FIX: нет паддинга сверху */
+    box-sizing: border-box;
 }
 
-/* Блок с TravellerInfo */
+/* Блок з TravellerInfo */
 .travellerInfo {
     max-width: 1312px;
     width: 100%;
-    margin: 0 auto 64px; /* отступ снизу по макету */
-    /* БЕЗ padding-left / padding-right!
-       горизонтальные отступы даёт глобальный container */
+    margin: 0 auto 64px;
+
+    /* padding: 0 16px; */
+    box-sizing: border-box;
 }
 
-/* Секция історій */
+/* Секція історій */
 .travellerStories {
     max-width: 1312px;
     width: 100%;
     margin: 0 auto 72px;
 
-    /* без своих горизонтальных паддингов */
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 48px; /* Figma desktop */
+    gap: 48px;
+
+    padding: 0 16px;
+    box-sizing: border-box;
 }
 
-/* Заголовок */
 .travellerStoriesTitle {
     margin: 0;
     font-family: var(--font-sora);
     font-weight: 700;
-    font-size: 32px;
+    font-size: 28px;
     line-height: 1.2;
     color: #111827;
 }
@@ -46,10 +48,8 @@
 
 @media (min-width: 375px) {
     .publicProfile {
-        padding: 28px 0 56px; /* только top/bottom */
+        /* padding: 0 16px 56px; */
     }
-
-    /* travellerInfo / travellerStories — без padding-left/right */
 }
 
 
@@ -59,19 +59,21 @@
 
 @media (min-width: 768px) {
     .publicProfile {
-        padding: 32px 0 64px;
+        padding: 0 24px 64px; 
     }
 
     .travellerInfo {
         margin-bottom: 56px;
+        /* padding: 0 24px; */
     }
 
     .travellerStories {
+        padding: 0 24px;
         gap: 40px;
     }
 
     .travellerStoriesTitle {
-        font-size: 40px;
+        font-size: 44px;
     }
 }
 
@@ -82,14 +84,16 @@
 
 @media (min-width: 1440px) {
     .publicProfile {
-        padding: 64px 0 80px;
+        padding: 0 0 80px; /* FIX */
     }
 
     .travellerInfo {
         margin-bottom: 64px;
+        padding: 0;
     }
 
     .travellerStories {
+        padding: 0;
         gap: 48px;
     }
 
