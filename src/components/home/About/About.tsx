@@ -4,22 +4,25 @@ import styles from "./About.module.css";
 export default function About() {
     return (
         <section className={styles.section}>
-            <div className={HomeStyles.container}>
+            <div className={styles.container}>
                 <div className={`container ${styles.inner}`}>
                     <div className={styles.content}>
-                        <div className={styles.titleBlock}>
-                            <h2 className={styles.title}>
-                                Проєкт, створений для тих, <br/>
-                                хто живе подорожами
-                            </h2>
+                        <div className={styles.aboutWrapper}>
+                            <div className={styles.titleBlock}>
+                                <h2 className={styles.title}>
+                                    Проєкт, створений для тих, <br/>
+                                    хто живе подорожами
+                                </h2>
+                            </div>
+
+                            <p className={styles.description}>
+                                Ми віримо, що кожна подорож — це унікальна історія,
+                                варта того, щоб нею поділилися. Наша платформа створена,
+                                щоб об'єднати людей, закоханих у відкриття нового. Тут ви
+                                можете ділитися власним досвідом, знаходити друзів та
+                                надихатися на наступні пригоди разом з нами.
+                            </p>
                         </div>
-
-                        <p className={styles.description}>
-                            Ми віримо, що кожна подорож — це унікальна історія, варта того,
-                            щоб нею поділилися. Наша платформа створена, щоб об’єднати людей,
-                            закоханих у відкриття нового…
-                        </p>
-
                         <div className={styles.features}>
                             {/* 1 */}
                             <div className={styles.featureItem}>
