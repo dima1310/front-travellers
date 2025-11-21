@@ -1,20 +1,21 @@
-/* Section wrapper (no background, no padding – profile gives spacing) */
-.section {
+/* === STORIES SECTION (изолированное пространство) === */
+.storiesSection {
     width: 100%;
-    padding: 0;
+    /* padding: 32px 16px 40px;  */
     background: transparent;
+    box-sizing: border-box;
 }
 
-/* Main container aligned with 1312px layout */
-.container {
+/* === CONTAINER === */
+.storiesContainer {
     max-width: 1312px;
     width: 100%;
     margin: 0 auto;
     padding: 0;
 }
 
-/* Title (homepage only) */
-.title {
+/* === TITLE === */
+.storiesTitle {
     font-family: var(--second-family);
     font-size: 32px;
     font-weight: 700;
@@ -25,18 +26,17 @@
     text-align: center;
 }
 
-/* Category label */
-.category {
+/* === CATEGORY === */
+.storiesCategory {
     font-family: var(--font-family);
-    font-weight: 400;
     font-size: 16px;
     line-height: 1.5;
     color: #000;
     margin-bottom: 8px;
 }
 
-/* Loading and empty states */
-.loading {
+/* === LOADING STATES === */
+.storiesLoading {
     text-align: center;
     padding: 60px 20px;
     font-size: 16px;
@@ -45,78 +45,83 @@
     border-radius: 12px;
 }
 
-/* GRID layout */
-.grid {
+/* === GRID === */
+.storiesGrid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
     margin-bottom: 40px;
 }
 
-/* Load more button */
-.button {
+/* === BUTTON === */
+.storiesButton {
     display: inline-flex;
     justify-content: center;
     align-items: center;
 
-    color: white;
     cursor: pointer;
 
     border: 1px solid #4169e1;
     background: #4169e1;
+    color: white;
     border-radius: 8px;
 
     padding: 6px 20px;
     height: 48px;
 
-    width: auto;           
-    margin: 0 auto;         
+    margin: 0 auto;
 }
 
-
-.button:hover:not(:disabled) {
+.storiesButton:hover:not(:disabled) {
     background: #4169e1;
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(90, 61, 82, 0.3);
 }
 
-.button:disabled {
+.storiesButton:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
-/* Tablet (768px+) */
+/* === TABLET === */
 @media (min-width: 768px) {
-    .category {
+    .storiesSection {
+        /* padding: 40px 24px 48px; */
+    }
+
+    .storiesCategory {
         display: none;
     }
 
-    .title {
+    .storiesTitle {
         font-size: 28px;
         margin-bottom: 40px;
-        text-align: center;
     }
 
-    .grid {
+    .storiesGrid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
-
-    .button {
-        padding: 12px 0;
-        font-size: 16px;
-        width: 123px;
-    }
-}
-
-/* Desktop (1440px+) */
-@media (min-width: 1440px) {
-    .grid {
-        grid-template-columns: repeat(3, 1fr);
         gap: 20px;
     }
 
-    .button {
+    .storiesButton {
+        width: 123px;
+        padding: 12px 0;
+        font-size: 16px;
+    }
+}
+
+/* === DESKTOP 1440 === */
+@media (min-width: 1440px) {
+    .storiesSection {
+        padding: 48px 0 64px;
+    }
+
+    .storiesGrid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .storiesButton {
         width: 135px;
         font-size: 18px;
     }

@@ -2,14 +2,21 @@
 .page {
     min-height: 100vh;
     background: #f7f9ff;
-    padding: 96px 0 72px; /* отступ сверху, чтобы не залезать под хедер */
+
+    /* MOBILE — 16px слева/справа */
+    padding: 96px 16px 72px;
+
+    box-sizing: border-box;
 }
 
 /* ===== MAIN CONTAINER ===== */
 .container {
     max-width: 1312px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 20px;
+
+    /* MOBILE container paddings */
+    padding: 0 16px;
 }
 
 /* Loader wrapper */
@@ -66,6 +73,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
+
     font-family: "Nunito Sans", sans-serif;
     font-weight: 400;
     font-size: 16px;
@@ -83,7 +91,6 @@
     font-weight: 500;
 }
 
-/* Внутренняя часть секции историй */
 .storiesInner {
     margin-top: 24px;
 }
@@ -97,8 +104,14 @@
 
 /* ===== TABLET 768+ ===== */
 @media (min-width: 768px) {
+
+    /* TABLET — 24px layout padding */
+    .page {
+        padding: 96px 24px 72px;
+    }
+
     .container {
-        padding: 0 32px;
+        padding: 0 24px;
     }
 
     .tabs {
@@ -114,16 +127,18 @@
 
 /* ===== DESKTOP 1440+ ===== */
 @media (min-width: 1440px) {
-    .container {
-        padding: 0; /* 1312 по центру, как на остальных страницах */
-    }
 
+    /* Desktop — только вертикальные отступы */
     .page {
         padding: 96px 0 72px;
     }
 
+    .container {
+        padding: 0;
+    }
+
     .tabs {
-        margin-left: 0; /* табы по той же левой линии, что и аватар */
+        margin-left: 0;
     }
 
     .tabButton {
@@ -139,12 +154,3 @@
     }
 }
 
-.page :global(.container) {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
-
-.page :global(.Home-module__jKgjFW__container) {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}

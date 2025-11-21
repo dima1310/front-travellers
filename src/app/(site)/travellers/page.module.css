@@ -55,14 +55,14 @@
 
 /* === Заголовок === */
 .title {
-    margin: 0;
+    margin-bottom: 24px;
     font-family: var(--font-sora);
     font-weight: 700;
     font-size: 24px;
     line-height: 1.2;
     color: #000000;
     text-align: center;
-}
+    }
 
 @media (min-width: 768px) {
     .title {
