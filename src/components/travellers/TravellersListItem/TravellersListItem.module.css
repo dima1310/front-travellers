@@ -1,83 +1,166 @@
-/* === MOBILE FIRST (до 768px) === */
-/* карточка 335 × 363 */
+/* === MOBILE FIRST === */
 
 .card {
-    width: 100%;
-    max-width: 335px;
-    min-height: 363px;
-
-    padding: 24px;
-
-    background-color: #E8EEFF;
+    background-color: #e8eeff;
     border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(24, 59, 86, 0.06);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    transition: transform 0.3s ease;
 
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     text-align: left;
-
-    gap: 0; /* строго как в Figma */
-
-    /* ❗ ВАЖНО: убираем центрирование, чтобы встало ровно по линии хедера */
-    margin: 0; 
-}
-
-/* === АВАТАР === */
-.avatar {
-    width: 112px;
-    height: 112px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-}
-
-/* === ИМЯ === */
-.name {
-    margin-top: 24px;
-
-    font-family: var(--font-sora);
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 1.2;
-    color: #000;
-    margin-bottom: 0;
-}
-
-/* === ТЕКСТ === */
-.text {
-    margin-top: 16px;
-
     font-family: var(--font-nunito);
-    font-weight: 400;
+
+    height: 100%; /* карточка растягивается по высоте ячейки */
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+/* === IMAGE === */
+
+.imageWrapper {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+/* === CONTENT === */
+
+.content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    text-align: left;
+}
+
+/* последний блок внутри контента (где кнопка + иконка) прижимаем вниз */
+.content > :last-child {
+    margin-top: auto;
+}
+
+/* === CATEGORY === */
+
+.category {
+    font-family: var(--font-family), sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    font-weight: 500;
+    color: #6b7280;
+}
+
+/* === TITLE === */
+
+.title {
+    font-family: var(--font-sora);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: #111827;
+    margin: 0;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;   /* максимум 2 строки */
+    overflow: hidden;
+
+    min-height: calc(2 * 1.4 * 18px); /* одинаковая высота заголовка */
+}
+
+/* === EXCERPT / DESCRIPTION === */
+
+.excerpt {
     font-size: 14px;
     line-height: 1.5;
-    color: #171717;
-    margin-bottom: 0;
+    color: #4b5563;
+    margin: 0;
 
-    max-height: 4.5em; /* 3 строки */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;   /* максимум 3 строки */
     overflow: hidden;
+
+    min-height: calc(3 * 1.5 * 14px); /* одинаковая высота текста */
 }
 
-/* === КНОПКА === */
-.card :global(button) {
+/* === AUTHOR / META (если есть) === */
+
+.meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.authorAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.authorInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.authorName {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+}
+
+.date {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* === BUTTON ROW === */
+
+.footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    /* на всякий случай прижимаем и футер,
+       если он — последний элемент в .content */
     margin-top: auto;
-    width: 100%;
-    max-width: 260px;
 }
 
-/* =============================== */
-/* === TABLET + DESKTOP (768px+) */
-/* карточка 310 × 384 как в макете */
-/* =============================== */
+.footer :global(button) {
+    flex: 1;
+}
 
-@media (min-width: 768px) {
-    .card {
-        max-width: 310px;
-        min-height: 384px;
-        padding: 24px;
-
-        /* Тоже без авто-центрирования */
-        margin: 0;
-    }
+/* можно для иконки рядом с кнопкой */
+.iconButton {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

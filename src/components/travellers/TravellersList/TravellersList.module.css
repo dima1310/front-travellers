@@ -3,7 +3,7 @@
     width: 100%;
     max-width: 1312px;
     margin: 0 auto;
-    padding: 0;              /* важно: НЕТ padding-left/right */
+    padding: 0;             
     box-sizing: border-box;
 }
 
@@ -15,7 +15,9 @@
     gap: 24px;
 
     grid-template-columns: 1fr;
+
     justify-items: stretch;
+    align-items: stretch; /* ← ключ для одинаковой высоты карточек */
 }
 
 /* TABLET 768+ */
