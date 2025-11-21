@@ -55,17 +55,24 @@
 
 /* Load more button */
 .button {
-    display: block;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
     color: white;
     cursor: pointer;
+
     border: 1px solid #4169e1;
     background: #4169e1;
     border-radius: 8px;
-    padding: 6px 12px;
+
+    padding: 6px 20px;
     height: 48px;
-    width: 100%;
-    margin: 0 auto;
+
+    width: auto;           
+    margin: 0 auto;         
 }
+
 
 .button:hover:not(:disabled) {
     background: #4169e1;

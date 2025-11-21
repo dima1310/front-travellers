@@ -22,11 +22,9 @@
     width: 100%;
     margin: 0 auto 72px;
 
-    /* без своих горизонтальных паддингов */
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 48px; /* Figma desktop */
+    gap: 48px;
 }
 
 /* Заголовок */
@@ -39,6 +37,14 @@
     color: #111827;
 }
 
+/* КНОПКА ПО ЦЕНТРУ */
+.travellerStoriesMore {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* ← СТАВИТ КНОПКУ В ЦЕНТР */
+    margin-top: 32px;
+}
+
 
 /* ===========================================================
    📌 MOBILE 375+
@@ -46,10 +52,8 @@
 
 @media (min-width: 375px) {
     .publicProfile {
-        padding: 28px 0 56px; /* только top/bottom */
+        padding: 28px 0 56px;
     }
-
-    /* travellerInfo / travellerStories — без padding-left/right */
 }
 
 
