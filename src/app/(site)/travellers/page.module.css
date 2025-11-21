@@ -4,17 +4,17 @@
     background: var(--color-scheme-2-background);
 }
 
-/* === ВНУТРЕННИЙ КОНТЕЙНЕР === */
+/* === ВНУТРЕННИЙ КОНТЕЙНЕР (если вдруг пригодится позже) === */
 .container {
     width: 100%;
     margin: 0 auto;
-    padding: 0 16px; /* Мобилка */
+    padding: 0 16px; /* Мобілка */
 }
 
 /* Планшет */
 @media (min-width: 768px) {
     .container {
-        padding: 0 24px;
+        padding: 0 32px;
     }
 }
 
@@ -25,38 +25,31 @@
     }
 }
 
-
+/* === ОБЁРТКА СИРОГО БЛОКА (вся секція) === */
 .cardsWrapper {
-  width: 100%;
-  background-color: #f6f8ff;
-  border-radius: 24px;
+    background-color: #f6f8ff;
 
+    /* той самий magic-container, що й у .container */
+    width: 100%;
+    max-width: 1312px;
+    margin: 0 auto;
 
-  border: none;
-  box-shadow: none;
-
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-
-    padding: 32px 24px 40px;
-    box-sizing: border-box;
+    /* MOBILE 320–767: вирівнюємо з хедером (16px зліва) */
+    padding: 32px 16px 40px;
 }
 
-
-/* Планшет */
+/* TABLET 768+ — як глобальний container: 32px */
 @media (min-width: 768px) {
     .cardsWrapper {
-        padding: 48px 48px 56px;
-        gap: 40px;
+        padding: 40px 32px 56px;
     }
 }
 
-/* Десктоп */
-@media (min-width: 1280px) {
+/* DESKTOP 1440+ — лише по центру без горизонтальних паддінгів */
+@media (min-width: 1440px) {
     .cardsWrapper {
-        padding: 64px 64px 72px;
-        gap: 32px;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
