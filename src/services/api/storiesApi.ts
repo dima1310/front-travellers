@@ -1,9 +1,9 @@
-import { api } from "./axiosConfig";
+import {api} from "./axiosConfig";
 import type {
-  Story,
-  StoriesApiPage,
-  StoriesResponse,
-  CreatedStoryResponse,
+    Story,
+    StoriesApiPage,
+    StoriesResponse,
+    CreatedStoryResponse,
 } from "@/types/story.types";
 
 const STORIES_PREFIX = "/stories";
@@ -11,105 +11,105 @@ const STORIES_PREFIX = "/stories";
 // ---------- CREATE / UPDATE / GET BY ID ----------
 
 export const createStory = async (
-  formData: FormData
+    formData: FormData
 ): Promise<CreatedStoryResponse> => {
-  const { data } = await api.post<CreatedStoryResponse>(
-    STORIES_PREFIX,
-    formData,
-    {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+    const {data} = await api.post<CreatedStoryResponse>(
+        STORIES_PREFIX,
+        formData,
+        {
+            withCredentials: true,
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        }
+    );
 
-  return data;
+    return data;
 };
 
 export const updateStory = async (
-  storyId: string,
-  formData: FormData
+    storyId: string,
+    formData: FormData
 ): Promise<CreatedStoryResponse> => {
-  const { data } = await api.patch<CreatedStoryResponse>(
-    `${STORIES_PREFIX}/${storyId}`,
-    formData,
-    {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+    const {data} = await api.patch<CreatedStoryResponse>(
+        `${STORIES_PREFIX}/${storyId}`,
+        formData,
+        {
+            withCredentials: true,
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        }
+    );
 
-  return data;
+    return data;
 };
 
 export const getStoryById = async (storyId: string): Promise<Story> => {
-  const { data } = await api.get<{
-    status: number;
-    message: string;
-    data: Story;
-  }>(`${STORIES_PREFIX}/${storyId}`);
+    const {data} = await api.get<{
+        status: number;
+        message: string;
+        data: Story;
+    }>(`${STORIES_PREFIX}/${storyId}`);
 
-  return data.data;
+    return data.data;
 };
 
 // ---------- LIST / POPULAR ----------
 
 export const storiesApi = {
-  async popular(): Promise<Story[]> {
-    const { data } = await api.get<{
-      status: number;
-      message: string;
-      data: StoriesApiPage;
-    }>(STORIES_PREFIX, {
-      params: {
-        page: 1,
-        perPage: 4,
-        sortBy: "favoriteCount",
-        sortOrder: "desc",
-      },
-    });
+    async popular(): Promise<Story[]> {
+        const {data} = await api.get<{
+            status: number;
+            message: string;
+            data: StoriesApiPage;
+        }>(STORIES_PREFIX, {
+            params: {
+                page: 1,
+                perPage: 4,
+                sortBy: "favoriteCount",
+                sortOrder: "desc",
+            },
+        });
 
-    return data.data.data;
-  },
+        return data.data.data;
+    },
 
-  async list(
-    page = 1,
-    perPage = 12,
-    categoryName?: string
-  ): Promise<StoriesResponse> {
-    const params: Record<string, unknown> = {
-      page,
-      perPage,
-      sortBy: "date",
-      sortOrder: "desc",
-    };
+    async list(
+        page = 1,
+        perPage = 12,
+        categoryName?: string
+    ): Promise<StoriesResponse> {
+        const params: Record<string, unknown> = {
+            page,
+            perPage,
+            sortBy: "date",
+            sortOrder: "desc",
+        };
 
-    // якщо categoryName передано — додаємо в params
-    if (categoryName) {
-      params.category = categoryName;
-    }
+        // якщо categoryName передано — додаємо в params
+        if (categoryName) {
+            params.category = categoryName;
+        }
 
-    const { data } = await api.get<{
-      status: number;
-      message: string;
-      data: StoriesApiPage;
-    }>(STORIES_PREFIX, {
-      params,
-    });
+        const {data} = await api.get<{
+            status: number;
+            message: string;
+            data: StoriesApiPage;
+        }>(STORIES_PREFIX, {
+            params,
+        });
 
-    const pageData = data.data;
+        const pageData = data.data;
 
-    return {
-      items: pageData.data,
-      page: pageData.page,
-      limit: pageData.perPage,
-      total: pageData.total,
-      totalPages: pageData.totalPages,
-      hasNextPage: pageData.hasNextPage,
-      hasPrevPage: pageData.hasPrevPage,
-    };
-  },
+        return {
+            items: pageData.data,
+            page: pageData.page,
+            limit: pageData.perPage,
+            total: pageData.total,
+            totalPages: pageData.totalPages,
+            hasNextPage: pageData.hasNextPage,
+            hasPrevPage: pageData.hasPrevPage,
+        };
+    },
 };

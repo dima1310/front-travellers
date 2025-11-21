@@ -62,6 +62,8 @@
     font-weight: 700;
     line-height: 1.5;
     color: #000;
+
+    min-height: 54px; /* 18px × 1.5 × 2 = 54px */
 }
 
 /* === DESCRIPTION === */
@@ -222,10 +224,6 @@
         padding: 24px;
     }
 
-    .title {
-        font-size: 18px;
-    }
-
     .text {
         font-size: 16px;
     }
@@ -247,6 +245,7 @@
 
     .title {
         font-size: 26px;
+        min-height: 78px; /* 26px × 1.5 × 2 = 78px */
     }
 
     .text {

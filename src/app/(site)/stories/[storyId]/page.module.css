@@ -1,27 +1,27 @@
 .storyPopularWrapper {
     background-color: var(--background);
-  padding: 0; /* mobile */
+    padding: 0; /* mobile */
 }
 
 @media (min-width: 768px) {
-  .storyPopularWrapper {
-    padding: 0; /* tablet */
-  }
+    .storyPopularWrapper {
+        padding: 0; /* tablet */
+    }
 }
 
 @media (min-width: 1440px) {
-  .storyPopularWrapper {
-    padding: 0; /* desktop */
-  }
+    .storyPopularWrapper {
+        padding: 0; /* desktop */
+    }
 }
 
 /* Чтобы лоадер и ошибка не ломали верстку */
 .loaderWrapper,
 .error {
-  padding: 80px 0;
-  text-align: center;
+    padding: 80px 0;
+    text-align: center;
 }
 
 .page {
-  width: 100%;
+    width: 100%;
 }

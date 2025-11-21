@@ -1,4 +1,4 @@
-import type { RootState } from "../index";
+import type {RootState} from "../index";
 
 export const selectTravellers = (s: RootState) => s.travellers.items;
 export const selectTravellersVisible = (s: RootState) => s.travellers.visible;

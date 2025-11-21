@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect } from "react";
-import { createPortal } from "react-dom";
+import {useEffect} from "react";
+import {createPortal} from "react-dom";
 import css from './ConfirmModal.module.css';
 
 interface ConfirmModalProps {
@@ -13,10 +13,17 @@ interface ConfirmModalProps {
     onCancel: () => void;
 }
 
-export default function ConfirmModal({ title, text, confirmButtonText, cancelButtonText, onConfirm, onCancel }: ConfirmModalProps) {
+export default function ConfirmModal({
+                                         title,
+                                         text,
+                                         confirmButtonText,
+                                         cancelButtonText,
+                                         onConfirm,
+                                         onCancel
+                                     }: ConfirmModalProps) {
     // закриття по фону 
     const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.target === event.currentTarget) {
+        if (event.target === event.currentTarget) {
             onCancel();
         }
     };
@@ -28,7 +35,7 @@ export default function ConfirmModal({ title, text, confirmButtonText, cancelBut
 
         document.addEventListener("keydown", handleKeyDown);
         // заборона прокручування
-        document.body.style.overflow = "hidden";  
+        document.body.style.overflow = "hidden";
 
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
@@ -38,9 +45,9 @@ export default function ConfirmModal({ title, text, confirmButtonText, cancelBut
 
     return createPortal(
         <div className={css.confirmBackdrop}
-            onClick={handleBackdropClick}
-            role="dialog"
-            aria-modal="true"
+             onClick={handleBackdropClick}
+             role="dialog"
+             aria-modal="true"
         >
             <div className={css.confirmModal}>
                 <button

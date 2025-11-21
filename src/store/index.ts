@@ -1,16 +1,16 @@
-import { configureStore } from "@reduxjs/toolkit";
+import {configureStore} from "@reduxjs/toolkit";
 import authReducer from "./slices/authSlice";
 import storiesReducer from "./slices/storiesSlice";
 import travellersReducer from "./slices/travellersSlice";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    stories: storiesReducer,
-    travellers: travellersReducer,
-  },
-  devTools: process.env.NODE_ENV !== "production",
+    reducer: {
+        auth: authReducer,
+        stories: storiesReducer,
+        travellers: travellersReducer,
+    },
+    devTools: process.env.NODE_ENV !== "production",
 });
 
 export type RootState = ReturnType<typeof store.getState>;

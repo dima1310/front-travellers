@@ -1,4 +1,4 @@
-.buttonProfile{
+.buttonProfile {
     width: 100%;
     font-weight: 500;
     font-size: 18px;
@@ -8,22 +8,23 @@
     border-radius: 8px;
     padding: 6px 12px;
     gap: 8px;
-    border: 1px solid rgba(0,0,0,0.15);
+    border: 1px solid rgba(0, 0, 0, 0.15);
     cursor: pointer;
     justify-content: center;
     align-items: center;
     display: flex;
     transition: background-color .2s, border-color .2s, opacity .2s;
-    margin-top: auto;   /* чтобы кнопка всегда была внизу карточки */
+    margin-top: auto; /* чтобы кнопка всегда была внизу карточки */
 }
+
 .buttonProfile:hover,
-.buttonProfile:focus-visible{
+.buttonProfile:focus-visible {
     background-color: #4169E1;
     border-color: transparent;
     color: #FFFFFF;
-   }
+}
 
-.buttonProfile:active{
+.buttonProfile:active {
     background-color: #1A2A5A;;
     border-color: transparent;
     color: #FFFFFF;

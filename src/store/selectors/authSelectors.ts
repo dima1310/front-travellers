@@ -1,4 +1,4 @@
-import type { RootState } from "../index";
+import type {RootState} from "../index";
 
 export const selectIsAuth = (s: RootState) => s.auth.isAuth;
 export const selectUser = (s: RootState) => s.auth.user;

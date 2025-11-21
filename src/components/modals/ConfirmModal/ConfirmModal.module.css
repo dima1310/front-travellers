@@ -65,7 +65,7 @@
     padding: 6px 12px;
     width: 295px;
     height: 48px;
-    color:#000;
+    color: #000;
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
@@ -102,48 +102,57 @@
     transform: scale(0.97);
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
     .confirmModal {
         padding: 64px 32px;
         max-width: 704px;
     }
+
     .confirmСloseButton {
         top: 16px;
         right: 16px;
     }
+
     .confirmTitle {
         font-size: 32px;
     }
+
     .buttons {
         flex-direction: row;
     }
+
     .cancelBtn,
-    .confirmBtn { 
+    .confirmBtn {
         width: 203px;
     }
-    
+
 }
 
-@media (min-width: 1440px){
+@media (min-width: 1440px) {
     .confirmModal {
         padding: 64px;
         max-width: 768px;
     }
+
     .confirmСloseButton {
         top: 24px;
         right: 24px;
     }
+
     .confirmTitle {
         font-size: 48px;
     }
+
     .confirmText {
         font-size: 20px;
     }
+
     .cancelBtn:hover,
     .cancelBtn:focus {
         background-color: #e8eeff;
         border: 1px solid #4169e1;
     }
+
     .confirmBtn:hover,
     .confirmBtn:focus {
         border: 1px solid rgba(0, 0, 0, 0.05);

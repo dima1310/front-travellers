@@ -5,13 +5,13 @@ import OurTravellers from "@/components/home/OurTravellers/OurTravellers";
 import Join from "@/components/home/Join/Join";
 
 export default function HomePage() {
-  return (
-    <>
-      <Hero />
-      <About />
-      <Popular />
-      <OurTravellers />
-      <Join />
-    </>
-  );
+    return (
+        <>
+            <Hero/>
+            <About/>
+            <Popular/>
+            <OurTravellers/>
+            <Join/>
+        </>
+    );
 }
