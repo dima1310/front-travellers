@@ -1,3 +1,3 @@
-import { renderToStaticMarkup } from "react-dom/server";
+import {renderToStaticMarkup} from "react-dom/server";
 
 renderToStaticMarkup;

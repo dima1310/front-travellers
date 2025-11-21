@@ -1,38 +1,38 @@
 .page {
-  min-height: calc(100vh - 200px);
-  background-color: #f9fafb;
+    min-height: calc(100vh - 200px);
+    background-color: #f9fafb;
 }
 
 .container {
-  max-width: 1440px;
+    max-width: 1440px;
 }
 
 .title {
-  margin: 32px 20px;
-  font-size: 32px;
-  font-weight: 700;
-  color: #1a1a1a;
+    margin: 32px 20px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
 }
 
 .subtitle {
-  font-size: 16px;
-  color: #6b7280;
-  margin: 0;
+    font-size: 16px;
+    color: #6b7280;
+    margin: 0;
 }
 
 /* Tablet (768px+) */
 @media (min-width: 768px) {
 
-  .title {
-    font-size: 48px;
-    margin: 32px 32px;
-  }
+    .title {
+        font-size: 48px;
+        margin: 32px 32px;
+    }
 }
 
 /* Desktop (1440px+) */
 @media (min-width: 1440px) {
-  .title {
-    font-size: 56px;
-    margin: 48px 64px;
-  }
+    .title {
+        font-size: 56px;
+        margin: 48px 64px;
+    }
 }
