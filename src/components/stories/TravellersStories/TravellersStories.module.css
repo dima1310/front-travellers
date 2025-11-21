@@ -7,7 +7,7 @@
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 375px;
     margin: 0 auto;
     padding: 32px 20px 64px;
 }
@@ -80,6 +80,10 @@
 
 /* Tablet (768px+) */
 @media (min-width: 768px) {
+    .container {
+        max-width: 768px;
+    }
+
     .category {
         display: none;
     }
@@ -105,6 +109,11 @@
 
 /* Desktop (1440px+) */
 @media (min-width: 1440px) {
+
+    .container {
+        max-width: 1440px;
+    }
+
     .grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 20px;
