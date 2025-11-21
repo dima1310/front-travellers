@@ -1,128 +1,131 @@
 /* === STORIES SECTION (изолированное пространство) === */
 .storiesSection {
-    width: 100%;
-    /* padding: 32px 16px 40px;  */
-    background: transparent;
-    box-sizing: border-box;
+  width: 100%;
+  /* padding: 32px 16px 40px;  */
+  background: transparent;
+  box-sizing: border-box;
 }
 
 /* === CONTAINER === */
 .storiesContainer {
-    max-width: 1312px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0;
+  max-width: 1312px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
 }
 
 /* === TITLE === */
 .storiesTitle {
-    font-family: var(--second-family);
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-    color: #000;
-    margin-bottom: 32px;
-    text-align: center;
+  font-family: var(--second-family);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #000;
+  margin-bottom: 32px;
+  text-align: center;
 }
 
 /* === CATEGORY === */
 .storiesCategory {
-    font-family: var(--font-family);
-    font-size: 16px;
-    line-height: 1.5;
-    color: #000;
-    margin-bottom: 8px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+  margin-bottom: 8px;
 }
 
 /* === LOADING STATES === */
 .storiesLoading {
-    text-align: center;
-    padding: 60px 20px;
-    font-size: 16px;
-    color: #6b4560;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 12px;
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 16px;
+  color: #6b4560;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
 }
 
 /* === GRID === */
 .storiesGrid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 40px;
 }
 
 /* === BUTTON === */
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 40px;
+}
+
 .storiesButton {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-
-    cursor: pointer;
-
-    border: 1px solid #4169e1;
-    background: #4169e1;
-    color: white;
-    border-radius: 8px;
-
-    padding: 6px 20px;
-    height: 48px;
-
-    margin: 0 auto;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #4169e1;
+  background: #4169e1;
+  color: white;
+  border-radius: 8px;
+  padding: 6px 20px;
+  height: 48px;
+  margin: 0 auto;
 }
 
 .storiesButton:hover:not(:disabled) {
-    background: #4169e1;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(90, 61, 82, 0.3);
+  background: #4169e1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(90, 61, 82, 0.3);
 }
 
 .storiesButton:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* === TABLET === */
 @media (min-width: 768px) {
-    .storiesSection {
-        /* padding: 40px 24px 48px; */
-    }
+  .storiesSection {
+    /* padding: 40px 24px 48px; */
+  }
 
-    .storiesCategory {
-        display: none;
-    }
+  .storiesCategory {
+    display: none;
+  }
 
-    .storiesTitle {
-        font-size: 28px;
-        margin-bottom: 40px;
-    }
+  .storiesTitle {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
 
-    .storiesGrid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
+  .storiesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
 
-    .storiesButton {
-        width: 123px;
-        padding: 12px 0;
-        font-size: 16px;
-    }
+  .storiesButton {
+    width: 123px;
+    padding: 12px 0;
+    font-size: 16px;
+  }
 }
 
 /* === DESKTOP 1440 === */
 @media (min-width: 1440px) {
-    .storiesSection {
-        padding: 48px 0 64px;
-    }
+  .storiesSection {
+    padding: 48px 0 64px;
+  }
 
-    .storiesGrid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
-    }
+  .storiesGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
 
-    .storiesButton {
-        width: 135px;
-        font-size: 18px;
-    }
+  .storiesButton {
+    width: 135px;
+    font-size: 18px;
+  }
 }

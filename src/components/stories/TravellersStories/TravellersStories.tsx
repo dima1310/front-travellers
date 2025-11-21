@@ -41,9 +41,7 @@ export default function TravellersStories({ stories }: Props) {
 
         <p className={styles.storiesCategory}>Категорії</p>
 
-        {!isManaged && (
-          <StoriesFilter value={filter} onChange={setFilter} />
-        )}
+        {!isManaged && <StoriesFilter value={filter} onChange={setFilter} />}
 
         {!isManaged && isLoading ? (
           <p className={styles.storiesLoading}>Завантаження...</p>
@@ -58,13 +56,15 @@ export default function TravellersStories({ stories }: Props) {
         )}
 
         {!isManaged && hasNextPage && (
-          <button
-            onClick={() => fetchNextPage()}
-            className={styles.storiesButton}
-            disabled={isFetchingNextPage}
-          >
-            {isFetchingNextPage ? "Завантаження..." : "Показати ще"}
-          </button>
+          <div className={styles.buttonWrapper}>
+            <button
+              onClick={() => fetchNextPage()}
+              className={styles.storiesButton}
+              disabled={isFetchingNextPage}
+            >
+              {isFetchingNextPage ? "Завантаження..." : "Показати ще"}
+            </button>
+          </div>
         )}
 
         {hasMoreManaged && (
