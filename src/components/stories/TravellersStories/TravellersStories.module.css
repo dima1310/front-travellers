@@ -1,18 +1,19 @@
-/* Section container */
+/* Section wrapper (no background, no padding – profile gives spacing) */
 .section {
     width: 100%;
-    padding-top: 32px;
-    background-color: #F7F9FF;
-
+    padding: 0;
+    background: transparent;
 }
 
+/* Main container aligned with 1312px layout */
 .container {
-    max-width: 1200px;
+    max-width: 1312px;
+    width: 100%;
     margin: 0 auto;
-    padding: 32px 20px 64px;
+    padding: 0;
 }
 
-/* Title (for homepage/browse mode only) */
+/* Title (homepage only) */
 .title {
     font-family: var(--second-family);
     font-size: 32px;
@@ -22,10 +23,9 @@
     color: #000;
     margin-bottom: 32px;
     text-align: center;
-    margin-left: auto; /* центрируем сам блок */
-    margin-right: auto;
 }
 
+/* Category label */
 .category {
     font-family: var(--font-family);
     font-weight: 400;
@@ -45,15 +45,15 @@
     border-radius: 12px;
 }
 
-
+/* GRID layout */
 .grid {
     display: grid;
-    /*grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));*/
     grid-template-columns: 1fr;
-    margin-bottom: 40px;
     gap: 16px;
+    margin-bottom: 40px;
 }
 
+/* Load more button */
 .button {
     display: block;
     color: white;
@@ -91,8 +91,7 @@
     }
 
     .grid {
-        /*grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));*/
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 16px;
     }
 
@@ -106,7 +105,7 @@
 /* Desktop (1440px+) */
 @media (min-width: 1440px) {
     .grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 20px;
     }
 
