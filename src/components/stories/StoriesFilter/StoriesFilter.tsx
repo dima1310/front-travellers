@@ -28,7 +28,6 @@ export default function StoriesFilter({value, onChange}: Props) {
     }
 
     if (error || !categories || categories.length === 0) {
-        // Можно показать только "Всі історії", чтобы UI не ломался
         return (
             <div className={styles.wrapper}>
                 <div className={styles.tabs}>
