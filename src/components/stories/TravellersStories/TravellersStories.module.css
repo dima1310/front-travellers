@@ -1,131 +1,117 @@
-/* === STORIES SECTION (изолированное пространство) === */
-.storiesSection {
-  width: 100%;
-  /* padding: 32px 16px 40px;  */
-  background: transparent;
-  box-sizing: border-box;
+/* Section container */
+.section {
+    width: 100%;
+    padding-top: 32px;
+    background-color: #F7F9FF;
+
 }
 
-/* === CONTAINER === */
-.storiesContainer {
-  max-width: 1312px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 20px 64px;
 }
 
-/* === TITLE === */
-.storiesTitle {
-  font-family: var(--second-family);
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  color: #000;
-  margin-bottom: 32px;
-  text-align: center;
+/* Title (for homepage/browse mode only) */
+.title {
+    font-family: var(--second-family);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: #000;
+    margin-bottom: 32px;
+    text-align: center;
+    margin-left: auto; /* центрируем сам блок */
+    margin-right: auto;
 }
 
-/* === CATEGORY === */
-.storiesCategory {
-  font-family: var(--font-family);
-  font-size: 16px;
-  line-height: 1.5;
-  color: #000;
-  margin-bottom: 8px;
-}
-
-/* === LOADING STATES === */
-.storiesLoading {
-  text-align: center;
-  padding: 60px 20px;
-  font-size: 16px;
-  color: #6b4560;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 12px;
-}
-
-/* === GRID === */
-.storiesGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  margin-bottom: 40px;
-}
-
-/* === BUTTON === */
-.buttonWrapper {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-top: 40px;
-}
-
-.storiesButton {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border: 1px solid #4169e1;
-  background: #4169e1;
-  color: white;
-  border-radius: 8px;
-  padding: 6px 20px;
-  height: 48px;
-  margin: 0 auto;
-}
-
-.storiesButton:hover:not(:disabled) {
-  background: #4169e1;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(90, 61, 82, 0.3);
-}
-
-.storiesButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* === TABLET === */
-@media (min-width: 768px) {
-  .storiesSection {
-    /* padding: 40px 24px 48px; */
-  }
-
-  .storiesCategory {
-    display: none;
-  }
-
-  .storiesTitle {
-    font-size: 28px;
-    margin-bottom: 40px;
-  }
-
-  .storiesGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .storiesButton {
-    width: 123px;
-    padding: 12px 0;
+.category {
+    font-family: var(--font-family);
+    font-weight: 400;
     font-size: 16px;
-  }
+    line-height: 1.5;
+    color: #000;
+    margin-bottom: 8px;
 }
 
-/* === DESKTOP 1440 === */
+/* Loading and empty states */
+.loading {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 16px;
+    color: #6b4560;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+}
+
+
+.grid {
+    display: grid;
+    /*grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));*/
+    grid-template-columns: 1fr;
+    margin-bottom: 40px;
+    gap: 16px;
+}
+
+.button {
+    display: block;
+    color: white;
+    cursor: pointer;
+    border: 1px solid #4169e1;
+    background: #4169e1;
+    border-radius: 8px;
+    padding: 6px 12px;
+    height: 48px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.button:hover:not(:disabled) {
+    background: #4169e1;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(90, 61, 82, 0.3);
+}
+
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Tablet (768px+) */
+@media (min-width: 768px) {
+    .category {
+        display: none;
+    }
+
+    .title {
+        font-size: 28px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .grid {
+        /*grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));*/
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .button {
+        padding: 12px 0;
+        font-size: 16px;
+        width: 123px;
+    }
+}
+
+/* Desktop (1440px+) */
 @media (min-width: 1440px) {
-  .storiesSection {
-    padding: 48px 0 64px;
-  }
+    .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+    }
 
-  .storiesGrid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .storiesButton {
-    width: 135px;
-    font-size: 18px;
-  }
+    .button {
+        width: 135px;
+        font-size: 18px;
+    }
 }
