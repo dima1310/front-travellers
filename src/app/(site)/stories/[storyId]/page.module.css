@@ -1,17 +1,17 @@
 .storyPopularWrapper {
-  background: #F7F9FF;
-  padding: 64px 0; /* mobile */
+    background-color: var(--background);
+  padding: 0; /* mobile */
 }
 
 @media (min-width: 768px) {
   .storyPopularWrapper {
-    padding: 80px 0; /* tablet */
+    padding: 0; /* tablet */
   }
 }
 
 @media (min-width: 1440px) {
   .storyPopularWrapper {
-    padding: 80px 0; /* desktop */
+    padding: 0; /* desktop */
   }
 }
 
